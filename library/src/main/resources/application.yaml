@@ -12,7 +12,7 @@ spring:
       #mysql驱动
       driver-class-name: com.mysql.cj.jdbc.Driver
       #基本属性
-      url: jdbc:mysql://localhost:3306/db1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone = GMT
+      url: jdbc:mysql://localhost:3306/Library?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone = GMT
       username: root
       password: root
       #配置初始化大小/最小/最大
