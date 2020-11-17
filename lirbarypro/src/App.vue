@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-   <router-link to="/login">login</router-link>
    <router-view></router-view>
   </div>
 </template>
@@ -12,5 +11,11 @@ export default {
   name: 'App'
 }
 </script>
+<style scoped>
+
+#app{
+  height: 100%;
+}
+</style>
 
 
