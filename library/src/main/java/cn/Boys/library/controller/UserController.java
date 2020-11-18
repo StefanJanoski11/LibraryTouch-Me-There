@@ -1,6 +1,6 @@
 package cn.Boys.library.controller;
 
-import cn.Boys.library.entity.Result;
+import cn.Boys.library.dto.Result;
 import cn.Boys.library.entity.User;
 import cn.Boys.library.enums.ResultEnum;
 import cn.Boys.library.mapper.UserMapper;
