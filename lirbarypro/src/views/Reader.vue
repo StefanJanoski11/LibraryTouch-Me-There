@@ -1,122 +1,160 @@
 <template>
-<div id="div1">
+  <div id="div1">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="100px"
+      class="demo-ruleForm"
+    >
+      <div id="div2">
+        <el-row>
+          <el-col :span="6">
+            <div style="float: right">
+              <h4>读者信息</h4>
+            </div>
+          </el-col>
+          <el-col :span="12" :offset="6">
+            <div>
+              <el-form-item>
+                <el-button type="primary" @click="edit()">开始编辑</el-button>
+                <el-button @click="submitForm(formName)">提交</el-button>
+              </el-form-item>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <div>
+              <el-form-item label="姓名" prop="name">
+                <el-input v-model="ruleForm.name" :disabled="true"></el-input>
+              </el-form-item>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div>
+              <el-form-item label="性别" prop="sex">
+                <el-select
+                  style="width: 100%"
+                  v-model="ruleForm.sex"
+                  placeholder="选择性别"
+                  :disabled="isAble"
+                >
+                  <el-option label="男" value="M"></el-option>
+                  <el-option label="女" value="F"></el-option>
+                </el-select>
+              </el-form-item>
+            </div>
+          </el-col>
+        </el-row>
 
-  <el-form
-    :model="ruleForm"
-    :rules="rules"
-    ref="ruleForm"
-    label-width="100px"
-    class="demo-ruleForm"
-  >
-    <div class="cont">
-      <el-row>
-        <el-col :span="12">
-          <div>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="ruleForm.name" :disabled="true"></el-input>
-            </el-form-item>
-          </div>
-        </el-col>
-        <el-col :span="12">
-          <div>
-            <el-form-item label="性别" prop="sex">
-              <el-select
-                style="width: 100%"
-                v-model="ruleForm.sex"
-                placeholder="选择性别"
-                :disabled="isAble"
-              >
-                <el-option label="男" value="M"></el-option>
-                <el-option label="女" value="F"></el-option>
-              </el-select>
-            </el-form-item>
-          </div>
-        </el-col>
-      </el-row>
+        <el-row>
+          <el-form-item label="出生年月" required>
+            <el-col :span="24">
+              <el-form-item prop="date1">
+                <el-date-picker
+                  type="month"
+                  placeholder="选择年月"
+                  v-model="ruleForm.date"
+                  :disabled="isAble"
+                  style="width: 100%"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-form-item>
+        </el-row>
 
-      <el-row>
-        <el-form-item label="出生年月" required>
+        <el-row>
+          <el-col :span="12">
+            <div>
+              <el-form-item prop="tel" label="电话">
+                <el-input v-model="ruleForm.tel" :disabled="isAble"></el-input>
+              </el-form-item>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div>
+              <el-form-item prop="email" label="邮箱">
+                <el-input
+                  v-model="ruleForm.email"
+                  :disabled="isAble"
+                ></el-input>
+              </el-form-item>
+            </div>
+          </el-col>
+        </el-row>
+
+        <el-row>
           <el-col :span="24">
-            <el-form-item prop="date1">
-              <el-date-picker
-                type="month"
-                placeholder="选择年月"
-                v-model="ruleForm.date"
+            <el-form-item label="居住地址" prop="address">
+              <el-input
+                type="textarea"
+                v-model="ruleForm.address"
                 :disabled="isAble"
-                style="width: 100%"
-              ></el-date-picker>
+              ></el-input>
             </el-form-item>
           </el-col>
-        </el-form-item>
-      </el-row>
+        </el-row>
 
-      <el-row>
-        <el-col :span="12">
-          <div>
-            <el-form-item prop="tel" label="电话">
-              <el-input v-model="ruleForm.tel" :disabled="isAble"></el-input>
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="个人描述" prop="resume">
+              <el-input
+                type="textarea"
+                v-model="ruleForm.resume"
+                :disabled="isAble"
+              ></el-input>
             </el-form-item>
-          </div>
-        </el-col>
-        <el-col :span="12">
-          <div>
-            <el-form-item prop="email" label="邮箱">
-              <el-input v-model="ruleForm.email" :disabled="isAble"></el-input>
-            </el-form-item>
-          </div>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="24">
-          <el-form-item label="居住地址" prop="address">
-            <el-input
-              type="textarea"
-              v-model="ruleForm.address"
-              :disabled="isAble"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="24">
-          <el-form-item label="个人描述" prop="resume">
-            <el-input
-              type="textarea"
-              v-model="ruleForm.resume"
-              :disabled="isAble"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-form-item>
-          <el-button type="primary" @click="edit()">开始编辑</el-button>
-          <el-button @click="submitForm(formName)">提交</el-button>
+          </el-col>
+        </el-row>
+        <el-form-item >
+          <el-switch
+            v-model="value1"
+            active-text="修改密码"
+            inactive-text="不修改密码"
+            :disabled="isAble"
+            @change="edit2"
+          >
+          </el-switch>
         </el-form-item>
-      </el-row>
-    </div>
-  </el-form>
-
-    
-</div>
+        <el-form-item label="新密码" prop="pw1">
+          <el-input
+            type="password"
+            v-model="ruleForm.pw1"
+            :disabled="value2"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="重复新密码" prop="pw2">
+          <el-input
+            type="password"
+            v-model="ruleForm.pw2"
+            :disabled="value2"
+          ></el-input>
+        </el-form-item>
+      </div>
+    </el-form>
+  </div>
 </template>
 
 <script>
+import Vue from "vue";
+
 export default {
   data() {
     return {
       isAble: true,
+      value1: false,
+      value2: true,
       ruleForm: {
         name: "大熊",
         sex: "M",
         date: "",
         tel: 13427136666,
         email: "12345@qq.com",
-        resource: "",
         address: "五邑大学玫瑰园504",
         resume: "",
+        pw1: "",
+        pw2: "",
       },
       //验证
       rules: {
@@ -144,12 +182,54 @@ export default {
         email: [{ type: "email", required: true, trigger: "change" }],
         address: [{ required: true, message: "请填写地址", trigger: "blur" }],
         resume: [{ required: false, message: "自我介绍", trigger: "blur" }],
+        pw2: [
+          {
+            required: true,
+            message: "请输入密码",
+            trigger: "blur",
+          },
+          {
+            pattern: /(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}/,
+            message: "请输入8-30个字符，必须包含密码必须由数字、字母、特殊字符组合,",
+            trigger: "change",
+          },
+        ],
       },
     };
   },
+  mounted() {
+    Vue.axios({
+      method: "get",
+      url: "../../static/mock/userEdit.json",
+      data: "",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        this.ruleForm.name = response.data.name;
+        this.ruleForm.sex = response.data.sex;
+        this.ruleForm.date = response.data.date;
+        this.ruleForm.tel = response.data.tel;
+        this.ruleForm.email = response.data.email;
+        this.ruleForm.address = response.data.address;
+        this.ruleForm.resume = response.data.resume;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   methods: {
     edit() {
-      this.isAble = !this.isAble;
+      if (this.isAble) {
+        this.isAble = false;
+      } else alert("已是可编辑状态");
+    },
+    edit2() {
+      console.log(this.value1);
+      console.log(this.value2);
+      this.value2 = !this.value2;
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -170,9 +250,9 @@ export default {
 
 <style scoped>
 #div1 {
-background-image: url(../imgs/lou.jpg);
-background-size:100% ;
-height: 100%;
+  background-image: url(../imgs/lou.jpg);
+  background-size: 100%;
+  height: 780px;
 }
 .demo-ruleForm {
   padding-left: auto;
@@ -180,14 +260,12 @@ height: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
   margin: auto;
-  margin-top: 120px;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(207, 235, 247, 0.8);
   width: 70%;
-  height: 100%;
 }
-.cont {
+#div2 {
   margin: auto;
-  width: 55%;
+  width: 75%;
   height: 100%;
 }
-</style>>
+</style>
