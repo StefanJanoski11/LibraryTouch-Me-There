@@ -19,8 +19,8 @@ public class Books {
     private Integer books_daily;
     private Integer books_weekly;
     private Integer books_monthly;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date books_createTime;
     private Integer books_publisherId;
     private Integer books_modifiedId;

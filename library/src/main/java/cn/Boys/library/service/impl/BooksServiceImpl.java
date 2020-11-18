@@ -1,7 +1,6 @@
 package cn.Boys.library.service.impl;
 
 import cn.Boys.library.entity.Books;
-import cn.Boys.library.entity.User;
 import cn.Boys.library.service.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

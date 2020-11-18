@@ -31,13 +31,6 @@ public class Record {
 
     }
 
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
 
     public Record(Integer user_id, String user_name, Integer book_id, String book_name, Integer book_return_state, Date book_return_date, Date book_lend_date, Date book_scheduled) {
         this.user_id = user_id;
@@ -72,6 +65,14 @@ public class Record {
 
     public void setBook_name(String book_name) {
         this.book_name = book_name;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public Integer getBook_return_state() {
@@ -113,6 +114,7 @@ public class Record {
                 ", user_name='" + user_name + '\'' +
                 ", book_id=" + book_id +
                 ", book_name='" + book_name + '\'' +
+                ", user_name='" + user_name + '\'' +
                 ", book_return_state=" + book_return_state +
                 ", book_return_date=" + book_return_date +
                 ", book_lend_date=" + book_lend_date +
