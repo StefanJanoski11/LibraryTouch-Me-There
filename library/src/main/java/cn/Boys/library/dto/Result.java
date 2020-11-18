@@ -1,4 +1,4 @@
-package cn.Boys.library.entity;
+package cn.Boys.library.dto;
 
 import cn.Boys.library.enums.ResultEnum;
 
