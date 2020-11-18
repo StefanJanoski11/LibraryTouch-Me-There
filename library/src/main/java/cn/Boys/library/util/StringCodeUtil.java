@@ -1,4 +1,4 @@
-package util;
+package cn.Boys.library.util;
 
 import java.util.Random;
 
