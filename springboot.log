@@ -1,0 +1,86 @@
+2020-11-18 === [restartedMain] === INFO  === cn.Boys.library.LibraryApplication === - Starting LibraryApplication on PC13 with PID 7536 (D:\Newproject\library\target\classes started by Administrator in D:\Newproject\library)
+2020-11-18 === [restartedMain] === INFO  === cn.Boys.library.LibraryApplication === - No active profile set, falling back to default profiles: default
+2020-11-18 === [restartedMain] === INFO  === o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor === - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-11-18 === [restartedMain] === INFO  === o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor === - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Finished Spring Data repository scanning in 7ms. Found 0 JDBC repository interfaces.
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Finished Spring Data repository scanning in 2ms. Found 0 Redis repository interfaces.
+2020-11-18 === [restartedMain] === INFO  === o.s.boot.web.embedded.tomcat.TomcatWebServer === - Tomcat initialized with port(s): 8080 (http)
+2020-11-18 === [restartedMain] === INFO  === org.apache.catalina.core.StandardService === - Starting service [Tomcat]
+2020-11-18 === [restartedMain] === INFO  === org.apache.catalina.core.StandardEngine === - Starting Servlet engine: [Apache Tomcat/9.0.39]
+2020-11-18 === [restartedMain] === INFO  === o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] === - Initializing Spring embedded WebApplicationContext
+2020-11-18 === [restartedMain] === INFO  === o.s.b.w.s.c.ServletWebServerApplicationContext === - Root WebApplicationContext: initialization completed in 1257 ms
+2020-11-18 === [restartedMain] === INFO  === c.B.l.r.RedisTemplateConfig$$EnhancerBySpringCGLIB$$5b9780b8 === - RedisTemplate序列化配置，转化方式：org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
+2020-11-18 === [restartedMain] === INFO  === o.s.scheduling.concurrent.ThreadPoolTaskExecutor === - Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-18 === [restartedMain] === WARN  === o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration === - Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Starting...
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Start completed.
+2020-11-18 === [restartedMain] === WARN  === o.s.b.d.autoconfigure.OptionalLiveReloadServer === - Unable to start LiveReload server
+2020-11-18 === [restartedMain] === WARN  === o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext === - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-11-18 === [restartedMain] === INFO  === o.s.scheduling.concurrent.ThreadPoolTaskExecutor === - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Shutdown initiated...
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Shutdown completed.
+2020-11-18 === [restartedMain] === INFO  === org.apache.catalina.core.StandardService === - Stopping service [Tomcat]
+2020-11-18 === [restartedMain] === INFO  === o.s.b.a.l.ConditionEvaluationReportLoggingListener === - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-11-18 === [restartedMain] === ERROR === o.s.b.diagnostics.LoggingFailureAnalysisReporter === - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-11-18 === [restartedMain] === INFO  === cn.Boys.library.LibraryApplication === - Starting LibraryApplication on PC13 with PID 2524 (D:\Newproject\library\target\classes started by Administrator in D:\Newproject\library)
+2020-11-18 === [restartedMain] === INFO  === cn.Boys.library.LibraryApplication === - No active profile set, falling back to default profiles: default
+2020-11-18 === [restartedMain] === INFO  === o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor === - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-11-18 === [restartedMain] === INFO  === o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor === - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Finished Spring Data repository scanning in 5ms. Found 0 JDBC repository interfaces.
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-11-18 === [restartedMain] === INFO  === o.s.d.r.config.RepositoryConfigurationDelegate === - Finished Spring Data repository scanning in 2ms. Found 0 Redis repository interfaces.
+2020-11-18 === [restartedMain] === INFO  === o.s.boot.web.embedded.tomcat.TomcatWebServer === - Tomcat initialized with port(s): 8080 (http)
+2020-11-18 === [restartedMain] === INFO  === org.apache.catalina.core.StandardService === - Starting service [Tomcat]
+2020-11-18 === [restartedMain] === INFO  === org.apache.catalina.core.StandardEngine === - Starting Servlet engine: [Apache Tomcat/9.0.39]
+2020-11-18 === [restartedMain] === INFO  === o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] === - Initializing Spring embedded WebApplicationContext
+2020-11-18 === [restartedMain] === INFO  === o.s.b.w.s.c.ServletWebServerApplicationContext === - Root WebApplicationContext: initialization completed in 1101 ms
+2020-11-18 === [restartedMain] === INFO  === c.B.l.r.RedisTemplateConfig$$EnhancerBySpringCGLIB$$38d34919 === - RedisTemplate序列化配置，转化方式：org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
+2020-11-18 === [restartedMain] === INFO  === o.s.scheduling.concurrent.ThreadPoolTaskExecutor === - Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-18 === [restartedMain] === WARN  === o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration === - Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Starting...
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Start completed.
+2020-11-18 === [restartedMain] === WARN  === o.s.b.d.autoconfigure.OptionalLiveReloadServer === - Unable to start LiveReload server
+2020-11-18 === [restartedMain] === WARN  === o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext === - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2020-11-18 === [restartedMain] === INFO  === o.s.scheduling.concurrent.ThreadPoolTaskExecutor === - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Shutdown initiated...
+2020-11-18 === [restartedMain] === INFO  === com.zaxxer.hikari.HikariDataSource === - HikariPool-1 - Shutdown completed.
+2020-11-18 === [restartedMain] === INFO  === org.apache.catalina.core.StandardService === - Stopping service [Tomcat]
+2020-11-18 === [restartedMain] === INFO  === o.s.b.a.l.ConditionEvaluationReportLoggingListener === - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-11-18 === [restartedMain] === ERROR === o.s.b.diagnostics.LoggingFailureAnalysisReporter === - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
