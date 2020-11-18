@@ -1,11 +1,10 @@
 package cn.Boys.library.service;
 
-import cn.Boys.library.dto.BookStatusDTO;
-import cn.Boys.library.entity.books;
+import cn.Boys.library.entity.Books;
 
 public interface BooksService {
 
-    public books getBooksDetailById(Integer id);
+    public Boolean putBooksInRedis(Books books);
 
 
 }

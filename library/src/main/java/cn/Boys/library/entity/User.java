@@ -19,7 +19,11 @@ public class User {
     private Date user_alter_date;
     private Integer user_alter_admin;
 
-    public User(String user_name, String user_password, Integer user_sex, String user_phone, Date user_birthday, String user_address, String user_self_desc, Date user_create_date,Date user_alter_date) {
+    public User() {
+    }
+
+    public User(Integer user_id, String user_name, String user_password, Integer user_sex, String user_phone, Date user_birthday, String user_address, String user_self_desc, Integer user_sincerity, Integer user_exist_state, Date user_create_date, Integer user_create_admin, Date user_alter_date, Integer user_alter_admin) {
+        this.user_id = user_id;
         this.user_identity_id = 1;
         this.user_name = user_name;
         this.user_password = user_password;
@@ -36,25 +40,25 @@ public class User {
         this.user_alter_admin = 0;
     }
 
-    public User() {
-    }
-
-    public User(Integer user_id, Integer user_identity_id, String user_name, String user_password, Integer user_sex, String user_phone, Date user_birthday, String user_address, String user_self_desc, Integer user_sincerity, Integer user_exist_state, Date user_create_date, Integer user_create_admin, Date user_alter_date, Integer user_alter_admin) {
-        this.user_id = user_id;
-        this.user_identity_id = user_identity_id;
-        this.user_name = user_name;
-        this.user_password = user_password;
-        this.user_sex = user_sex;
-        this.user_phone = user_phone;
-        this.user_birthday = user_birthday;
-        this.user_address = user_address;
-        this.user_self_desc = user_self_desc;
-        this.user_sincerity = user_sincerity;
-        this.user_exist_state = user_exist_state;
-        this.user_create_date = user_create_date;
-        this.user_create_admin = user_create_admin;
-        this.user_alter_date = user_alter_date;
-        this.user_alter_admin = user_alter_admin;
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", user_identity_id=" + user_identity_id +
+                ", user_name='" + user_name + '\'' +
+                ", user_password='" + user_password + '\'' +
+                ", user_sex=" + user_sex +
+                ", user_phone='" + user_phone + '\'' +
+                ", user_birthday=" + user_birthday +
+                ", user_address='" + user_address + '\'' +
+                ", user_self_desc='" + user_self_desc + '\'' +
+                ", user_sincerity=" + user_sincerity +
+                ", user_exist_state=" + user_exist_state +
+                ", user_create_date=" + user_create_date +
+                ", user_create_admin=" + user_create_admin +
+                ", user_alter_date=" + user_alter_date +
+                ", user_alter_admin=" + user_alter_admin +
+                '}';
     }
 
     public Integer getUser_id() {
@@ -177,24 +181,4 @@ public class User {
         this.user_alter_admin = user_alter_admin;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + user_id +
-                ", user_identity_id=" + user_identity_id +
-                ", user_name='" + user_name + '\'' +
-                ", user_password='" + user_password + '\'' +
-                ", user_sex=" + user_sex +
-                ", user_phone='" + user_phone + '\'' +
-                ", user_birthday=" + user_birthday +
-                ", user_address='" + user_address + '\'' +
-                ", user_self_desc='" + user_self_desc + '\'' +
-                ", user_sincerity=" + user_sincerity +
-                ", user_exist_state=" + user_exist_state +
-                ", user_create_date=" + user_create_date +
-                ", user_create_admin=" + user_create_admin +
-                ", user_alter_date=" + user_alter_date +
-                ", user_alter_admin=" + user_alter_admin +
-                '}';
-    }
 }

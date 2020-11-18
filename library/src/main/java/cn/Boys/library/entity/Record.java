@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Record {
     private Integer user_id;
+    private String user_name;
     private Integer book_id;
     private String book_name;
     //是否还书
@@ -30,11 +31,22 @@ public class Record {
 
     }
 
-    public Record(Integer user_id, Integer book_id, String book_name, Date book_return_date, Date book_scheduled) {
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public Record(Integer user_id, String user_name, Integer book_id, String book_name, Integer book_return_state, Date book_return_date, Date book_lend_date, Date book_scheduled) {
         this.user_id = user_id;
+        this.user_name = user_name;
         this.book_id = book_id;
         this.book_name = book_name;
+        this.book_return_state = book_return_state;
         this.book_return_date = book_return_date;
+        this.book_lend_date = book_lend_date;
         this.book_scheduled = book_scheduled;
     }
 
@@ -98,8 +110,9 @@ public class Record {
     public String toString() {
         return "Record{" +
                 "user_id=" + user_id +
+                ", user_name='" + user_name + '\'' +
                 ", book_id=" + book_id +
-                ", book_name=" + book_name +
+                ", book_name='" + book_name + '\'' +
                 ", book_return_state=" + book_return_state +
                 ", book_return_date=" + book_return_date +
                 ", book_lend_date=" + book_lend_date +
