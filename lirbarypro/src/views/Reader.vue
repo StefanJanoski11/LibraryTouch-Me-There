@@ -107,7 +107,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item >
+        <el-form-item>
           <el-switch
             v-model="value1"
             active-text="修改密码"
@@ -140,11 +140,27 @@
 import Vue from "vue";
 
 export default {
+  
   data() {
+    let validatePw1 = (rule, value, callback) => {
+            if (value !== this.ruleForm.pw2) {
+                callback(new Error('两次密码不一致!'))
+            } else {
+                callback()
+            }
+    }
+    let validatePw2 = (rule, value, callback) => {
+            if (value !== this.ruleForm.pw1) {
+                callback(new Error('两次密码不一致!'))
+            } else {
+                callback()
+            }
+        }
     return {
       isAble: true,
       value1: false,
       value2: true,
+
       ruleForm: {
         name: "大熊",
         sex: "M",
@@ -182,6 +198,18 @@ export default {
         email: [{ type: "email", required: true, trigger: "change" }],
         address: [{ required: true, message: "请填写地址", trigger: "blur" }],
         resume: [{ required: false, message: "自我介绍", trigger: "blur" }],
+        pw1: [
+          {
+            required: true,
+            message: "请输入密码",
+            trigger: "blur",
+          },
+          {
+            pattern: /(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}/,
+            message: "密码必须由数字、字母、特殊字符组合,请输入8-30位",
+            trigger: "blur",
+          }, { validator: validatePw1, trigger: "change" },
+        ],
         pw2: [
           {
             required: true,
@@ -190,9 +218,10 @@ export default {
           },
           {
             pattern: /(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}/,
-            message: "请输入8-30个字符，必须包含密码必须由数字、字母、特殊字符组合,",
+            message: "密码必须由数字、字母、特殊字符组合,请输入8-30位",
             trigger: "change",
           },
+          { validator: validatePw2, trigger: "change" },
         ],
       },
     };
