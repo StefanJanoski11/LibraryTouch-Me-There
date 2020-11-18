@@ -92,4 +92,8 @@ public class BookController {
         System.out.println(filename);
         return "下载文件成功！";
     }
+    @GetMapping("/quary")
+    public Books quaryBooks(String name){
+        return booksMapper.quaryBook()
+    }
 }

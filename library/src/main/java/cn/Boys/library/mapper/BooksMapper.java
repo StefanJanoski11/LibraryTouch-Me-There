@@ -22,4 +22,9 @@ public interface BooksMapper {
             " values(#{books_type},#{books_name},#{books_author},#{books_last},1,#{books_registerDate}," +
             "#{books_publisherId},#{books_daily},#{books_weekly},#{books_monthly},#{books_createTime})")
     public int insertBook(Books books);
+    //图书模糊查询
+    @Select("Select books_id,books_type,books_name,books_author,books_last,books_state,books_registerDate,books_daily" +
+            ",books_weekly,books_monthly,books_publisherId,books_createTime from books " +
+            "where books_name like '%${name}%'")
+    public Books quaryBook(String name);
 }
