@@ -1,13 +1,11 @@
 package cn.Boys.library.controller;
 
+import cn.Boys.library.dto.RecordDTO;
 import cn.Boys.library.entity.Record;
 import cn.Boys.library.mapper.RecordMapper;
 import cn.Boys.library.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Parameter;
 import java.util.List;
@@ -19,12 +17,23 @@ public class RecordController {
     RecordMapper recordMapper;
     @Autowired
     RecordService recordService;
-
-    @GetMapping("/NotReturn")
-    public List<Record> getNotReturn(@RequestParam("userId") Integer userId){
-        recordService.setHaveReturn(userId);
-        return recordService.getNotReturn(userId);
+    //借书
+    @PutMapping("/insertNotReturn")
+    public RecordDTO insertNotReturn(@RequestBody Record record){
+        return recordService.InsertNotReturn(record);
     }
+    //查询
+    @GetMapping("/getNRById")
+    public List<Record> getNotReturnById(@RequestParam("id")Integer id){
+        return recordService.getNotReturn(id);
+    }
+
+    //还书
+    @PutMapping("/returnBook")
+    public RecordDTO returnBookById(@RequestBody Record record){
+        return recordService.setHaveReturn(record);
+    }
+
 //    @GetMapping("/HaveReturn")
 //    public List<record> getHaveReturn(Integer userId){
 //

@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Record {
     private Integer user_id;
+    private String user_name;
     private Integer book_id;
     private String book_name;
     //是否还书
@@ -26,17 +27,16 @@ public class Record {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date book_scheduled;
 
-    public Record(){
-
-    }
-
-    public Record(Integer user_id, Integer book_id, String book_name, Date book_return_date, Date book_scheduled) {
-        this.user_id = user_id;
-        this.book_id = book_id;
-        this.book_name = book_name;
-        this.book_return_date = book_return_date;
-        this.book_scheduled = book_scheduled;
-    }
+//    public Record(Integer user_id, Integer book_id, String book_name, String user_name, Integer book_return_state, Date book_return_date, Date book_lend_date, Date book_scheduled) {
+//        this.user_id = user_id;
+//        this.book_id = book_id;
+//        this.book_name = book_name;
+////        this.user_name = user_name;
+//        this.book_return_state = book_return_state;
+//        this.book_return_date = book_return_date;
+//        this.book_lend_date = book_lend_date;
+//        this.book_scheduled = book_scheduled;
+//    }
 
     public Integer getUser_id() {
         return user_id;
@@ -60,6 +60,14 @@ public class Record {
 
     public void setBook_name(String book_name) {
         this.book_name = book_name;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public Integer getBook_return_state() {
@@ -99,7 +107,8 @@ public class Record {
         return "Record{" +
                 "user_id=" + user_id +
                 ", book_id=" + book_id +
-                ", book_name=" + book_name +
+                ", book_name='" + book_name + '\'' +
+                ", user_name='" + user_name + '\'' +
                 ", book_return_state=" + book_return_state +
                 ", book_return_date=" + book_return_date +
                 ", book_lend_date=" + book_lend_date +

@@ -1,5 +1,6 @@
 package cn.Boys.library.service;
 
+import cn.Boys.library.dto.RecordDTO;
 import cn.Boys.library.entity.Record;
 import org.apache.ibatis.annotations.Select;
 
@@ -7,9 +8,9 @@ import java.util.List;
 
 public interface RecordService {
 
-    public int setNotReturn(Record record);
+    public RecordDTO InsertNotReturn(Record record);
 
-    public void setHaveReturn(Integer id);
+    public RecordDTO setHaveReturn(Record record);
 
     public List<Record> getNotReturn(Integer id);
 

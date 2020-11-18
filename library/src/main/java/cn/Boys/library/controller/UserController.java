@@ -1,7 +1,6 @@
 package cn.Boys.library.controller;
 
 import cn.Boys.library.dto.Result;
-import cn.Boys.library.entity.User;
 import cn.Boys.library.enums.ResultEnum;
 import cn.Boys.library.mapper.UserMapper;
 import cn.Boys.library.service.UserService;
@@ -36,7 +35,7 @@ public class UserController {
     @PostMapping("/register")
     public Result register(User user, String checkPassword){
         if (!userService.checkUserInvalid(user,checkPassword)){
-            return new Result(null,ResultEnum.ofState(406));/*格式错误*/
+            return new Result(null,ResultEnum.NOT_ACCEPTABLE);/*格式错误*/
         }
         int i = userMapper.registerUser(user);
         System.out.println(user);

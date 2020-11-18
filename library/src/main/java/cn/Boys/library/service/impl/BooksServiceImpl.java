@@ -1,6 +1,6 @@
 package cn.Boys.library.service.impl;
 
-import cn.Boys.library.entity.books;
+import cn.Boys.library.entity.Books;
 import cn.Boys.library.mapper.BooksMapper;
 import cn.Boys.library.mapper.RecordMapper;
 import cn.Boys.library.redis.JedisConfig;
@@ -17,11 +17,6 @@ public class BooksServiceImpl {
     @Autowired
     RedisTemplate redisTemplate;
 
-    public void getBooksDetailById(Integer id){
-       books book =  booksMapper.getBooksDetailById(id);
-        redisTemplate.boundHashOps(key).put(id,book);
-
-    }
 
 
 
