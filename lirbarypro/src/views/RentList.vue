@@ -84,83 +84,86 @@
 </template>
 
 <script>
+import Vue from "vue";
+
 export default {
   data() {
     return {
-      tableDataBegin: [
-        {
-          BookName: "高数上（同济版）",
-          StarDate: "2016-05-01",
-          DueDate: "2016-06-01",
-          ReturnDate: "2016-05-26",
-          Overdue: "否",
-          UserName: "小明",
-          UserID: "1101",
-        },
-        {
-          BookName: "高数下（同济版）",
-          StarDate: "2016-05-01",
-          DueDate: "2016-06-01",
-          ReturnDate: "2016-05-26",
-          Overdue: "否",
-          UserName: "小明",
-          UserID: "1101",
-        },
-        {
-          BookName: "广东富婆通信录",
-          StarDate: "2016-05-01",
-          DueDate: "2016-06-01",
-          ReturnDate: "2016-05-26",
-          Overdue: "否",
-          UserName: "小明",
-          UserID: "1101",
-        },
-        {
-          BookName: "凡尔赛文学经典",
-          StarDate: "2016-05-01",
-          DueDate: "2016-06-01",
-          ReturnDate: "2016-05-26",
-          Overdue: "否",
-          UserName: "小明",
-          UserID: "1101",
-        },
-        {
-          BookName: "酸菜鱼修炼手册",
-          StarDate: "2016-05-01",
-          DueDate: "2016-06-01",
-          ReturnDate: "2016-05-26",
-          Overdue: "否",
-          UserName: "小明",
-          UserID: "1101",
-        },
-        {
-          BookName: "颈椎腰椎保养",
-          StarDate: "2016-05-01",
-          DueDate: "2016-06-01",
-          ReturnDate: "2016-05-26",
-          Overdue: "否",
-          UserName: "小明",
-          UserID: "1101",
-        },
-        {
-          BookName: "黑百合5天速成",
-          StarDate: "2020-02-01",
-          DueDate: "2020-03-01",
-          ReturnDate: "2020-02-26",
-          Overdue: "否",
-          UserName: "小明",
-          UserID: "1101",
-        },
-        {
-          BookName: "如何成为粥粥",
-          StarDate: "2019-11-01",
-          DueDate: "2019-12-01",
-          ReturnDate: "2019-12-26",
-          Overdue: "是",
-          UserName: "小明",
-          UserID: "1101",
-        },
-      ],
+      // tableDataBegin: [
+      //   {
+      //     BookName: "高数上（同济版）",
+      //     StarDate: "2016-05-01",
+      //     DueDate: "2016-06-01",
+      //     ReturnDate: "2016-05-26",
+      //     Overdue: "否",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      //   {
+      //     BookName: "高数下（同济版）",
+      //     StarDate: "2016-05-01",
+      //     DueDate: "2016-06-01",
+      //     ReturnDate: "2016-05-26",
+      //     Overdue: "否",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      //   {
+      //     BookName: "广东富婆通信录",
+      //     StarDate: "2016-05-01",
+      //     DueDate: "2016-06-01",
+      //     ReturnDate: "2016-05-26",
+      //     Overdue: "否",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      //   {
+      //     BookName: "凡尔赛文学经典",
+      //     StarDate: "2016-05-01",
+      //     DueDate: "2016-06-01",
+      //     ReturnDate: "2016-05-26",
+      //     Overdue: "否",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      //   {
+      //     BookName: "酸菜鱼修炼手册",
+      //     StarDate: "2016-05-01",
+      //     DueDate: "2016-06-01",
+      //     ReturnDate: "2016-05-26",
+      //     Overdue: "否",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      //   {
+      //     BookName: "颈椎腰椎保养",
+      //     StarDate: "2016-05-01",
+      //     DueDate: "2016-06-01",
+      //     ReturnDate: "2016-05-26",
+      //     Overdue: "否",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      //   {
+      //     BookName: "黑百合5天速成",
+      //     StarDate: "2020-02-01",
+      //     DueDate: "2020-03-01",
+      //     ReturnDate: "2020-02-26",
+      //     Overdue: "否",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      //   {
+      //     BookName: "如何成为粥粥",
+      //     StarDate: "2019-11-01",
+      //     DueDate: "2019-12-01",
+      //     ReturnDate: "2019-12-26",
+      //     Overdue: "是",
+      //     UserName: "小明",
+      //     UserID: "1101",
+      //   },
+      // ],
+      tableDataBegin: [],
       tableDataName: "",
       tableDataEnd: [], //最终显示数据
       table2: [], //弹窗显示数据
@@ -174,15 +177,30 @@ export default {
     };
   },
   created() {
-    this.totalItems = this.tableDataBegin.length;
-    if (this.totalItems > this.pageSize) {
-      //如果有好多，只需要第一页的数据
-      for (let index = 0; index < this.pageSize; index++) {
-        this.tableDataEnd.push(this.tableDataBegin[index]);
-      }
-    } else {
-      this.tableDataEnd = this.tableDataBegin;
-    }
+    Vue.axios({
+      method: "get",
+      url: "../../static/mock/rentList.json",
+      data: "",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        this.tableDataBegin = [];
+        this.tableDataBegin = response.data.tableDataBegin;
+        this.totalItems = this.tableDataBegin.length;
+        if (this.totalItems > this.pageSize) {
+          //如果有好多，只需要第一页的数据
+          for (let index = 0; index < this.pageSize; index++) {
+            this.tableDataEnd.push(this.tableDataBegin[index]);
+          }
+        } else {
+          this.tableDataEnd = this.tableDataBegin;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     //前端搜索功能需要区分是否检索,因为对应的字段的索引不同
