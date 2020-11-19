@@ -1,13 +1,15 @@
 package cn.Boys.library.enums;
 
 public enum BookStatusEnum {
-    HAVE(1,"已经还书籍"),
-    NONE(0,"未还书籍");
+    NONE(-1,"无货"),
+    HAVE(1,"可以借阅书籍"),
+    NORETURN(0,"已经被借书籍");
 
     //状态码
     private Integer status;
     //状态信息
     private String Info;
+
 
     BookStatusEnum(Integer status, String info) {
         this.status = status;

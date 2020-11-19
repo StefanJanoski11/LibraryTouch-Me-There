@@ -1,18 +1,25 @@
 package cn.Boys.library.service.impl;
 
+import cn.Boys.library.dto.Result;
+import cn.Boys.library.entity.Books;
 import cn.Boys.library.entity.User;
+import cn.Boys.library.enums.ResultEnum;
+import cn.Boys.library.mapper.UserMapper;
 import cn.Boys.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     RedisTemplate redisTemplate;
+    @Autowired
+    UserMapper userMapper;
 
     public Boolean checkPassword(String password, String check_password) {
         if (password.compareTo(check_password) == 0) {
@@ -68,5 +75,15 @@ public class UserServiceImpl implements UserService {
         } else {
             return false;
         }
+    }
+
+    //模糊查询
+    @Override
+    public Result quaryUserByName(String name) {
+        List<User> list = userMapper.queryUserByName(name);
+        if( list.size()==0){
+            return  new Result(null, ResultEnum.NOT_FOUND);
+        }
+        return new Result(list,ResultEnum.OK);
     }
 }

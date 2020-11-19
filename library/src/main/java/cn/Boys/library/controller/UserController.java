@@ -9,8 +9,12 @@ import cn.Boys.library.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     UserMapper userMapper;
@@ -82,6 +86,33 @@ public class UserController {
             }
         }
         return new Result(null,ResultEnum.SERVER_ERROR);
+
+    }
+
+
+//    /**
+//     * 检测session是否有效
+//     * @param request
+//     * @return
+//     */
+//    @GetMapping("/isValid")
+//    public Result isSessionValid(HttpServletRequest request){
+//        //简化if-else表达式（其实很多地方可以简化的，这里为了方便新手朋友可以看得顺畅点，我尽量不简化）
+//        if (request.isRequestedSessionIdValid()){
+//            return new Result("SUCCESS LOGIN",ResultEnum.OK);
+//        }
+//        return new Result("SUCCESS LOGIN",ResultEnum.NOT_FOUND);
+//
+//    }
+    /**
+     * 注销登录
+     * @param session
+     * @return
+     */
+    @GetMapping("/logout")
+    public Result logout(User user){
+
+        return new Result("logout",ResultEnum.OK);
     }
 
     /*注册模块*/

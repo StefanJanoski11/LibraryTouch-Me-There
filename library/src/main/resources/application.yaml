@@ -1,5 +1,8 @@
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 3600
 spring:
   redis:
     #redis数据库索引(默认为0)

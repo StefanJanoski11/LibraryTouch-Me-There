@@ -19,8 +19,7 @@ public class Result {
         this.msg = resultEnum.getMsg();
     }
 
-    public Result() {
-    }
+
 
     public String getMsg() {
         return msg;

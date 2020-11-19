@@ -1,5 +1,6 @@
 package cn.Boys.library.service;
 
+import cn.Boys.library.dto.Result;
 import cn.Boys.library.entity.User;
 
 public interface UserService {
@@ -10,4 +11,6 @@ public interface UserService {
     public User selectUserByUsername(String username);
 
     public Boolean checkUserInvalid(User user, String checkPassword);
+
+    public Result quaryUserByName(String name);
 }

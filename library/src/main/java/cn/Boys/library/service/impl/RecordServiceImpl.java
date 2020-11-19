@@ -96,12 +96,10 @@ public class RecordServiceImpl implements RecordService {
         List<Record> notrecord =  redisTemplate.boundHashOps(GetKey).values();
         //如果找不到，到数据库找
         if (notrecord.size()==0){
-            System.out.println("我真的找不到");
            notrecord =  recordMapper.getNotReturnById(id);
         }else {
             return notrecord;
         }
-        System.out.println("返回结果："+notrecord);
         return notrecord;
     }
 

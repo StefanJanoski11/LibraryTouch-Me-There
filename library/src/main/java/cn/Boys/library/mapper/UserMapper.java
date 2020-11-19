@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 
 @Mapper
 public interface UserMapper {
@@ -33,4 +35,9 @@ public interface UserMapper {
             "user_exist_state,user_create_date,user_create_admin,user_alter_date,user_alter_admin,user_password from user where user_id=#{user_id}")
     public User selectUserByPrimaryKey(Integer user_id);
 
+    //模糊查询用户
+    @Select("select user_id,user_identity_id,user_name,user_sex,user_phone,user_birthday,user_address,user_self_desc,user_sincerity," +
+            "user_exist_state,user_create_date,user_create_admin,user_alter_date,user_alter_admin,user_password from user " +
+            "where user_name like '%#{name}%'")
+    public List<User> queryUserByName(String user_name);
 }

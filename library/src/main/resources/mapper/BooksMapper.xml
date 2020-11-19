@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.Boys.library.mapper.BooksMapper">
+    <select id="quaryBooksByType" resultType="cn.Boys.library.entity.Books_info">
+        select * from books_info
+        <where>
+            <if test="info_country!=null and info_country!=''">
+                and info_country = #{info_country}
+            </if>
+            <if test="info_theme!=null and info_theme!=''">
+                and info_theme = #{info_theme}
+            </if>
+
+        </where>
+    </select>
+    <update id="editBooksInfo" parameterType="java.lang.Integer">
+        update books_info
+        <trim prefix="set" suffixOverrides=",">
+
+        <if test="info_country!=null">info_country=#{info_country},</if>
+
+        <if test="info_length!=null">info_length=#{info_length},</if>
+
+        <if test="info_theme!=null">info_theme=#{info_theme},</if>
+
+        <if test="info_state!=null">info_state=#{info_state},</if>
+    </trim>
+    where info_type=#{info_type}
+    </update>
+</mapper>

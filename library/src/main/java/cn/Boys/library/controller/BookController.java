@@ -1,7 +1,9 @@
 package cn.Boys.library.controller;
 
 import cn.Boys.library.dto.Result;
+
 import cn.Boys.library.entity.Books;
+import cn.Boys.library.entity.Books_info;
 import cn.Boys.library.enums.ResultEnum;
 import cn.Boys.library.mapper.BooksMapper;
 import cn.Boys.library.service.impl.BooksServiceImpl;
@@ -11,10 +13,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -92,8 +92,14 @@ public class BookController {
         System.out.println(filename);
         return "下载文件成功！";
     }
-    @GetMapping("/quary")
-    public Books quaryBooks(String name){
-        return booksMapper.quaryBook()
+    //模糊查询测试
+    @GetMapping("/quaryName")
+    public Result quaryBooks(String name){
+        return booksService.quaryBooks(name);
     }
+    @PostMapping("/quaryType")
+    public Result quaryBooks(@RequestBody Books_info bookInfo){
+        return booksService.getBooksByType(bookInfo);
+    }
+
 }
