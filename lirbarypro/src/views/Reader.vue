@@ -27,7 +27,7 @@
           <el-col :span="12">
             <div>
               <el-form-item label="姓名" prop="name">
-                <el-input v-model="ruleForm.name" :disabled="true"></el-input>
+                <el-text>{{ruleForm.name}}</el-text>
               </el-form-item>
             </div>
           </el-col>
