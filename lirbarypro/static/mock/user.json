@@ -1,0 +1,75 @@
+{
+    "userlist": [{
+            "id": 1,
+            "name": "张三",
+            "permission": "是",
+            "sex": "男",
+            "phone": 123123,
+            "birth": "2019-11-1",
+            "address": "广东江门",
+            "record": 0,
+            "selfDesc": "阿巴巴",
+            "date": "2019-11-1",
+            "alterDate": "无",
+            "alterAdmin": "无"
+        },
+        {
+            "id": 2,
+            "name": "张三",
+            "permission": "是",
+            "sex": "男",
+            "phone": 123123,
+            "birth": "2019-11-1",
+            "address": "广东江门",
+            "record": 0,
+            "selfDesc": "阿巴巴",
+            "date": "2019-11-1",
+            "alterDate": "无",
+            "alterAdmin": "无"
+        },
+        {
+            "id": 3,
+            "name": "张三",
+            "permission": "是",
+            "sex": "男",
+            "phone": 123123,
+            "birth": "2019-11-1",
+            "address": "广东江门",
+            "record": 0,
+            "selfDesc": "阿巴巴",
+            "date": "2019-11-1",
+            "alterDate": "无",
+            "alterAdmin": "无"
+        },
+        {
+            "id": 4,
+            "name": "张三",
+            "permission": "是",
+            "sex": "男",
+            "phone": 123123,
+            "birth": "2019-11-1",
+            "address": "广东江门",
+            "record": 0,
+            "selfDesc": "阿巴巴",
+            "date": "2019-11-1",
+            "alterDate": "无",
+            "alterAdmin": "无"
+        },
+        {
+            "id": 5,
+            "name": "张三",
+            "permission": "否",
+            "sex": "男",
+            "record": 0,
+            "date": "2019-11-1"
+        },
+        {
+            "id": 6,
+            "name": "张三",
+            "permission": "否",
+            "sex": "男",
+            "record": 0,
+            "date": "2019-11-1"
+        }
+    ]
+}
