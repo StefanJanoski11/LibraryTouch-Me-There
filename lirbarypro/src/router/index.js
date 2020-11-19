@@ -4,7 +4,7 @@ import Router from 'vue-router'
 import MainIndex from '../views/MainIndex'
 import Login from '../views/Login'
 import Reader from '../views/Reader'
-import RentList from '../views/RentList'
+import History from '../views/History'
 
 Vue.use(Router);
 
@@ -20,8 +20,8 @@ export default new Router({
         path: '/reader',
         component: Reader
     }, {
-        path: '/rentlist',
-        component: RentList
+        path: '/history',
+        component: History
     }],
     mode: "history" // mode 设置为history ，去掉地址栏上的 # 号
 });
