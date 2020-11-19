@@ -5,6 +5,7 @@ import MainIndex from '../views/MainIndex'
 import Login from '../views/Login'
 import Reader from '../views/Reader'
 import History from '../views/History'
+import Sync from '../views/sync'
 
 Vue.use(Router);
 
@@ -22,6 +23,9 @@ export default new Router({
     }, {
         path: '/history',
         component: History
+    }, {
+        path: '/sync',
+        component: Sync
     }],
     mode: "history" // mode 设置为history ，去掉地址栏上的 # 号
 });
