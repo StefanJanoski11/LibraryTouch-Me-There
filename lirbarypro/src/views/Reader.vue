@@ -48,9 +48,9 @@
           </el-col>
         </el-row>
 
-        <el-row>
+        <el-row><el-col :span="24">
           <el-form-item label="出生年月" required>
-            <el-col :span="24">
+            
               <el-form-item prop="date1">
                 <el-date-picker
                   type="month"
@@ -60,8 +60,8 @@
                   style="width: 100%"
                 ></el-date-picker>
               </el-form-item>
-            </el-col>
           </el-form-item>
+          </el-col>
         </el-row>
 
         <el-row>

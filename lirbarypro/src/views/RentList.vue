@@ -1,56 +1,85 @@
 <template>
-  <div>
-    <el-input
-      v-model="tableDataName"
-      placeholder="支持模糊查询书名"
-      style="width: 240px"
-    ></el-input>
-    <el-button type="primary" @click="doFilter">搜索</el-button>
-    <el-table :data="tableDataEnd" border style="width: 100%">
-      <el-table-column prop="BookName" label="书名" width="220">
-      </el-table-column>
-      <el-table-column prop="StarDate" label="借阅日期" width="180">
-      </el-table-column>
-      <el-table-column prop="DueDate" label="期望归还日期" width="180">
-      </el-table-column>
-      <el-table-column prop="ReturnDate" label="还书日期" width="180">
-      </el-table-column>
-      <el-table-column prop="Overdue" label="是否逾期" width="100">
-      </el-table-column>
-      <el-table-column label="操作" width="120">
-        <template slot-scope="scope">
-          <!-- scope就相当于是tableData的一行,scope.row 就能拿到整行的值，scope.$index就能代表当前行的下标 -->
-          <el-button type="info" @click="info(scope.$index, scope.row)"
-            >详情</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="[1, 2, 3, 4, 5, 6]"
-      :page-size="pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="totalItems"
-    >
-    </el-pagination>
-    <el-dialog title="借阅详情" :visible.sync="dialogTableVisible">
-      <el-table :data="table2">
-        <el-table-column
-          prop="UserName"
-          label="姓名"
-          width="150"
-        ></el-table-column>
-        <el-table-column
-          prop="UserID"
-          label="ID"
-          width="200"
-        ></el-table-column>
-        <el-table-column prop="BookName" label="书籍"></el-table-column>
-      </el-table>
-    </el-dialog>
+  <div id="div3">
+    <div id="div2">
+      <div id="div1">
+        <div style="padding-top: 25px">
+          <el-input
+            v-model="tableDataName"
+            placeholder="支持模糊查询书名"
+            style="width: 360px"
+          ></el-input>
+          <el-button type="primary" @click="doFilter">搜索</el-button>
+        </div>
+
+        <el-table :data="tableDataEnd" border style="margin-top: 25px">
+          <el-table-column prop="BookName" label="书名" width="240">
+          </el-table-column>
+          <el-table-column prop="StarDate" label="借阅日期" width="200">
+          </el-table-column>
+          <el-table-column prop="DueDate" label="期望归还日期" width="200">
+          </el-table-column>
+          <el-table-column prop="ReturnDate" label="还书日期" width="200">
+          </el-table-column>
+          <el-table-column prop="Overdue" label="是否逾期" width="100">
+          </el-table-column>
+          <el-table-column label="操作" width="120">
+            <template slot-scope="scope">
+              <!-- scope就相当于是tableData的一行,scope.row 就能拿到整行的值，scope.$index就能代表当前行的下标 -->
+              <el-button type="info" @click="info(scope.$index, scope.row)"
+                >详情</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[1, 2, 3, 4, 5, 6]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totalItems"
+          style="margin-top: 25px"
+        >
+        </el-pagination>
+        <el-dialog
+          title="借阅详情"
+          :visible.sync="dialogTableVisible"
+          width="720px"
+        >
+          <el-table :data="table2">
+            <el-table-column
+              prop="UserName"
+              label="姓名"
+              width="80"
+            ></el-table-column>
+            <el-table-column
+              prop="UserID"
+              label="ID"
+              width="60"
+            ></el-table-column>
+            <el-table-column
+              prop="BookName"
+              label="书籍"
+              width="160"
+            ></el-table-column>
+            <el-table-column
+              prop="StarDate"
+              label="借阅日期"
+              width="120"
+            ></el-table-column>
+            <el-table-column
+              prop="DueDate"
+              label="期望日期"
+              width="120"
+            ></el-table-column>
+            <el-table-column label="剩余日期" width="120">{{
+              this.lastday
+            }}</el-table-column>
+          </el-table>
+        </el-dialog>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,17 +87,6 @@
 export default {
   data() {
     return {
-      table2: [
-        {
-          BookName: "1",
-          StarDate: "",
-          DueDate: "",
-          ReturnDate: "",
-          Overdue: "",
-          UserName: "1",
-          UserID: "1",
-        },
-      ],
       tableDataBegin: [
         {
           BookName: "高数上（同济版）",
@@ -145,6 +163,8 @@ export default {
       ],
       tableDataName: "",
       tableDataEnd: [], //最终显示数据
+      table2: [], //弹窗显示数据
+      lastday: "",
       currentPage: 1,
       pageSize: 5,
       totalItems: 0,
@@ -219,23 +239,32 @@ export default {
       }
     },
     info(index, row) {
-      // this.table2 = [
-      //   row.BookName,
-      //   row.StarDate,
-      //   row.DueDate,
-      //   row.ReturnDate,
-      //   row.Overdue,
-      //   row.UserName,
-      //   row.UserID,
-      // ];
-      // this.table2.UserName = row.UserName;
-      // this.table2.UserID = row.UserID;
-      // this.table2.BookName = row.BookName;
-      console.log(row.BookName);
-      console.log(this.table2.BookName);
-      //alert(row.data);
+      this.table2 = [];
+      this.table2.push(this.tableDataEnd[index]);
       this.dialogTableVisible = true;
     },
   },
 };
 </script>
+
+<style scoped>
+#div1 {
+  padding-left: auto;
+  padding-right: auto;
+  margin: auto;
+  width: 90%;
+}
+
+#div2 {
+  margin: auto;
+  background-color: rgba(207, 235, 247, 0.8);
+  width: 90%;
+  padding-bottom: 50px;
+}
+
+#div3 {
+  background-image: url(../imgs/lou.jpg);
+  background-size: 100%;
+  height: 780px;
+}
+</style>
