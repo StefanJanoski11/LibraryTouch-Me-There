@@ -34,7 +34,7 @@ export default new Router({
                 },
                 {
                     path: 'rent',
-                    component: Dashboard,
+                    component: BookBAR,
                     meta: { title: '图书借阅与归还' }
                 },
                 {
@@ -42,7 +42,6 @@ export default new Router({
                     component: Dashboard,
                     meta: { title: '书库' }
                 }
-
             ]
         },
         {
