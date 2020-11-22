@@ -9,6 +9,8 @@ import Register from '../components/page/Register.vue';
 import NotFound from '../components/page/404.vue';
 import History from '../components/page/History.vue';
 import UserEdit from '../components/page/UserEdit.vue';
+import Rent from '../components/page/Rent.vue';
+import Bookshelf from '../components/page/Bookshelf.vue'
 
 Vue.use(Router);
 
@@ -34,7 +36,7 @@ export default new Router({
                 },
                 {
                     path: 'rent',
-                    component: BookBAR,
+                    component: Rent,
                     meta: { title: '图书借阅与归还' }
                 },
                 {
@@ -58,7 +60,7 @@ export default new Router({
                 },
                 {
                     path: 'bookshelf',
-                    component: Dashboard,
+                    component: Bookshelf,
                     meta: { title: '我的书架' }
                 },
                 {
