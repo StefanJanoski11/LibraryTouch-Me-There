@@ -120,7 +120,7 @@
                 v-model="notice">
             </el-input>                           
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="editVisible = false">确 认</el-button>
+                <el-button type="primary" @click="onCommit">确 认</el-button>
             </span>
         </el-dialog>
     </div>
@@ -196,11 +196,15 @@ export default {
         // 编辑操作
         editNotice() {
             this.editVisible = true;
+        },
+        onCommit(){
+            //修改公告
+            this.editVisible = false;
         }
         
     },
-    created(){
-        console.log("created.......")
+    mounted(){
+        
     }
 };
 </script>

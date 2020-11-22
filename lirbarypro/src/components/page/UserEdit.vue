@@ -259,9 +259,12 @@ export default {
     submitForm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          alert("submit!");
+          alert("submit!--------------------------------------------------记得删掉");
+          //异步请求修改
+
+
         } else {
-          console.log("error submit!!");
+          console.log("error submit!!--------------------------------------------------记得删掉");
           return false;
         }
       });

@@ -9,6 +9,15 @@
             style="width: 360px"
           ></el-input>
           <el-button type="primary" @click="doFilter">搜索</el-button>
+
+          <el-select v-model="state" placeholder="请选择" @change="changeState">
+          <el-option
+            v-for="item in returnState"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+  </el-select>
         </div>
 
         <el-table :data="tableDataEnd" border style="margin-top: 25px">
@@ -18,7 +27,7 @@
           </el-table-column>
           <el-table-column prop="DueDate" label="期望归还日期" width="200">
           </el-table-column>
-          <el-table-column prop="ReturnDate" label="还书日期" width="200">
+          <el-table-column prop="ReturnDate" label="还书日期" width="200">            
           </el-table-column>
           <el-table-column prop="Overdue" label="是否逾期" width="100">
           </el-table-column>
@@ -98,6 +107,14 @@ export default {
       filterTableDataEnd: [],
       flag: false,
       dialogTableVisible: false,
+      returnState: [{
+          value: 'ture',
+          label: '已还'
+        }, {
+          value: 'false',
+          label: '未还'
+        }],
+        state: ''
     };
   },
   mounted() {
@@ -184,6 +201,9 @@ export default {
       this.table2 = [];
       this.table2.push(this.tableDataEnd[index]);
       this.dialogTableVisible = true;
+    },
+    changeState(){
+      //搜索特定状态的记录
     },
   },
 };
