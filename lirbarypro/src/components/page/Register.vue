@@ -11,10 +11,6 @@
     >
       <h2 class="login-title">注册</h2>
 
-      <el-form-item label="ID" placeholder="ID">
-        <el-input v-model="form.ID" maxlength="30" show-word-limit> </el-input>
-      </el-form-item>
-
       <el-form-item label="姓名" placeholder="姓名">
         <el-input v-model="form.name" maxlength="30" show-word-limit>
         </el-input>
@@ -24,8 +20,8 @@
         <el-input v-model="form.eamil" maxlength="30"> </el-input>
       </el-form-item>
 
-      <el-form-item prop="phone" label="电话" placeholder="手机号码">
-        <el-input v-model="form.phone"> </el-input>
+      <el-form-item prop="user_phone" label="电话" placeholder="手机号码">
+        <el-input v-model="form.user_phone"> </el-input>
         <el-button @click="getVerrifyCode">{{ form.btnTitle }}</el-button>
       </el-form-item>
 
@@ -120,18 +116,18 @@ export default {
     return {
       form: {
         name: "",
-        ID: "",
         eamil: "",
-        phone: "", //手机号
+        user_phone: "", //手机号
         verifyCode: "", //验证码
         btnTitle: "获取验证码",
         password: "",
         password2: "",
       },
+      realVerifyCode: "",
       rules: {
         password: [{ validator: validatePass, trigger: "blur" }],
         password2: [{ validator: validatePass2, trigger: "blur" }],
-        phone: [
+        user_phone: [
           {
             required: true,
             pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/,
@@ -157,7 +153,8 @@ export default {
     onSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if(this.verifyCode == this.form.verifyCode){
+          console.log(this.realVerifyCode);
+          if(this.realVerifyCode == this.form.verifyCode){
             this.axios({
             method: "post",
             url: "http://10.10.102.142:8080/user/register",
@@ -184,32 +181,34 @@ export default {
       });
     },
     getVerrifyCode() {
-      //先判断phone
+      //先判断user_phone
       this.$refs.form.validate((valid) => {
         if (valid) {
-          alert("submit!--------------------------------------------------记得删掉");
-          //axios传phone
+          
+          //axios传user_phone
           this.axios({
             method: "get",
-            url: "http://10.10.102.142:8080/user/",
-            data: this.$qs.stringify(this.form.phone),
+            url: "http://10.10.102.142:8080/message/send",
+            params: {
+              user_phone:this.form.user_phone
+              },
             headers: {
               "Content-Type":
                 "application/x-www-form-urlencoded; charset=UTF-8",
             },
           })
             .then((response) => {
-              console.log(response+"--------------------------------------------------记得删掉");
-              this.verifyCode = response.data;
+              console.log(response.data.object);
+              this.realVerifyCode = response.data.object;
               //获取后计时
 
               let time = 60;
               let timer = setInterval(() => {
                 if (time == 0) {
                   clearInterval(timer);
-                  this.btnTitle = "重新获取验证码";
+                  this.form.btnTitle = "重新获取验证码";
                 } else {
-                  this.btnTitle = time + "秒后重试";
+                  this.form.btnTitle = time + "秒后重试";
                   time--;
                 }
               }, 1000);

@@ -174,7 +174,7 @@ export default {
       rules: {
         name: [
           { required: true, message: "输入名字", trigger: "blur" },
-          { min: 2, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" },
         ],
         sex: [{ required: true, message: "请选择性别", trigger: "change" }],
         date: [

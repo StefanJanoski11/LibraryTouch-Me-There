@@ -121,6 +121,7 @@ export default {
     })
       .then((response) => {
         this.tableDataBegin = [];
+        console.log(response.data.tableDataBegin);
         this.tableDataBegin = response.data.tableDataBegin;
         this.totalItems = this.tableDataBegin.length;
         if (this.totalItems > this.pageSize) {
