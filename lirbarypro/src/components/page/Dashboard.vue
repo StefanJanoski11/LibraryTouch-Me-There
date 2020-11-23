@@ -8,7 +8,7 @@
               <div class="grid-content grid-con-1">
                 <i class="el-icon-top-left grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.dayRent }}</div>
+                  <div class="grid-num">{{ this.summary.currentDayLend }}</div>
                   <div>今日借出统计</div>
                 </div>
               </div>
@@ -19,8 +19,8 @@
               <div class="grid-content grid-con-2">
                 <i class="el-icon-top grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.monthRent }}</div>
-                  <div>今月借出统计</div>
+                  <div class="grid-num">{{ this.summary.currentWeekLend }}</div>
+                  <div>今周借出统计</div>
                 </div>
               </div>
             </el-card>
@@ -30,8 +30,8 @@
               <div class="grid-content grid-con-3">
                 <i class="el-icon-top-right grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.yearRent }}</div>
-                  <div>年度借出统计</div>
+                  <div class="grid-num">{{ this.summary.currentMonthLend }}</div>
+                  <div>今月借出统计</div>
                 </div>
               </div>
             </el-card>
@@ -47,7 +47,7 @@
               <div class="grid-content grid-con-1">
                 <i class="el-icon-bottom-left grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.dayReturn }}</div>
+                  <div class="grid-num">{{ this.summary.currentDayReturn }}</div>
                   <div>今日归还统计</div>
                 </div>
               </div>
@@ -58,8 +58,8 @@
               <div class="grid-content grid-con-2">
                 <i class="el-icon-bottom grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.monthReturn }}</div>
-                  <div>今月归还统计</div>
+                  <div class="grid-num">{{ this.summary.currentWeekReturn }}</div>
+                  <div>今周归还统计</div>
                 </div>
               </div>
             </el-card>
@@ -69,8 +69,8 @@
               <div class="grid-content grid-con-3">
                 <i class="el-icon-bottom-right grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.yearReturn }}</div>
-                  <div>年度归还统计</div>
+                  <div class="grid-num">{{ this.summary.currentMonthReturn }}</div>
+                  <div>今月归还统计</div>
                 </div>
               </div>
             </el-card>
@@ -134,12 +134,12 @@ export default {
       notice: "",
       editVisible: false,
       summary: {
-        dayRent: 0,
-        monthRent: 0,
-        yearRent: 0,
-        dayReturn: 0,
-        monthReturn: 0,
-        yearReturn: 0,
+        currentDayLend: 0,
+        currentWeekLend: 0,
+        currentMonthLend: 0,
+        currentDayReturn: 0,
+        currentWeekReturn: 0,
+        currentMonthReturn: 0,
       },
       options: {
         type: "bar",
@@ -212,9 +212,10 @@ export default {
     },
   },
   mounted() {
+    //获取统计
     Vue.axios({
       method: "get",
-      url: "../../../static/mock/Dshboard.json",
+      url: "http://10.10.102.142:8080/record/getStatistic",
       data: "",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -222,19 +223,19 @@ export default {
     })
       .then((response) => {
         console.log(response);
-        this.summary.dayRent = response.data.summary.dayRent;
-        this.summary.monthRent = response.data.summary.monthRent;
-        this.summary.yearRent = response.data.summary.yearRent;
-        this.summary.dayReturn = response.data.summary.dayReturn;
-        this.summary.monthReturn = response.data.summary.monthReturn;
-        this.summary.yearReturn = response.data.summary.yearReturn;
-        this.notice = response.data.notice;
+        this.summary.currentDayLend = response.data.object.currentDayLend;
+        this.summary.currentWeekLend = response.data.object.currentWeekLend;
+        this.summary.currentMonthLend = response.data.object.currentMonthLend;
+        this.summary.currentDayReturn = response.data.object.currentDayReturn;
+        this.summary.currentWeekReturn = response.data.object.currentWeekReturn;
+        this.summary.currentMonthReturn = response.data.object.currentMonthReturn;
         console.log(this.summary.dayReturn);
         console.log(response.data.dayReturn);
       })
       .catch((error) => {
         console.log(error);
-      });
+    });
+    //获取公告
   },
 };
 </script>
