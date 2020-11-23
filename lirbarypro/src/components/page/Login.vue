@@ -4,7 +4,7 @@
             <div class="ms-title">图书管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username" >
-                    <el-input v-model="param.username" placeholder="username" maxlength="30" show-word-limit>
+                    <el-input v-model="param.user_name" placeholder="username" maxlength="30" show-word-limit>
                         <el-button slot="prepend"  type="primary" icon="el-icon-user"></el-button>
                     </el-input>
                 </el-form-item>
@@ -12,7 +12,7 @@
                     <el-input
                         type="password"
                         placeholder="password"
-                        v-model="param.password"
+                        v-model="param.user_password"
                         maxlength="30"
                         
                         @keyup.enter.native="submitForm()"
@@ -37,12 +37,12 @@ export default {
     data: function() {
         return {
             param: {
-                username: '',
-                password: '',
+                user_name: '',
+                user_password: '',
             },
             rules: {
-                username: [{ required: true, message: '请输入登录ID', trigger: 'blur' }],
-                password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                user_name: [{ required: true, message: '请输入登录ID', trigger: 'blur' }],
+                user_password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
             },
         };
     },
@@ -54,9 +54,9 @@ export default {
                      Vue.axios({
                         method: "post",
                         url: "http://10.10.102.142:8080/user/login",
-                        data: this.$qs.stringify(this.param),
+                        data: this.param,
                         headers: {
-                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "Content-Type": "application/json; charset=UTF-8",
                         },
                     })
                     .then((response) => {

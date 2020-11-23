@@ -9,26 +9,25 @@
             style="width: 360px"
           ></el-input>
           <el-button type="primary" @click="doFilter">搜索</el-button>
-
-          
         </div>
 
         <el-table :data="tableDataEnd" border style="margin-top: 25px">
-          <el-table-column prop="BookName" label="书名" width="240">
+          <el-table-column prop="book_name" label="书名" width="240">
           </el-table-column>
-          <el-table-column prop="StarDate" label="借阅日期" width="200">
+          <el-table-column prop="book_lend_date" label="借阅日期" width="200">
           </el-table-column>
-          <el-table-column prop="DueDate" label="期望归还日期" width="200">
+          <el-table-column prop="book_scheduled" label="期望归还日期" width="200">
           </el-table-column>
-          <el-table-column prop="ReturnDate" label="还书日期" width="200">            
+          <el-table-column prop="book_return_date" label="还书日期" width="200">
           </el-table-column>
-          <el-table-column prop="Overdue" label="是否逾期" width="100">
+          <el-table-column prop="book_return_state" label="是否还了" width="100">
           </el-table-column>
           <el-table-column label="操作" width="120">
             <template slot-scope="scope">
               <!-- scope就相当于是tableData的一行,scope.row 就能拿到整行的值，scope.$index就能代表当前行的下标 -->
               <el-button type="info" @click="info(scope.$index, scope.row)"
-                >详情</el-button>
+                >详情</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -50,27 +49,27 @@
         >
           <el-table :data="table2">
             <el-table-column
-              prop="UserName"
+              prop="user_name"
               label="姓名"
               width="80"
             ></el-table-column>
             <el-table-column
-              prop="UserID"
+              prop="user_id"
               label="ID"
               width="60"
             ></el-table-column>
             <el-table-column
-              prop="BookName"
+              prop="book_name"
               label="书籍"
               width="160"
             ></el-table-column>
             <el-table-column
-              prop="StarDate"
+              prop="book_lend_date"
               label="借阅日期"
               width="120"
             ></el-table-column>
             <el-table-column
-              prop="DueDate"
+              prop="book_scheduled"
               label="期望日期"
               width="120"
             ></el-table-column>
@@ -88,41 +87,45 @@
 import Vue from "vue";
 export default {
   data() {
-    return {      
+    return {
       tableDataBegin: [],
       tableDataName: "",
       tableDataEnd: [], //最终显示数据
       table2: [], //弹窗显示数据
       lastday: "",
       currentPage: 1,
-      pageSize: 5,
+      pageSize: 2,
       totalItems: 0,
       filterTableDataEnd: [],
       flag: false,
       dialogTableVisible: false,
-      returnState: [{
-          value: 'ture',
-          label: '已还'
-        }, {
-          value: 'false',
-          label: '未还'
-        }],
-        
+      returnState: [
+        {
+          value: "ture",
+          label: "已还",
+        },
+        {
+          value: "false",
+          label: "未还",
+        },
+      ],
     };
   },
   mounted() {
     Vue.axios({
       method: "get",
-      url: "../../../static/mock/rentList.json",
-      data: "",
+      url:'http://10.10.102.143:8080/record/getRecordById',
+      // url: "../../../static/mock/rentList.json",
+      params: {id: window.sessionStorage.getItem("ms_userid")},
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
     })
       .then((response) => {
         this.tableDataBegin = [];
-        console.log(response.data.tableDataBegin);
-        this.tableDataBegin = response.data.tableDataBegin;
+        console.log(response.data);
+        this.tableDataBegin = response.data;
+        console.log(this.tableDataEnd.length);
         this.totalItems = this.tableDataBegin.length;
         if (this.totalItems > this.pageSize) {
           //如果有好多，只需要第一页的数据
@@ -149,8 +152,8 @@ export default {
       //每次手动将数据置空,因为会出现多次点击搜索情况
       this.filterTableDataEnd = [];
       this.tableDataBegin.forEach((value, index) => {
-        if (value.BookName) {
-          if (value.BookName.indexOf(this.tableDataName) >= 0) {
+        if (value.book_name) {
+          if (value.book_name.indexOf(this.tableDataName) >= 0) {
             this.filterTableDataEnd.push(value);
           }
         }
@@ -196,7 +199,6 @@ export default {
       this.table2.push(this.tableDataEnd[index]);
       this.dialogTableVisible = true;
     },
-    
   },
 };
 </script>
