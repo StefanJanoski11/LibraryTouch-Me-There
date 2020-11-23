@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+  mail:
+    host: smtp.163.com  #登录邮箱设置那里可以看到,SMTP服务器
+    password: UMZMRMBNPCGDNISD #密码是设置的授权密码
+    username: 13630455401@163.com
+  redis:
+    #redis数据库索引(默认为0)
+    database: 0
+    #redis服务器地址
+    host: 39.108.218.95
+    #redis服务器连接端口
+    port: 6379
+    #redis连接密码
+    password:
+    #redis连接池设置
+    pool:
+      #最大空闲连接
+      max-idle: 100
+      #最小空闲连接
+      min-idle: 1
+      #最大连接数(负数表示没有限制)
+      max-active: 1000
+      #最大阻塞等待时间(负数表示没有限制)
+      max-wait: -1
+      #连接超时时间(毫秒)
+      timeout: 0
+  datasource:
+    username: root
+    password: root  #修改为自己的数据库密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/library?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone = GMT
+
+mybatis:
+  # 指定全局配置文件位置
+#  config-location: classpath:mybatis/mybatis-config.xml
+  # 指定sql映射文件位置
+  mapper-locations: classpath:mapper/*.xml
