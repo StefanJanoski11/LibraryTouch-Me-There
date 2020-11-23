@@ -21,7 +21,7 @@
           placeholder="用户名"
           class="handle-input mr10"
         ></el-input>
-        <el-button type="primary" icon="el-icon-search" @click="handleSearch"
+        <el-button type="primary" icon="el-icon-search" @click="handleSearch()"
           >搜索</el-button
         >
         <el-button type="primary" icon="el-icon-plus" @click="addUser"
@@ -29,7 +29,7 @@
         >
       </div>
       <el-table
-        :data="tableDataEnd"
+        :data="tableData"
         border
         class="table"
         ref="multipleTable"
@@ -42,20 +42,20 @@
           align="center"
         ></el-table-column>
         <el-table-column
-          prop="id"
+          prop="user_id"
           label="ID"
           width="55"
           align="center"
         ></el-table-column>
-        <el-table-column prop="name" label="用户名">aa</el-table-column>
-        <el-table-column prop="permission" label="是否管理员"></el-table-column>
-        <el-table-column prop="sex" label="性别"></el-table-column>
+        <el-table-column prop="user_name" label="用户名"></el-table-column>
+        <el-table-column  prop="user_identity_id" label="是否管理员"></el-table-column>
+        <el-table-column prop="user_sex" label="性别"></el-table-column>
         <el-table-column
-          prop="record"
+          prop="user_sincerity"
           label="不良记录"
           align="center"
         ></el-table-column>
-        <el-table-column prop="date" label="注册时间"></el-table-column>
+        <el-table-column prop="user_create_date" label="注册时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
@@ -86,19 +86,19 @@
       </div>
     </div>
 
-    <!-- 编辑弹出框 -->
+    <!-- 详情弹出框 -->
     <el-dialog title="详情" :visible.sync="editVisible" width="30%">
-      <el-row :model="form" label-width="70px">
-        <el-col :span="12"> 用户名：{{ form.name }} </el-col>
-        <el-col :span="12"> 性别:{{ form.sex }} </el-col>
-        <el-col :span="12"> 手机号：{{ form.phone }} </el-col>
-        <el-col :span="12"> 出生日期:{{ form.birth }} </el-col>
-        <el-col :span="12"> 地址{{ form.address }} </el-col>
-        <el-col :span="12"> 不良记录:{{ form.record }} </el-col>
-        <el-col :span="24"> 自我描述:{{ form.selfDesc }} </el-col>
-        <el-col :span="24"> 创建日期：{{ form.date }} </el-col>
-        <el-col :span="24"> 修改日期:{{ form.alterDate }} </el-col>
-        <el-col :span="24"> 修改人ID:{{ form.alterAdmin }} </el-col>
+      <el-row :model="user" label-width="70px">
+        <el-col :span="12"> 用户名：{{ usera.user_name }} </el-col>
+        <el-col :span="12"> 性别:{{ usera.user_sex}} </el-col>
+        <el-col :span="12"> 手机号：{{ usera.user_phone }} </el-col>
+        <el-col :span="12"> 出生日期:{{ usera.user_birthday }} </el-col>
+        <el-col :span="12"> 地址{{ usera.user_address }} </el-col>
+        <el-col :span="12"> 不良记录:{{ usera.user_sincerity }} </el-col>
+        <el-col :span="24"> 自我描述:{{usera.user_self_desc }} </el-col>
+        <el-col :span="24"> 创建日期：{{ usera.user_create_date}} </el-col>
+        <el-col :span="24"> 修改日期:{{ usera.user_alter_date}} </el-col>
+        <el-col :span="24"> 修改人ID:{{usera.user_alter_admin}} </el-col>
       </el-row>
 
       <span slot="footer" class="dialog-footer">
@@ -117,9 +117,6 @@
       class="login-form demo-ruleForm"
       label-position="righ"
     >
-        <el-form-item label="ID" placeholder="ID">
-        <el-input v-model="form.ID" maxlength="30" show-word-limit> </el-input>
-      </el-form-item>
 
       <el-form-item label="姓名" placeholder="姓名">
         <el-input v-model="form.name" maxlength="30" show-word-limit>
@@ -223,13 +220,22 @@ export default {
     return {
       form: {
         name: "",
-        ID: "",
         eamil: "",
         phone: "", //手机号
-        verifyCode: "", //验证码
-        btnTitle: "获取验证码",
         password: "",
         password2: "",
+      },
+      user:{
+        user_name:"",
+        sex:"",
+        phone:"",
+        birth:"",
+        address:"",
+        record:"",
+        selfDesc:"",
+        date:"",
+        alterDate:"",
+        alterAdmin:"",
       },
       rules: {
         password: [{ validator: validatePass, trigger: "blur" }],
@@ -244,13 +250,13 @@ export default {
         ],
       },
       query: {
-        address: "",
-        name: "",
+        name:"",
         pageIndex: 1,
         pageSize: 10,
       },
-      tableDataBegin: [],
-      tableDataEnd: [],
+      usera:[],
+      tableData: [],
+      //tableDataEnd: [],
       multipleSelection: [],
       delList: [],
       editVisible: false,
@@ -264,24 +270,18 @@ export default {
   mounted() {
     this.axios({
       method: "get",
-      url: "../../../static/mock/user.json",
-      //url: "/user.json",
-      data: "",
+      url: "http://10.10.102.142:8080/user/getAll",
+      params: {
+        pageNum:this.pageIndex
+      },
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
     })
       .then((response) => {
-        this.tableDataBegin = response.data.userlist;
-        this.pageTotal = this.tableDataBegin.length;
-        if (this.pageTotal > this.query.pageSize) {
-          //如果有好多，只需要第一页的数据
-          for (let index = 0; index < this.query.pageSize; index++) {
-            this.tableDataEnd.push(this.tableDataBegin[index]);
-          }
-        } else {
-          this.tableDataEnd = this.tableDataBegin;
-        }
+          this.tableData = response.data.object.list;
+          
+          this.pageTotal = response.data.object.total;
       })
       .catch((error) => {
         console.log(error);
@@ -325,18 +325,71 @@ export default {
     },
     // 触发搜索按钮
     handleSearch() {
-      this.$set(this.query, "pageIndex", 1);
-      this.getData();
+
+      // console.log(query.name);
+      this.axios({
+      method: "get",
+      url: "http://10.10.102.142:8080/user/quaryUser",
+      params: {
+       name:  this.query.name
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+          this.tableData = response.data.object;
+          
+          //this.pageTotal = response.data.object.total;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      
+      // this.$set(this.query, "pageIndex", 1);
+      // this.getData();
     },
     // 删除操作
     handleDelete(index, row) {
       // 二次确认删除
       this.$confirm("确定要删除吗？", "提示", {
         type: "warning",
-      })
+      }) 
         .then(() => {
-          this.$message.success("删除成功");
-          this.tableData.splice(index, 1);
+          this.axios({
+      method: "get",
+      url: "http://10.10.102.142:8080/user/deleteUser",
+      params: {
+        id : row.user_id
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+          this.axios({
+            method: "get",
+            url: "http://10.10.102.142:8080/user/quaryExistUser",
+            params: { 
+            },
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            },
+          })
+          .then((response) => {
+          this.tableData = response.data.object;
+          
+          //this.pageTotal = response.data.object.total;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
         })
         .catch(() => {});
     },
@@ -345,31 +398,63 @@ export default {
       this.multipleSelection = val;
     },
     delAllSelection() {
-      const length = this.multipleSelection.length;
-      let str = "";
-      this.delList = this.delList.concat(this.multipleSelection);
-      for (let i = 0; i < length; i++) {
-        str += this.multipleSelection[i].name + " ";
-      }
-      this.$message.error(`删除了${str}`);
-      this.multipleSelection = [];
+      // const length = this.multipleSelection.length;
+      // let str = "";
+      // this.delList = this.delList.concat(this.multipleSelection);
+      // for (let i = 0; i < length; i++) {
+      //   str += this.multipleSelection[i].name + " ";
+      // }
+      // this.$message.error(`删除了${str}`);
+      // this.multipleSelection = [];
     },
     // 编辑操作
     handleEdit(index, row) {
-      this.idx = index;
-      this.form = row;
+      //this.idx = index;
+      //this.form = row;
+      console.log(index);
+      console.log(row);
+    this.axios({
+      method: "get",
+      url: "http://10.10.102.142:8080/user/detail",
+      params: {
+        user_id:row.user_id,
+        user_name: row.user_name,
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+          console.log(response);
+          this.usera=response.data.object;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
       this.editVisible = true;
     },
-    // 保存编辑
-    // saveEdit() {
-    //     this.editVisible = false;
-    //     this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-    //     this.$set(this.tableData, this.idx, this.form);
-    // },
     // 分页导航
     handlePageChange(val) {
-      this.$set(this.query, "pageIndex", val);
-      this.getData();
+      this.axios({
+      method: "get",
+      url: "http://10.10.102.142:8080/user/getAll",
+      params: {
+        pageNum:val
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+          console.log(response.data.object.list);
+          this.tableData = response.data.object.list;
+          this.pageTotal = response.data.object.total;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
   },
 };
