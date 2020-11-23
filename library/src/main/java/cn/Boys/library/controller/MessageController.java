@@ -31,7 +31,7 @@ public class MessageController {
         headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = new HashMap<>();
         String code = StringCodeUtil.getCode(6);
-        querys.put("content", "图书馆系统提醒您：验证码是：" + code +"。如非本人操作，请忽略本短信");
+        querys.put("content", "【五邑大学】提醒您：验证码是：" + code +"。如非本人操作，请忽略本短信");
         querys.put("mobile", user_phone);
         try {
             /**
@@ -66,92 +66,92 @@ public class MessageController {
 //        return new Result(null,ResultEnum.NOT_ACCEPTABLE);
 //    }
 
-    public static void main1(String[] args) {
-        String host = "https://zwp.market.alicloudapi.com";
-        String path = "/sms/edittemplete";
-        String method = "POST";
-        String appcode = "0aab6efeddf841c789b76dbfd009209a";
-        Map<String, String> headers = new HashMap<String, String>();
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-        headers.put("Authorization", "APPCODE " + appcode);
-        Map<String, String> querys = new HashMap<String, String>();
-        querys.put("content", "图书馆系统提醒您：验证码是：#code#。如非本人操作，请忽略本短信");
-        querys.put("signature", "云通知");
-        Map<String, String> bodys = new HashMap<String, String>();
-        try {
-            /**
-             * 重要提示如下:
-             * HttpUtils请从
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
-             * 下载
-             *
-             * 相应的依赖请参照
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
-             */
-            HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
-            System.out.println(response.toString());
-            //获取response的body
-            log.error(EntityUtils.toString(response.getEntity()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main2(String[] args) {
-        String host = "https://zwp.market.alicloudapi.com";
-        String path = "/sms/getmessagestatus";
-        String method = "GET";
-        String appcode = "0aab6efeddf841c789b76dbfd009209a";
-        Map<String, String> headers = new HashMap<String, String>();
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-        headers.put("Authorization", "APPCODE " + appcode);
-        Map<String, String> querys = new HashMap<String, String>();
-        querys.put("messageId", "2509");
-        try {
-            /**
-             * 重要提示如下:
-             * HttpUtils请从
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
-             * 下载
-             *
-             * 相应的依赖请参照
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
-             */
-            HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
-            System.out.println(response.toString());
-            //获取response的body
-            System.out.println(EntityUtils.toString(response.getEntity()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        String host = "https://zwp.market.alicloudapi.com";
-        String path = "/sms/gettempletestatus";
-        String method = "GET";
-        String appcode = "0aab6efeddf841c789b76dbfd009209a";
-        Map<String, String> headers = new HashMap<String, String>();
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-        headers.put("Authorization", "APPCODE " + appcode);
-        Map<String, String> querys = new HashMap<String, String>();
-        querys.put("templateId", "2509");
-        try {
-            /**
-             * 重要提示如下:
-             * HttpUtils请从
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
-             * 下载
-             *
-             * 相应的依赖请参照
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
-             */
-            HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
-            System.out.println(response.toString());
-            //获取response的body
-            System.out.println(EntityUtils.toString(response.getEntity()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        String host = "https://zwp.market.alicloudapi.com";
+//        String path = "/sms/edittemplete";
+//        String method = "POST";
+//        String appcode = "0aab6efeddf841c789b76dbfd009209a";
+//        Map<String, String> headers = new HashMap<String, String>();
+//        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+//        headers.put("Authorization", "APPCODE " + appcode);
+//        Map<String, String> querys = new HashMap<String, String>();
+//        querys.put("content", "提醒您：验证码是：#code#。如非本人操作，请忽略本短信");
+//        querys.put("signature", "五邑大学");
+//        Map<String, String> bodys = new HashMap<String, String>();
+//        try {
+//            /**
+//             * 重要提示如下:
+//             * HttpUtils请从
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
+//             * 下载
+//             *
+//             * 相应的依赖请参照
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
+//             */
+//            HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
+//            System.out.println(response.toString());
+//            //获取response的body
+//            log.error(EntityUtils.toString(response.getEntity()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public static void main2(String[] args) {
+//        String host = "https://zwp.market.alicloudapi.com";
+//        String path = "/sms/getmessagestatus";
+//        String method = "GET";
+//        String appcode = "0aab6efeddf841c789b76dbfd009209a";
+//        Map<String, String> headers = new HashMap<String, String>();
+//        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+//        headers.put("Authorization", "APPCODE " + appcode);
+//        Map<String, String> querys = new HashMap<String, String>();
+//        querys.put("messageId", "2522");
+//        try {
+//            /**
+//             * 重要提示如下:
+//             * HttpUtils请从
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
+//             * 下载
+//             *
+//             * 相应的依赖请参照
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
+//             */
+//            HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+//            System.out.println(response.toString());
+//            //获取response的body
+//            System.out.println(EntityUtils.toString(response.getEntity()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public static void main3(String[] args) {
+//        String host = "https://zwp.market.alicloudapi.com";
+//        String path = "/sms/gettempletestatus";
+//        String method = "GET";
+//        String appcode = "0aab6efeddf841c789b76dbfd009209a";
+//        Map<String, String> headers = new HashMap<String, String>();
+//        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+//        headers.put("Authorization", "APPCODE " + appcode);
+//        Map<String, String> querys = new HashMap<String, String>();
+//        querys.put("templateId", "2522");
+//        try {
+//            /**
+//             * 重要提示如下:
+//             * HttpUtils请从
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
+//             * 下载
+//             *
+//             * 相应的依赖请参照
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
+//             */
+//            HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+//            System.out.println(response.toString());
+//            //获取response的body
+//            System.out.println(EntityUtils.toString(response.getEntity()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

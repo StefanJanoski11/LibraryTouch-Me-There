@@ -175,6 +175,7 @@ public class UserController {
     /*注册模块*/
     @PostMapping("/register")
     public Result register(@Valid User user, BindingResult result, String checkPassword){
+        System.out.println(user);
         if (result.hasErrors()){
             /*存在格式错误*/
             return new Result(null, ResultEnum.NOT_ACCEPTABLE);

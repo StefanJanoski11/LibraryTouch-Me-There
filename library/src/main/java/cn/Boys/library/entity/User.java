@@ -30,6 +30,8 @@ public class User {
     private String user_phone;
     @NotNull(message = "出生日期不能为空")
     @Past(message = "请输入一个过去时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date user_birthday;
     @NotNull(message = "地址栏不能为空")
     @NotEmpty(message = "地址栏不能为空串")
