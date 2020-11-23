@@ -66,6 +66,21 @@ export default {
                     window.sessionStorage.setItem('ms_username', name);
                     let userId = response.data.object.user_id;   
                     window.sessionStorage.setItem('ms_userid', userId);
+                    let user_sex = response.data.object.user_sex;
+                     window.sessionStorage.setItem('ms_user_sex', user_sex);
+                    let user_birthday = response.data.object.user_birthday;
+                    window.sessionStorage.setItem('ms_user_birthday', user_birthday);
+                    let user_phone = response.data.object.user_phone;
+                    window.sessionStorage.setItem('ms_user_phone', user_phone);
+                    let user_email = response.data.object.user_email;
+                    window.sessionStorage.setItem('ms_user_email', user_email);
+                    let user_address = response.data.object.user_address;
+                    window.sessionStorage.setItem('ms_user_address', user_address);
+                    let user_self_desc = response.data.object.user_self_desc;
+                    window.sessionStorage.setItem('ms_user_self_desc', user_self_desc);
+                    let user_password = response.data.object.user_password;
+                    window.sessionStorage.setItem('ms_user_password', user_password);
+
                     let userType = response.data.object.user_identity_id;
                     if(userType == 1){
                         this.$router.push('/admin');

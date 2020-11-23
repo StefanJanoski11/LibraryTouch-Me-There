@@ -155,13 +155,13 @@
 </el-table-column>
 
       <el-table-column fixed="right" label="操作" width="120">
-        <el-button @click="setting=true"
+        <el-button @click="settingVisible =true"
           type="text"
           size="small">编辑</el-button>
       </el-table-column>
     </el-table>
   
-  <el-dialog title="编辑书籍信息" :visible.sync="setting">
+  <el-dialog title="编辑书籍信息" :visible.sync="settingVisible">
   <el-form :model="form">
     <el-form-item label="书名" :label-width="formLabelWidth">
       <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -209,8 +209,8 @@
     
   </el-form>
   <div slot="footer" class="dialog-footer">
-    <el-button @click="setting = false">取 消</el-button>
-    <el-button type="primary" @click="setting = false">保 存</el-button>
+    <el-button @click="settingVisible = false">取 消</el-button>
+    <el-button type="primary" @click="settingVisible = false">保 存</el-button>
   </div>
 </el-dialog>
 
@@ -247,7 +247,7 @@ export default {
           desc: ''
         },
         formLabelWidth: '120px',
-    
+        settingVisible:false,
       gridData: [{
           description: '全球最大的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。百度超过千亿的中文网页数据库，可以瞬间找到相关的搜索结果。',
         }],
@@ -409,6 +409,9 @@ export default {
           this.tableDataEnd.push(list[from]);
         }
       }
+    },
+    deleteBook(){
+      
     },
   },
 };
