@@ -12,6 +12,7 @@ import UserEdit from '../components/page/UserEdit.vue';
 import Rent from '../components/page/Rent.vue';
 import Bookshelf from '../components/page/Bookshelf.vue';
 import UserLibrary from '../components/page/UserLibrary.vue';
+import ManagerLibrary from '../components/page/ManagerLibrary.vue';
 
 Vue.use(Router);
 
@@ -50,6 +51,16 @@ export default new Router({
         {
             path: '/user',
             redirect: '/user/library'
+        },
+        {
+            path: '/UserLibrary',
+            component: UserLibrary,
+            name: 'UserLibrary'
+        },
+        {
+            path: '/ManagerLibrary',
+            component: ManagerLibrary,
+            name: 'ManagerLibrary'
         },
         {
             path: '/user',

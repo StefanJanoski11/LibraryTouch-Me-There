@@ -3,14 +3,15 @@
     <div class="background">
       <img :src="imgSrc" width="100%" height="100%" alt="" />
     </div>
+    
     <el-form
       :inline="true"
       :model="formInline"
       class="demo-form-inline"
-      label-width="60px"
-    >
-      <el-form-item label="国家">
-        <el-select v-model="formInline.region" placeholder="国家">
+      label-width="60px">
+  
+      <el-form-item label="国家" >
+        <el-select v-model="formInline.region" placeholder="国家" class="searchList">
           <el-option label="中国" value="china"></el-option>
           <el-option label="日本" value="japan"></el-option>
           <el-option label="北美" value="noramerica"></el-option>
@@ -19,7 +20,7 @@
       </el-form-item>
 
       <el-form-item label="类型">
-        <el-select v-model="formInline.sort" placeholder="类型">
+        <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
           <el-option label="历史" value="history"></el-option>
           <el-option label="文学" value="literature"></el-option>
           <el-option label="军事" value="military"></el-option>
@@ -28,7 +29,7 @@
       </el-form-item>
 
       <el-form-item label="篇幅">
-        <el-select v-model="formInline.para" placeholder="篇幅">
+        <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
           <el-option label="短篇" value="short"></el-option>
           <el-option label="中篇" value="mid"></el-option>
           <el-option label="长篇" value="long"></el-option>
@@ -37,7 +38,7 @@
       </el-form-item>
 
       <el-form-item label="主题">
-        <el-select v-model="formInline.topic" placeholder="主题">
+        <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
           <el-option label="一" value="one"></el-option>
           <el-option label="二" value="two"></el-option>
           <el-option label="三" value="three"></el-option>
@@ -47,9 +48,83 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit" class="firstSearch"
-          >查询</el-button
-        >
+          >查询</el-button>
       </el-form-item>
+
+      <el-form-item>
+      <el-button type="primary" 
+      size="small" @click="addBook=true" icon="el-icon-circle-plus-outline"  class="settingButton"></el-button>
+      </el-form-item>
+
+<el-dialog title="书籍上架" :visible.sync="addBook">
+  <el-form :model="form">
+    <el-form-item label="书　名" >
+      <el-input v-model="form.name" autocomplete="off"></el-input>
+    </el-form-item>
+
+    <el-form-item label="　作　者" >
+      <el-input v-model="form.author" autocomplete="off"></el-input>
+    </el-form-item>
+
+    <el-form-item label="出版社 " >
+      <el-input v-model="form.public" autocomplete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="上架数量" >
+      <el-input v-model="form.counter" autocomplete="off"></el-input>
+    </el-form-item>
+
+
+    <el-form-item label="国家" >
+        <el-select v-model="formInline.region" placeholder="国家" class="searchList">
+          <el-option label="中国" value="china"></el-option>
+          <el-option label="日本" value="japan"></el-option>
+          <el-option label="北美" value="noramerica"></el-option>
+          <el-option label="欧洲" value="europe"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="类型" >
+        <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
+          <el-option label="历史" value="history"></el-option>
+          <el-option label="文学" value="literature"></el-option>
+          <el-option label="军事" value="military"></el-option>
+          <el-option label="科学" value="science"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="篇幅" >
+        <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
+          <el-option label="短篇" value="short"></el-option>
+          <el-option label="中篇" value="mid"></el-option>
+          <el-option label="长篇" value="long"></el-option>
+          <el-option label="超长篇" value="splong"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="主题" >
+        <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
+          <el-option label="一" value="one"></el-option>
+          <el-option label="二" value="two"></el-option>
+          <el-option label="三" value="three"></el-option>
+          <el-option label="四" value="four"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="上架日期" :label-width="formLabelWidth">
+      <el-input v-model="form.date" autocomplete="off"></el-input>
+      </el-form-item>
+
+      <el-form-item label="简介" :label-width="formLabelWidth">
+      <el-input v-model="form.detail" autocomplete="off"></el-input>
+      </el-form-item>
+    
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="addBook = false">取 消</el-button>
+    <el-button type="primary" @click="addBook = false">上 架</el-button>
+  </div>
+</el-dialog>      
+
     </el-form>
 
     <el-input
@@ -58,8 +133,9 @@
       class="searchBox"
     ></el-input>
     <el-button type="primary" icon="el-icon-search" class="searchButton" @click="inittable()"
-      >搜索</el-button
-    >
+      >搜索</el-button>
+
+      
 
     <el-table :data="tableDataEnd" style="width: 90%" class="detail">
       <el-table-column fixed prop="date" label="上架日期" width="150">
@@ -70,23 +146,73 @@
       <el-table-column prop="city" label="库存" width="120"> </el-table-column>
       <el-table-column prop="address" label="出版社" width="300">
       </el-table-column>
-      <el-table-column prop="zip" label="ID" width="120"> </el-table-column>
-      <el-table-column fixed="right" label="详情" width="120">
-      <el-popover
-  placement="left"
-  width="600px"
-  trigger="click">
-  <el-table :data="gridData">
-    <el-table-column width="600" property="description" label="描述"></el-table-column>
-  </el-table>
-  <el-button slot="reference">详情</el-button>
-</el-popover>
-       
-      </el-table-column>
+      
+<el-table-column prop="city" label="下架" width="120" fixed="right"> 
+<el-button icon="el-icon-delete"
+          @click="deleteBook"
+          type="primary"
+          size="small"></el-button>
+</el-table-column>
+
       <el-table-column fixed="right" label="操作" width="120">
-        <el-button type="text" @click="open">借阅</el-button>
+        <el-button @click="setting=true"
+          type="text"
+          size="small">编辑</el-button>
       </el-table-column>
     </el-table>
+  
+  <el-dialog title="编辑书籍信息" :visible.sync="setting">
+  <el-form :model="form">
+    <el-form-item label="书名" :label-width="formLabelWidth">
+      <el-input v-model="form.name" autocomplete="off"></el-input>
+    </el-form-item>
+
+    <el-form-item label="简介" :label-width="formLabelWidth">
+      <el-input v-model="form.detail" autocomplete="off"></el-input>
+    </el-form-item>
+
+    <el-form-item label="国家" :label-width="formLabelWidth">
+        <el-select v-model="formInline.region" placeholder="国家" class="searchList">
+          <el-option label="中国" value="china"></el-option>
+          <el-option label="日本" value="japan"></el-option>
+          <el-option label="北美" value="noramerica"></el-option>
+          <el-option label="欧洲" value="europe"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="类型" :label-width="formLabelWidth">
+        <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
+          <el-option label="历史" value="history"></el-option>
+          <el-option label="文学" value="literature"></el-option>
+          <el-option label="军事" value="military"></el-option>
+          <el-option label="科学" value="science"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="篇幅" :label-width="formLabelWidth">
+        <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
+          <el-option label="短篇" value="short"></el-option>
+          <el-option label="中篇" value="mid"></el-option>
+          <el-option label="长篇" value="long"></el-option>
+          <el-option label="超长篇" value="splong"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="主题" :label-width="formLabelWidth">
+        <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
+          <el-option label="一" value="one"></el-option>
+          <el-option label="二" value="two"></el-option>
+          <el-option label="三" value="three"></el-option>
+          <el-option label="四" value="four"></el-option>
+        </el-select>
+      </el-form-item>
+    
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="setting = false">取 消</el-button>
+    <el-button type="primary" @click="setting = false">保 存</el-button>
+  </div>
+</el-dialog>
 
     <div>
       <el-pagination
@@ -100,6 +226,7 @@
       >
       </el-pagination>
     </div>
+    
   </div>
 </template>
 
@@ -108,10 +235,23 @@
 export default {
   data() {
     return {
+      addBook:false,
+        form: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
+        formLabelWidth: '120px',
+    
       gridData: [{
           description: '全球最大的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。百度超过千亿的中文网页数据库，可以瞬间找到相关的搜索结果。',
         }],
-      imgSrc: require("../../assets/img/2.jpg"),
+      imgSrc: require("../../assets/img/3.jpg"),
       tableDataEnd: [],
       tableDataBegin: [
         {
@@ -234,25 +374,6 @@ export default {
     };
   },
   methods: {
-    open() {
-      this.$confirm("你是否确定借阅此书籍?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "已预约借阅!",
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消借阅",
-          });
-        });
-    },
     onSubmit() {
       console.log("submit!");
     },
@@ -301,7 +422,15 @@ export default {
   position: absolute;
 }
 
+.searchList{
+  opacity: 0.8;
+}
+
 .firstSearch {
+  opacity: 0.7;
+}
+
+.settingButton{
   opacity: 0.7;
 }
 
