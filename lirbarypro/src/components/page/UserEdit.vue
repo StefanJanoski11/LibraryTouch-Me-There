@@ -40,8 +40,8 @@
                   placeholder="选择性别"
                   :disabled="isAble"
                 >
-                  <el-option label="男" value="M"></el-option>
-                  <el-option label="女" value="F"></el-option>
+                  <el-option label="男" value="1"></el-option>
+                  <el-option label="女" value="0"></el-option>
                 </el-select>
               </el-form-item>
             </div>
@@ -53,7 +53,7 @@
             
               <el-form-item prop="date1">
                 <el-date-picker
-                  type="month"
+                  type="date"
                   placeholder="选择年月"
                   v-model="ruleForm.date"
                   :disabled="isAble"
@@ -174,7 +174,7 @@ export default {
       rules: {
         name: [
           { required: true, message: "输入名字", trigger: "blur" },
-          { min: 2, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { min: 8, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" },
         ],
         sex: [{ required: true, message: "请选择性别", trigger: "change" }],
         date: [

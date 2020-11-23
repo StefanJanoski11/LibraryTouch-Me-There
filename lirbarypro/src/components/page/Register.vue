@@ -11,21 +11,42 @@
     >
       <h2 class="login-title">注册</h2>
 
-      <el-form-item label="ID" placeholder="ID">
-        <el-input v-model="form.ID" maxlength="30" show-word-limit> </el-input>
-      </el-form-item>
-
-      <el-form-item label="姓名" placeholder="姓名">
-        <el-input v-model="form.name" maxlength="30" show-word-limit>
+      <el-form-item label="姓名" placeholder="姓名" prop="user_name">
+        <el-input v-model="form.user_name" maxlength="30" show-word-limit>
         </el-input>
       </el-form-item>
 
-      <el-form-item label="邮箱" placeholder="邮箱">
-        <el-input v-model="form.eamil" maxlength="30"> </el-input>
+      <el-form-item label="邮箱" placeholder="邮箱" prop="user_email">
+        <el-input v-model="form.user_email" maxlength="30"> </el-input>
       </el-form-item>
 
-      <el-form-item prop="phone" label="电话" placeholder="手机号码">
-        <el-input v-model="form.phone"> </el-input>
+      <el-form-item label="性别" prop="user_sex">
+        <el-select
+          style="width: 100%"
+          v-model="form.user_sex"
+          placeholder="选择性别"
+        >
+          <el-option label="男" value="1"></el-option>
+          <el-option label="女" value="0"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="出生年月" required>
+        <el-form-item prop="user_birthday">
+          <el-date-picker
+            type="date"
+            placeholder="选择年月"
+            v-model="form.user_birthday"
+            style="width: 100%"
+          ></el-date-picker>
+        </el-form-item>
+      </el-form-item>
+
+      <el-form-item prop="user_address" label="地址" placeholder="地址">
+        <el-input v-model="form.user_address" maxlength="30"> </el-input>
+      </el-form-item>
+
+      <el-form-item prop="user_phone" label="电话" placeholder="手机号码">
+        <el-input v-model="form.user_phone"> </el-input>
         <el-button @click="getVerrifyCode">{{ form.btnTitle }}</el-button>
       </el-form-item>
 
@@ -36,7 +57,7 @@
       <el-form-item label="输入密码" placeholder="输入密码" prop="password">
         <el-input
           type="password"
-          v-model="form.password"
+          v-model="form.user_password"
           autocomplete="off"
           maxlength="30"
           show-password
@@ -44,10 +65,10 @@
         </el-input>
       </el-form-item>
 
-      <el-form-item label="确认密码" prop="password2">
+      <el-form-item label="确认密码" prop="checkPassword">
         <el-input
           type="password"
-          v-model="form.password2"
+          v-model="form.checkPassword"
           autocomplete="off"
           maxlength="30"
         ></el-input>
@@ -110,28 +131,65 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.form.password) {
+      } else if (value !== this.form.user_password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
     };
-
     return {
       form: {
-        name: "",
-        ID: "",
-        eamil: "",
-        phone: "", //手机号
+        user_name: "",
+        user_email: "",
+        user_sex: "",
+        user_birthday: "",
+        user_phone: "", //手机号
         verifyCode: "", //验证码
+        user_address: "",
+        user_password: "",
+        checkPassword: "",
         btnTitle: "获取验证码",
-        password: "",
-        password2: "",
       },
+      realVerifyCode: "",
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
-        password2: [{ validator: validatePass2, trigger: "blur" }],
-        phone: [
+        user_name: [
+          { required: true, message: "输入名字", trigger: "blur" },
+          {
+            min: 3,
+            max: 20,
+            message: "长度在 3 到 20 个字符",
+            trigger: "blur",
+          },
+        ],
+        user_password: [
+          { validator: validatePass, trigger: "blur" },
+          { required: true, message: "输入密码", trigger: "blur" },
+        ],
+        checkPassword: [
+          { validator: validatePass2, trigger: "blur" },
+          { required: true, message: "输入确认密码", trigger: "blur" },
+        ],
+        user_address: [
+          {
+            required: true,
+            message: "目前只支持中国大陆的手机号码",
+            trigger: "blur",
+          },
+        ],
+        user_email: [{ type: "email", required: true, trigger: "change" }],
+        user_sex: [
+          { required: true, message: "请选择性别", trigger: "change" },
+        ],
+        user_birthday: [
+          {
+            type: "date",
+            format: "yyyy-MM-dd",
+            required: true,
+            message: "请选择日期",
+            trigger: "change",
+          },
+        ],
+        user_phone: [
           {
             required: true,
             pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/,
@@ -140,7 +198,7 @@ export default {
           },
         ],
       },
-      verifyCode:null
+      verifyCode: null,
     };
   },
   props: {
@@ -157,68 +215,104 @@ export default {
     onSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if(this.verifyCode == this.form.verifyCode){
+          console.log(this.realVerifyCode);
+          if (this.realVerifyCode == this.form.verifyCode) {
+            console.log(this.form);
             this.axios({
-            method: "post",
-            url: "http://10.10.102.142:8080/user/register",
-            data: this.$qs.stringify(this.form),
-            headers: {
-              "Content-Type":
-                "application/x-www-form-urlencoded; charset=UTF-8",
-            },
-          })
-            .then((response) => {
-              console.log(response+"--------------------------------------------------记得删掉");
-              
+              method: "post",
+              url: "http://10.10.102.142:8080/user/register",
+              params: {
+                user_name: this.form.user_name,
+                user_email: this.form.user_email,
+                user_sex: this.form.user_sex,
+                user_birthday: this.form.user_birthday,
+                user_phone: this.form.user_phone, //手机号
+                verifyCode: this.form.verifyCode, //验证码
+                user_address: this.form.user_address, //地址
+                user_password: this.form.user_password,
+                checkPassword: this.form.checkPassword,
+              },
+              headers: {
+                "Content-Type":
+                  "application/x-www-form-urlencoded; charset=UTF-8",
+              },
             })
-            .catch((error) => {
-              console.log(error+"--------------------------------------------------记得删掉");
-            });}else{
-              alert("验证码错误--------------------------------------------------记得删掉");
-            }
-          
+              .then((response) => {
+                console.log(
+                  response +
+                    "注册成功-------------------------------------------------记得删掉"
+                );
+                this.open();
+              })
+              .catch((error) => {
+                console.log(
+                  error +
+                    "--------------------------------------------------记得删掉"
+                );
+              });
+          } else {
+            alert(
+              "验证码错误--------------------------------------------------记得删掉"
+            );
+          }
         } else {
-          console.log("获取失败，请重试！--------------------------------------------------记得删掉");
+          console.log(
+            "获取失败，请重试！--------------------------------------------------记得删掉"
+          );
           return false;
         }
       });
     },
+    open() {
+        this.$alert('您已经注册成功，点击确认可返回登录。', '好果汁图书馆欢迎您', {
+          confirmButtonText: '确定',
+          callback: action => {
+             this.$router.push('/');
+          }
+        });
+      },
     getVerrifyCode() {
-      //先判断phone
+      //先判断user_phone
       this.$refs.form.validate((valid) => {
         if (valid) {
-          alert("submit!--------------------------------------------------记得删掉");
-          //axios传phone
+          //axios传user_phone
           this.axios({
             method: "get",
-            url: "http://10.10.102.142:8080/user/",
-            data: this.$qs.stringify(this.form.phone),
+            url: "http://10.10.102.142:8080/message/send",
+            params: {
+              user_phone: this.form.user_phone,
+            },
             headers: {
               "Content-Type":
                 "application/x-www-form-urlencoded; charset=UTF-8",
             },
           })
             .then((response) => {
-              console.log(response+"--------------------------------------------------记得删掉");
-              this.verifyCode = response.data;
+              console.log(response.data.object);
+              this.realVerifyCode = response.data.object;
               //获取后计时
 
               let time = 60;
               let timer = setInterval(() => {
                 if (time == 0) {
                   clearInterval(timer);
-                  this.btnTitle = "重新获取验证码";
+                  this.form.btnTitle = "重新获取验证码";
                 } else {
-                  this.btnTitle = time + "秒后重试";
+                  this.form.btnTitle = time + "秒后重试";
                   time--;
                 }
               }, 1000);
             })
             .catch((error) => {
-              console.log(error+"--------------------------------------------------记得删掉");
+              console.log(
+                error +
+                  "--------------------------------------------------记得删掉"
+              );
             });
         } else {
-          console.log("获取失败，请重试！--------------------------------------------------记得删掉");
+          console.log(
+            "获取失败，请重试！--------------------------------------------------记得删掉"
+          );
           return false;
         }
       });
@@ -262,5 +356,4 @@ export default {
   left: 1100px;
   top: 560px;
 }
-</style> -->
 </style>

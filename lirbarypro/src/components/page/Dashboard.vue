@@ -8,7 +8,7 @@
               <div class="grid-content grid-con-1">
                 <i class="el-icon-top-left grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.dayRent }}</div>
+                  <div class="grid-num">{{ this.summary.currentDayLend }}</div>
                   <div>今日借出统计</div>
                 </div>
               </div>
@@ -19,8 +19,8 @@
               <div class="grid-content grid-con-2">
                 <i class="el-icon-top grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.monthRent }}</div>
-                  <div>今月借出统计</div>
+                  <div class="grid-num">{{ this.summary.currentWeekLend }}</div>
+                  <div>今周借出统计</div>
                 </div>
               </div>
             </el-card>
@@ -30,8 +30,8 @@
               <div class="grid-content grid-con-3">
                 <i class="el-icon-top-right grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.yearRent }}</div>
-                  <div>年度借出统计</div>
+                  <div class="grid-num">{{ this.summary.currentMonthLend }}</div>
+                  <div>今月借出统计</div>
                 </div>
               </div>
             </el-card>
@@ -47,7 +47,7 @@
               <div class="grid-content grid-con-1">
                 <i class="el-icon-bottom-left grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.dayReturn }}</div>
+                  <div class="grid-num">{{ this.summary.currentDayReturn }}</div>
                   <div>今日归还统计</div>
                 </div>
               </div>
@@ -58,8 +58,8 @@
               <div class="grid-content grid-con-2">
                 <i class="el-icon-bottom grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.monthReturn }}</div>
-                  <div>今月归还统计</div>
+                  <div class="grid-num">{{ this.summary.currentWeekReturn }}</div>
+                  <div>今周归还统计</div>
                 </div>
               </div>
             </el-card>
@@ -69,8 +69,8 @@
               <div class="grid-content grid-con-3">
                 <i class="el-icon-bottom-right grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">{{ this.summary.yearReturn }}</div>
-                  <div>年度归还统计</div>
+                  <div class="grid-num">{{ this.summary.currentMonthReturn }}</div>
+                  <div>今月归还统计</div>
                 </div>
               </div>
             </el-card>
@@ -78,19 +78,6 @@
         </el-row>
       </el-col>
     </el-row>
-    <!-- <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-                </el-card>
-            </el-col>
-        </el-row> -->
-
     <el-row :gutter="20">
       <el-col :span="4">
        
@@ -134,60 +121,15 @@ export default {
       notice: "",
       editVisible: false,
       summary: {
-        dayRent: 0,
-        monthRent: 0,
-        yearRent: 0,
-        dayReturn: 0,
-        monthReturn: 0,
-        yearReturn: 0,
+        currentDayLend: 0,
+        currentWeekLend: 0,
+        currentMonthLend: 0,
+        currentDayReturn: 0,
+        currentWeekReturn: 0,
+        currentMonthReturn: 0,
       },
-      options: {
-        type: "bar",
-        title: {
-          text: "最近一周各品类销售图",
-        },
-        xRorate: 25,
-        labels: ["周一", "周二", "周三", "周四", "周五"],
-        datasets: [
-          {
-            label: "家电",
-            data: [234, 278, 270, 190, 230],
-          },
-          {
-            label: "百货",
-            data: [164, 178, 190, 135, 160],
-          },
-          {
-            label: "食品",
-            data: [144, 198, 150, 235, 120],
-          },
-        ],
-      },
-      options2: {
-        type: "line",
-        title: {
-          text: "最近几个月各品类销售趋势图",
-        },
-        labels: ["6月", "7月", "8月", "9月", "10月"],
-        datasets: [
-          {
-            label: "家电",
-            data: [234, 278, 270, 190, 230],
-          },
-          {
-            label: "百货",
-            data: [164, 178, 150, 135, 160],
-          },
-          {
-            label: "食品",
-            data: [74, 118, 200, 235, 90],
-          },
-        ],
-      },
+      
     };
-  },
-  components: {
-    Schart,
   },
   methods: {
     // 编辑操作
@@ -199,11 +141,16 @@ export default {
 
       Vue.axios({
       method: "post",
-      url: "",
-      data: this.notice,
+      url: "http://10.10.102.143:8080/record/addNotice",
+      params:{
+        notice:this.notice
+      },
+       headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
     })
       .then((response) => {
-        this.notice = response.data.notice;
+          
       })
       .catch((error) => {
         console.log(error);
@@ -212,9 +159,10 @@ export default {
     },
   },
   mounted() {
+    //获取统计
     Vue.axios({
       method: "get",
-      url: "../../../static/mock/Dshboard.json",
+      url: "http://10.10.102.142:8080/record/getStatistic",
       data: "",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -222,19 +170,34 @@ export default {
     })
       .then((response) => {
         console.log(response);
-        this.summary.dayRent = response.data.summary.dayRent;
-        this.summary.monthRent = response.data.summary.monthRent;
-        this.summary.yearRent = response.data.summary.yearRent;
-        this.summary.dayReturn = response.data.summary.dayReturn;
-        this.summary.monthReturn = response.data.summary.monthReturn;
-        this.summary.yearReturn = response.data.summary.yearReturn;
-        this.notice = response.data.notice;
+        this.summary.currentDayLend = response.data.object.currentDayLend;
+        this.summary.currentWeekLend = response.data.object.currentWeekLend;
+        this.summary.currentMonthLend = response.data.object.currentMonthLend;
+        this.summary.currentDayReturn = response.data.object.currentDayReturn;
+        this.summary.currentWeekReturn = response.data.object.currentWeekReturn;
+        this.summary.currentMonthReturn = response.data.object.currentMonthReturn;
         console.log(this.summary.dayReturn);
         console.log(response.data.dayReturn);
       })
       .catch((error) => {
         console.log(error);
-      });
+    });
+    //获取公告
+    Vue.axios({
+      method: "get",
+      url: "http://10.10.102.143:8080/record/quaryNotice",
+      data: "",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        this.notice = response.data.object.notice_text;
+        
+      })
+      .catch((error) => {
+        console.log(error);
+    });
   },
 };
 </script>
@@ -345,8 +308,4 @@ export default {
   color: #999;
 }
 
-.schart {
-  width: 100%;
-  height: 300px;
-}
 </style>
