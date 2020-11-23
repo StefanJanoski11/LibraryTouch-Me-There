@@ -1,5 +1,6 @@
 package cn.Boys.library.service;
 
+import cn.Boys.library.dto.Result;
 import cn.Boys.library.entity.User;
 
 public interface UserService {
@@ -9,5 +10,11 @@ public interface UserService {
 
     public User selectUserByUsername(String username);
 
-    public Boolean checkUserInvalid(User user, String checkPassword);
+    //模糊查询用户
+    public Result quaryUserByName(String name);
+    //删除用户
+    public Result deleteUser(Integer userId);
+    //查询所有存在用户
+    public Result selectUserExist();
+
 }

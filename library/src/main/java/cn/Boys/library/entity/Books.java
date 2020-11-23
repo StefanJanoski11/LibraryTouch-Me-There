@@ -3,25 +3,27 @@ package cn.Boys.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Books {
+public class Books implements Serializable {
     private Integer books_id;
     private Integer books_type;
     private String books_name;
     private String books_author;
     private Integer books_last;
-    private Integer books_state;
+    private Integer books_state=1;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date books_registerDate;
+    private Date books_registerDate=new Date();
     private String books_pic;
-    private Integer books_daily;
-    private Integer books_weekly;
-    private Integer books_monthly;
+    private Integer books_daily=0;
+    private Integer books_weekly=0;
+    private Integer books_monthly=0;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date books_createTime;
+    private Date books_createTime=new Date();
     private Integer books_publisherId;
     private Integer books_modifiedId;
 

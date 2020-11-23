@@ -1,18 +1,25 @@
 package cn.Boys.library.service.impl;
 
+import cn.Boys.library.dto.Result;
 import cn.Boys.library.entity.User;
+import cn.Boys.library.enums.ResultEnum;
+import cn.Boys.library.mapper.UserMapper;
 import cn.Boys.library.service.UserService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import java.util.Date;
-import java.util.regex.Pattern;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Log4j.class);
     @Autowired
     RedisTemplate redisTemplate;
+    @Autowired
+    UserMapper userMapper;
 
     public Boolean checkPassword(String password, String check_password) {
         if (password.compareTo(check_password) == 0) {
@@ -21,11 +28,11 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-
     public Boolean putUserInRedis(User user) {
         try {
             redisTemplate.opsForHash().put("user", user.getUser_name(), user);
-            System.out.println("hash值为user,key为" + user.getUser_name() + ",value为" + user);
+            redisTemplate.expire("user",30, TimeUnit.MINUTES);
+            log.info("hash值为user,key为" + user.getUser_name() + ",value为" + user);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,38 +42,43 @@ public class UserServiceImpl implements UserService {
 
     public User selectUserByUsername(String username) {
         if (redisTemplate.opsForHash().hasKey("user", username) && redisTemplate.opsForHash().get("user", username) != null) {/*包含这个用户名hashKey*/
-            System.out.println("redis中找到了");
-            return (User) redisTemplate.opsForHash().get("user", username);
+            User user = (User) redisTemplate.opsForHash().get("user", username);
+            log.info(user.toString());
+            if (user.getUser_exist_state() == 1){
+                log.info("redis中找到了");
+                return user;
+            }
+            return null;
         }
         return null;/*在redis中没找到*/
     }
 
-    public Boolean checkUserInvalid(User user, String checkPassword) {
-        if (user != null) {
-            /*用户名判断，允许出现20个字符长度，并且不能为空*/
-            if (user.getUser_name().length() == 0 || user.getUser_name().length() > 20) return false;/*用户名不匹配则报错*/
-            /*确认密码与原密码相同，并且不能为空*/
-            if (!StringUtils.isEmpty(user.getUser_password()) && !user.getUser_password().equals(checkPassword)) return false;
-            /*性别只能出现0或1*/
-            if (user.getUser_sex() != 1 && user.getUser_sex() != 0) return false;
-            /*手机号码*/
-            Pattern pattern = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
-            if (!pattern.matcher(user.getUser_phone()).find()) return false;
-            /*判断日期是否是将来日期*/
-            if (user.getUser_birthday().after(new Date())) return false;
-            /*限制居住地址在100字符长度*/
-            if (!StringUtils.isEmpty(user.getUser_address()) && user.getUser_address().length() > 100) return false;
-            /*个人描述限制100字符长度*/
-            if (!StringUtils.isEmpty(user.getUser_self_desc()) && user.getUser_self_desc().length() > 100) return false;
-            /*通过上述判断后，则表示合格*/
-            user.setUser_identity_id(1);/*普通用户*/
-            user.setUser_sincerity(0);/*无不良记录*/
-            user.setUser_exist_state(1);/*状态存在*/
-            user.setUser_create_admin(0);/*0表示注册*/
-            user.setUser_alter_admin(0);
-            return true;
-        } else {
-            return false;
+    //模糊查询
+    @Override
+    public Result quaryUserByName(String name) {
+        List<User> list = userMapper.queryUserByName(name);
+        if( list.size()==0){
+            return  new Result(null, ResultEnum.NOT_FOUND);
         }
+        return new Result(list,ResultEnum.OK);
     }
+
+    @Override
+    public Result deleteUser(Integer userId) {
+        int res = userMapper.deleteUser(userId);
+        if(res==0){
+            return new Result(res,ResultEnum.NOT_ACCEPTABLE);
+        }
+        return new Result(res, ResultEnum.OK);
+    }
+
+    @Override
+    public Result selectUserExist() {
+        List<User> list = userMapper.selectUserExist();
+        if( list.size()==0){
+            return  new Result(null, ResultEnum.NOT_FOUND);
+        }
+        return new Result(list,ResultEnum.OK);
+    }
+
 }

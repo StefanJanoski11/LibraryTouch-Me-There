@@ -1,6 +1,6 @@
 package cn.Boys.library.enums;
 
-public enum userSincerityEnum {
+public enum UserSincerityEnum {
     LOWEST(-2,"借书不还的无耻之徒！"),
     LOW(-1,"存在借书不还记录"),
     ORDINARY(0,"无不良记录");
@@ -9,7 +9,7 @@ public enum userSincerityEnum {
     private Integer state;
     private String describe;
 
-    userSincerityEnum(Integer state, String describe) {
+    UserSincerityEnum(Integer state, String describe) {
         this.state = state;
         this.describe = describe;
     }
@@ -22,12 +22,14 @@ public enum userSincerityEnum {
         return describe;
     }
 
-    public static userSincerityEnum stateOf(Integer index){
-        for (userSincerityEnum sincerity: values()) {
+    public static UserSincerityEnum stateOf(Integer index){
+        for (UserSincerityEnum sincerity: values()) {
             if(sincerity.state == index){
                 return sincerity;
             }
         }
         return null;
     }
+
+
 }

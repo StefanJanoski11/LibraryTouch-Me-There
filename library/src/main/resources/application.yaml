@@ -1,6 +1,10 @@
 server:
   port: 8080
 spring:
+  mail:
+    host: smtp.163.com  #登录邮箱设置那里可以看到,SMTP服务器
+    password: UMZMRMBNPCGDNISD #密码是设置的授权密码
+    username: 13630455401@163.com
   redis:
     #redis数据库索引(默认为0)
     database: 0
@@ -33,27 +37,3 @@ mybatis:
 #  config-location: classpath:mybatis/mybatis-config.xml
   # 指定sql映射文件位置
   mapper-locations: classpath:mapper/*.xml
-
-logging:
-  # 在当前磁盘的根路径下创建spring文件夹和里面的log文件夹;
-  #使用 spring.log 作为默认文件;
-  #当file和path同时使用时,以file为准
-  #  在控制台输出的日志的格式
-  pattern:
-    console: '%d{yyyy-MM-dd} [%thread] %-5level %logger{50} - %msg%n'
-    # 指定文件中日志输出的格式
-    file: '%d{yyyy-MM-dd} === [%thread] === %-5level === %logger{50} === - %msg%n'
-  file:
-    name: springboot.log
-  #文件上传相关设置
-  servlet:
-    multipart:
-      max-file-size: 10Mb
-      max-request-size: 100Mb
-  #devtools插件
-  devtools:
-    livereload:
-      enabled: true #是否支持livereload
-      port: 35729
-    restart:
-      enabled: true #是否支持热部署
