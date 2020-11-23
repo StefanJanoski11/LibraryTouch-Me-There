@@ -78,19 +78,6 @@
         </el-row>
       </el-col>
     </el-row>
-    <!-- <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-                </el-card>
-            </el-col>
-        </el-row> -->
-
     <el-row :gutter="20">
       <el-col :span="4">
        
@@ -141,53 +128,8 @@ export default {
         currentWeekReturn: 0,
         currentMonthReturn: 0,
       },
-      options: {
-        type: "bar",
-        title: {
-          text: "最近一周各品类销售图",
-        },
-        xRorate: 25,
-        labels: ["周一", "周二", "周三", "周四", "周五"],
-        datasets: [
-          {
-            label: "家电",
-            data: [234, 278, 270, 190, 230],
-          },
-          {
-            label: "百货",
-            data: [164, 178, 190, 135, 160],
-          },
-          {
-            label: "食品",
-            data: [144, 198, 150, 235, 120],
-          },
-        ],
-      },
-      options2: {
-        type: "line",
-        title: {
-          text: "最近几个月各品类销售趋势图",
-        },
-        labels: ["6月", "7月", "8月", "9月", "10月"],
-        datasets: [
-          {
-            label: "家电",
-            data: [234, 278, 270, 190, 230],
-          },
-          {
-            label: "百货",
-            data: [164, 178, 150, 135, 160],
-          },
-          {
-            label: "食品",
-            data: [74, 118, 200, 235, 90],
-          },
-        ],
-      },
+      
     };
-  },
-  components: {
-    Schart,
   },
   methods: {
     // 编辑操作
@@ -199,11 +141,16 @@ export default {
 
       Vue.axios({
       method: "post",
-      url: "",
-      data: this.notice,
+      url: "http://10.10.102.143:8080/record/addNotice",
+      params:{
+        notice:this.notice
+      },
+       headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
     })
       .then((response) => {
-        this.notice = response.data.notice;
+          
       })
       .catch((error) => {
         console.log(error);
@@ -236,6 +183,21 @@ export default {
         console.log(error);
     });
     //获取公告
+    Vue.axios({
+      method: "get",
+      url: "http://10.10.102.143:8080/record/quaryNotice",
+      data: "",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        this.notice = response.data.object.notice_text;
+        
+      })
+      .catch((error) => {
+        console.log(error);
+    });
   },
 };
 </script>
@@ -346,8 +308,4 @@ export default {
   color: #999;
 }
 
-.schart {
-  width: 100%;
-  height: 300px;
-}
 </style>

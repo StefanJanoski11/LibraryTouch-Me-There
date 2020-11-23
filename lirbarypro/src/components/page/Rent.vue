@@ -1,17 +1,15 @@
 <template>
   <div>
-    <el-input v-model="tableDataName" placeholder="请输入姓名" style="width:240px"></el-input>
-    <el-button type="primary" @click="doFilter">搜索</el-button>
+    <el-input v-model="tableDataName" placeholder="请输入书名" style="width:240px"></el-input>
+    <el-button type="primary"  @click="doFilter">搜索</el-button>
     <el-table :data="tableDataEnd" border style="margin-top: 25px">
-          <el-table-column prop="BookName" label="书名" width="240">
+          <el-table-column prop="book_name" label="书名" width="240">
           </el-table-column>
-          <el-table-column prop="Author" label="作者" width="200">
+          <el-table-column prop="user_name" label="借阅人" width="200">
           </el-table-column>
-          <el-table-column prop="type" label="类型" width="200">
+          <el-table-column prop="book_lend_date" label="借出日期" width="200">            
           </el-table-column>
-          <el-table-column prop="registerDate" label="上架日期" width="200">            
-          </el-table-column>
-          <el-table-column prop="last" label="剩余数量" width="100">
+          <el-table-column prop="book_return_date" label="归还日期" width="200">            
           </el-table-column>
           <el-table-column label="操作" width="120">
             <template slot-scope="scope">
@@ -33,22 +31,22 @@
         >
         </el-pagination>
         <el-dialog
-          title="借阅详情"
+          title="书本详情"
           :visible.sync="dialogTableVisible"
           width="720px"
         >
-          <el-table :data="table2">
-            <el-table-column
-              prop="BookName"
-              label="书籍"
-              width="160"
-            ></el-table-column>
-            <el-table-column
-              prop="Author"
-              label="作者"
-              width="120"
-            ></el-table-column>
-          </el-table>
+          <el-row :model="bookDetail" label-width="70px">
+        <el-col :span="12"> 书名：{{ bookDetail.books_name }} </el-col>
+        <el-col :span="12"> 作者:{{ bookDetail.books_author }} </el-col>
+        <el-col :span="12"> 国家：{{ bookDetail.info_country }} </el-col>
+        <el-col :span="12"> 类型:{{ bookDetail.info_theme }} </el-col>
+        <el-col :span="12"> 剩余数量{{ bookDetail.books_last }} </el-col>
+        <el-col :span="24"> 上架日期:{{ bookDetail.books_registerDate }} </el-col>
+      </el-row>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogTableVisible = false">关 闭</el-button>
+        
+      </span>
         </el-dialog>
   </div>
 </template>
@@ -62,35 +60,27 @@ import Vue from "vue";
         tableDataEnd: [],//最终显示
         table2:[],//弹窗显示
         currentPage: 1,
-        pageSize: 2,
+        pageSize: 4,
         totalItems: 0,
         filterTableDataEnd:[],
         flag:false,
         dialogTableVisible: false,
+        bookDetail:{}
       };
-    },
-    created() {
-      this.totalItems = this.tableDataBegin.length;
-      if (this.totalItems > this.pageSize) {
-        for (let index = 0; index < this.pageSize; index++) {
-          this.tableDataEnd.push(this.tableDataBegin[index]);
-        }
-      } else {
-        this.tableDataEnd = this.tableDataBegin;
-      }
     },
     mounted() {
     Vue.axios({
       method: "get",
-      url: "../../../static/mock/BookBAR.json",
+      url: "http://10.10.102.143:8080/record/getAll",
       data: "",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
     })
       .then((response) => {
+        console.log(response.data)
         this.tableDataBegin = [];
-        this.tableDataBegin = response.data.tableDataBegin;
+        this.tableDataBegin = response.data;
         this.totalItems = this.tableDataBegin.length;
         if (this.totalItems > this.pageSize) {
           //如果有好多，只需要第一页的数据
@@ -109,27 +99,53 @@ import Vue from "vue";
       //前端搜索功能需要区分是否检索,因为对应的字段的索引不同
       //用两个变量接收currentChangePage函数的参数
       doFilter() {
-        if (this.tableDataName == "") {
-          this.$message.warning("查询条件不能为空！");
-          return;
-        }
-        this.tableDataEnd = []
-        //每次手动将数据置空,因为会出现多次点击搜索情况
-        this.filterTableDataEnd=[]
-        this.tableDataBegin.forEach((value, index) => {
-          if(value.name){
-            if(value.name.indexOf(this.tableDataName)>=0){
-              this.filterTableDataEnd.push(value)
-            }
+        Vue.axios({
+      method: "get",
+      url: "http://10.10.102.143:8080/book/quaryName",
+      params: {name:this.tableDataName},
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        console.log(response.data)
+        this.tableDataBegin = [];
+        this.tableDataBegin = response.data;
+        this.totalItems = this.tableDataBegin.length;
+        if (this.totalItems > this.pageSize) {
+          //如果有好多，只需要第一页的数据
+          for (let index = 0; index < this.pageSize; index++) {
+            this.tableDataEnd.push(this.tableDataBegin[index]);
           }
-        });
-        //页面数据改变重新统计数据数量和当前页
-        this.currentPage=1
-        this.totalItems=this.filterTableDataEnd.length
-        //渲染表格,根据值
-        this.currentChangePage(this.filterTableDataEnd)
-        //页面初始化数据需要判断是否检索过
-        this.flag=true
+        } else {
+          this.tableDataEnd = this.tableDataBegin;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+        // if (this.tableDataName == "") {
+        //   this.$message.warning("查询条件不能为空！");
+        //   return;
+        // }
+        // this.tableDataEnd = []
+        // //每次手动将数据置空,因为会出现多次点击搜索情况
+        // this.filterTableDataEnd=[]
+        // this.tableDataBegin.forEach((value, index) => {
+        //   if(value.name){
+        //     if(value.name.indexOf(this.tableDataName)>=0){
+        //       this.filterTableDataEnd.push(value)
+        //     }
+        //   }
+        // });
+        // //页面数据改变重新统计数据数量和当前页
+        // this.currentPage=1
+        // this.totalItems=this.filterTableDataEnd.length
+        // //渲染表格,根据值
+        // this.currentChangePage(this.filterTableDataEnd)
+        // //页面初始化数据需要判断是否检索过
+        // this.flag=true
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
@@ -158,8 +174,24 @@ import Vue from "vue";
         }
       },
        info(index, row) {
-      this.table2 = [];
-      this.table2.push(this.tableDataEnd[index]);
+         console.log(row.book_id);
+         Vue.axios({
+      method: "get",
+      url: "http://10.10.102.143:8080//book/getBookAllInfo",
+      params: {id:row.book_id},
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        console.log(response.data)
+        this.bookDetail = response.data.object;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      
       this.dialogTableVisible = true;
     },
     }
