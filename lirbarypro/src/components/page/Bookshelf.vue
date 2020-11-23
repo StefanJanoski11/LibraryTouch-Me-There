@@ -16,17 +16,9 @@
           </el-table>
         <el-image :src="book.img" class="image" slot="reference"></el-image>
       </el-popover>
-
-
-
-      
-
     </div>
       
       <div style="padding: 14px;">
-
-
-
         <el-collapse accordion>
           <el-collapse-item>
             <template slot="title" class="itembg">
@@ -36,9 +28,6 @@
             
           </el-collapse-item>
         </el-collapse>
-
-
-
         <div class="bottom clearfix">
           <time class="time">{{ currentDate }}</time>
           <el-button type="text" class="button" @click="returnbook(index)">还书</el-button>
@@ -116,6 +105,23 @@ export default {
       currentDate: new Date()
     };
   },
+ mounted() {
+   Vue.axios({
+      method: "get",
+      url: "http://10.10.102.142:8080/",
+      data: "",
+      headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+    .then((response) => {
+        
+    })
+    .catch((error) => {
+        this.$message.error("登录失败，请重新登录");
+        console.log(error);
+    });
+ },
   methods:{
     returnbook(index){
       

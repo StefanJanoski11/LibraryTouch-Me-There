@@ -60,6 +60,7 @@ export default {
                         },
                     })
                     .then((response) => {
+                        console.log(response);
                     // 这要先赋值临时name才能赋值成功，很怪
                     let name = response.data.object.user_name;
                     window.sessionStorage.setItem('ms_username', name);
@@ -69,7 +70,7 @@ export default {
                     if(userType == 1){
                         this.$router.push('/admin');
                     }else if(userType == 0){
-                        this.$router.push('/user');
+                       this.$router.push('/user');
                     }                            
                         this.$message.success('登录成功'); 
                     })

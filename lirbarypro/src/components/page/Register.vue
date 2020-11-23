@@ -140,6 +140,7 @@ export default {
           },
         ],
       },
+      verifyCode:null
     };
   },
   props: {
@@ -154,12 +155,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("提交成功--------------------------------------------------记得删掉");
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.axios({
+          if(this.verifyCode == this.form.verifyCode){
+            this.axios({
             method: "post",
-            url: "",
+            url: "http://10.10.102.142:8080/user/register",
             data: this.$qs.stringify(this.form),
             headers: {
               "Content-Type":
@@ -172,7 +173,10 @@ export default {
             })
             .catch((error) => {
               console.log(error+"--------------------------------------------------记得删掉");
-            });
+            });}else{
+              alert("验证码错误--------------------------------------------------记得删掉");
+            }
+          
         } else {
           console.log("获取失败，请重试！--------------------------------------------------记得删掉");
           return false;
@@ -187,7 +191,7 @@ export default {
           //axios传phone
           this.axios({
             method: "get",
-            url: "",
+            url: "http://10.10.102.142:8080/user/",
             data: this.$qs.stringify(this.form.phone),
             headers: {
               "Content-Type":
@@ -196,7 +200,7 @@ export default {
           })
             .then((response) => {
               console.log(response+"--------------------------------------------------记得删掉");
-              this.form.verifyCode = response.data;
+              this.verifyCode = response.data;
               //获取后计时
 
               let time = 60;

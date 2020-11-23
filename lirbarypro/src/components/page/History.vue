@@ -10,14 +10,7 @@
           ></el-input>
           <el-button type="primary" @click="doFilter">搜索</el-button>
 
-          <el-select v-model="state" placeholder="请选择" @change="changeState">
-          <el-option
-            v-for="item in returnState"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-  </el-select>
+          
         </div>
 
         <el-table :data="tableDataEnd" border style="margin-top: 25px">
@@ -114,7 +107,7 @@ export default {
           value: 'false',
           label: '未还'
         }],
-        state: ''
+        
     };
   },
   mounted() {
@@ -202,9 +195,7 @@ export default {
       this.table2.push(this.tableDataEnd[index]);
       this.dialogTableVisible = true;
     },
-    changeState(){
-      //搜索特定状态的记录
-    },
+    
   },
 };
 </script>
