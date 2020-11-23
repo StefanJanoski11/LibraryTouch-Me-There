@@ -43,7 +43,7 @@ export default new Router({
                 },
                 {
                     path: 'library',
-                    component: Dashboard,
+                    component: ManagerLibrary,
                     meta: { title: '书库' }
                 }
             ]
@@ -52,16 +52,7 @@ export default new Router({
             path: '/user',
             redirect: '/user/library'
         },
-        {
-            path: '/UserLibrary',
-            component: UserLibrary,
-            name: 'UserLibrary'
-        },
-        {
-            path: '/ManagerLibrary',
-            component: ManagerLibrary,
-            name: 'ManagerLibrary'
-        },
+
         {
             path: '/user',
             component: UserHome,
