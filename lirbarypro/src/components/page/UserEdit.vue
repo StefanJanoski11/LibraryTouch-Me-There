@@ -53,7 +53,7 @@
             
               <el-form-item prop="date1">
                 <el-date-picker
-                  type="month"
+                  type="date"
                   placeholder="选择年月"
                   v-model="ruleForm.user_birthday"
                   :disabled="isAble"
@@ -175,7 +175,7 @@ export default {
       rules: {
         user_name: [
           { required: true, message: "输入名字", trigger: "blur" },
-          { min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" },
+          { min: 8, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" },
         ],
         user_sex: [{ required: true, message: "请选择性别", trigger: "change" }],
         user_birthday: [
