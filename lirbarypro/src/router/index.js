@@ -13,6 +13,7 @@ import Rent from '../components/page/Rent.vue';
 import Bookshelf from '../components/page/Bookshelf.vue';
 import UserLibrary from '../components/page/UserLibrary.vue';
 import ManagerLibrary from '../components/page/ManagerLibrary.vue';
+import test from '../components/page/test.vue'
 
 Vue.use(Router);
 
@@ -103,6 +104,10 @@ export default new Router({
         {
             path: '*',
             redirect: '/404'
+        },
+        {
+            path: '/test',
+            component: test,
         }
     ]
 });
