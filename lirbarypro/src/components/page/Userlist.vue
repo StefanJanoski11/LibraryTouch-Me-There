@@ -20,6 +20,9 @@
         <el-button type="primary" icon="el-icon-plus" @click="addUser"
           >新增用户</el-button
         >
+        <el-button type="primary" icon="el-icon-plus" @click="userDownload"
+          >批量导出</el-button
+        >
       </div>
       <el-table
         :data="tableData"
@@ -41,14 +44,20 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="user_name" label="用户名"></el-table-column>
-        <el-table-column  prop="user_identity_id" label="是否管理员"></el-table-column>
+        <el-table-column
+          prop="user_identity_id"
+          label="是否管理员"
+        ></el-table-column>
         <el-table-column prop="user_sex" label="性别"></el-table-column>
         <el-table-column
           prop="user_sincerity"
           label="不良记录"
           align="center"
         ></el-table-column>
-        <el-table-column prop="user_create_date" label="注册时间"></el-table-column>
+        <el-table-column
+          prop="user_create_date"
+          label="注册时间"
+        ></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
@@ -83,15 +92,15 @@
     <el-dialog title="详情" :visible.sync="editVisible" width="30%">
       <el-row :model="user" label-width="70px">
         <el-col :span="12"> 用户名：{{ usera.user_name }} </el-col>
-        <el-col :span="12"> 性别:{{ usera.user_sex}} </el-col>
+        <el-col :span="12"> 性别:{{ usera.user_sex }} </el-col>
         <el-col :span="12"> 手机号：{{ usera.user_phone }} </el-col>
         <el-col :span="12"> 出生日期:{{ usera.user_birthday }} </el-col>
         <el-col :span="12"> 地址{{ usera.user_address }} </el-col>
         <el-col :span="12"> 不良记录:{{ usera.user_sincerity }} </el-col>
-        <el-col :span="24"> 自我描述:{{usera.user_self_desc }} </el-col>
-        <el-col :span="24"> 创建日期：{{ usera.user_create_date}} </el-col>
-        <el-col :span="24"> 修改日期:{{ usera.user_alter_date}} </el-col>
-        <el-col :span="24"> 修改人ID:{{usera.user_alter_admin}} </el-col>
+        <el-col :span="24"> 自我描述:{{ usera.user_self_desc }} </el-col>
+        <el-col :span="24"> 创建日期：{{ usera.user_create_date }} </el-col>
+        <el-col :span="24"> 修改日期:{{ usera.user_alter_date }} </el-col>
+        <el-col :span="24"> 修改人ID:{{ usera.user_alter_admin }} </el-col>
       </el-row>
 
       <span slot="footer" class="dialog-footer">
@@ -102,79 +111,78 @@
 
     <el-dialog title="新增用户" :visible.sync="addVisible" width="40%">
       <el-form
-      ref="form"
-      :model="form"
-      status-icon
-      :rules="rules"
-      label-width="100px"
-      class="login-form demo-ruleForm"
-      label-position="righ"
-    >
-      <h2 class="login-title">注册</h2>
+        ref="form"
+        :model="form"
+        status-icon
+        :rules="rules"
+        label-width="100px"
+        class="login-form demo-ruleForm"
+        label-position="righ"
+      >
+        <h2 class="login-title">注册</h2>
 
-      <el-form-item label="姓名" placeholder="姓名" prop="user_name">
-        <el-input v-model="form.user_name" maxlength="30" show-word-limit>
-        </el-input>
-      </el-form-item>
-
-      <el-form-item label="邮箱" placeholder="邮箱" prop="user_email">
-        <el-input v-model="form.user_email" maxlength="30"> </el-input>
-      </el-form-item>
-
-      <el-form-item label="性别" prop="user_sex">
-        <el-select
-          style="width: 100%"
-          v-model="form.user_sex"
-          placeholder="选择性别"
-        >
-          <el-option label="男" value="1"></el-option>
-          <el-option label="女" value="0"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="出生年月" required>
-        <el-form-item prop="user_birthday">
-          <el-date-picker
-            type="date"
-            placeholder="选择年月"
-            v-model="form.user_birthday"
-            style="width: 100%"
-          ></el-date-picker>
+        <el-form-item label="姓名" placeholder="姓名" prop="user_name">
+          <el-input v-model="form.user_name" maxlength="30" show-word-limit>
+          </el-input>
         </el-form-item>
-      </el-form-item>
 
-      <el-form-item prop="user_address" label="地址" placeholder="地址">
-        <el-input v-model="form.user_address" maxlength="30"> </el-input>
-      </el-form-item>
+        <el-form-item label="邮箱" placeholder="邮箱" prop="user_email">
+          <el-input v-model="form.user_email" maxlength="30"> </el-input>
+        </el-form-item>
 
-      <el-form-item prop="user_phone" label="电话" placeholder="手机号码">
-        <el-input v-model="form.user_phone"> </el-input>
-      </el-form-item>
+        <el-form-item label="性别" prop="user_sex">
+          <el-select
+            style="width: 100%"
+            v-model="form.user_sex"
+            placeholder="选择性别"
+          >
+            <el-option label="男" value="1"></el-option>
+            <el-option label="女" value="0"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="出生年月" required>
+          <el-form-item prop="user_birthday">
+            <el-date-picker
+              type="date"
+              placeholder="选择年月"
+              v-model="form.user_birthday"
+              style="width: 100%"
+            ></el-date-picker>
+          </el-form-item>
+        </el-form-item>
 
-      <el-form-item label="输入密码" placeholder="输入密码" prop="password">
-        <el-input
-          type="password"
-          v-model="form.user_password"
-          autocomplete="off"
-          maxlength="30"
-          show-password
-        >
-        </el-input>
-      </el-form-item>
+        <el-form-item prop="user_address" label="地址" placeholder="地址">
+          <el-input v-model="form.user_address" maxlength="30"> </el-input>
+        </el-form-item>
 
-      <el-form-item label="确认密码" prop="checkPassword">
-        <el-input
-          type="password"
-          v-model="form.checkPassword"
-          autocomplete="off"
-          maxlength="30"
-        ></el-input>
-      </el-form-item>
+        <el-form-item prop="user_phone" label="电话" placeholder="手机号码">
+          <el-input v-model="form.user_phone"> </el-input>
+        </el-form-item>
 
-      <div class="register-btn">
-        <el-button type="primary" @click="onSubmit()">注册</el-button>
-      </div>
+        <el-form-item label="输入密码" placeholder="输入密码" prop="password">
+          <el-input
+            type="password"
+            v-model="form.user_password"
+            autocomplete="off"
+            maxlength="30"
+            show-password
+          >
+          </el-input>
+        </el-form-item>
+
+        <el-form-item label="确认密码" prop="checkPassword">
+          <el-input
+            type="password"
+            v-model="form.checkPassword"
+            autocomplete="off"
+            maxlength="30"
+          ></el-input>
+        </el-form-item>
+
+        <div class="register-btn">
+          <el-button type="primary" @click="onSubmit()">注册</el-button>
+        </div>
       </el-form>
-
     </el-dialog>
   </div>
 </template>
@@ -238,7 +246,6 @@ export default {
     };
 
     return {
-
       form: {
         user_name: "",
         user_email: "",
@@ -249,7 +256,7 @@ export default {
         user_address: "",
         user_password: "",
         checkPassword: "",
-        btnTitle: "获取验证码",
+        btnTitle: "获取验证码"
       },
       user: {
         user_name: "",
@@ -261,7 +268,7 @@ export default {
         selfDesc: "",
         date: "",
         alterDate: "",
-        alterAdmin: "",
+        alterAdmin: ""
       },
 
       rules: {
@@ -271,27 +278,27 @@ export default {
             min: 3,
             max: 20,
             message: "长度在 3 到 20 个字符",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         user_password: [
           { validator: validatePass, trigger: "blur" },
-          { required: true, message: "输入密码", trigger: "blur" },
+          { required: true, message: "输入密码", trigger: "blur" }
         ],
         checkPassword: [
           { validator: validatePass2, trigger: "blur" },
-          { required: true, message: "输入确认密码", trigger: "blur" },
+          { required: true, message: "输入确认密码", trigger: "blur" }
         ],
         user_address: [
           {
             required: true,
             message: "目前只支持中国大陆的手机号码",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         user_email: [{ type: "email", required: true, trigger: "change" }],
         user_sex: [
-          { required: true, message: "请选择性别", trigger: "change" },
+          { required: true, message: "请选择性别", trigger: "change" }
         ],
         user_birthday: [
           {
@@ -299,22 +306,22 @@ export default {
             format: "yyyy-MM-dd",
             required: true,
             message: "请选择日期",
-            trigger: "change",
-          },
+            trigger: "change"
+          }
         ],
         user_phone: [
           {
             required: true,
             pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/,
             message: "目前只支持中国大陆的手机号码",
-            trigger: "change", //输入时就会验证
-          },
-        ],
+            trigger: "change" //输入时就会验证
+          }
+        ]
       },
       query: {
         name: "",
         pageIndex: 1,
-        pageSize: 10,
+        pageSize: 10
       },
       usera: [],
       tableData: [],
@@ -326,7 +333,7 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1,
+      id: -1
     };
   },
   mounted() {
@@ -334,24 +341,45 @@ export default {
       method: "get",
       url: "http://10.10.102.142:8080/user/getAll",
       params: {
-        pageNum: this.pageIndex,
+        pageNum: this.pageIndex
       },
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-      },
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+      }
     })
-      .then((response) => {
+      .then(response => {
         this.tableData = response.data.object.list;
 
         this.pageTotal = response.data.object.total;
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   },
   methods: {
+    userDownload() {
+      this.axios({
+        method: "get",
+        url: "http://10.10.102.142:8080/user/download",
+        responseType: "blob"
+      })
+        .then(response => {
+          let url = window.URL.createObjectURL(response.data);
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          let date = new Date();
+          link.setAttribute("download", date.getFullYear()+"_"+date.getMonth()+"_"+date.getDate()+"_user.xlsx");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     onSubmit() {
-      this.$refs.form.validate((valid) => {
+      this.$refs.form.validate(valid => {
         if (valid) {
           console.log(this.realVerifyCode);
           if (this.realVerifyCode == this.form.verifyCode) {
@@ -367,22 +395,22 @@ export default {
                 user_phone: this.form.user_phone, //手机
                 user_address: this.form.user_address, //地址
                 user_password: this.form.user_password,
-                checkPassword: this.form.checkPassword,
+                checkPassword: this.form.checkPassword
               },
               headers: {
                 "Content-Type":
-                  "application/x-www-form-urlencoded; charset=UTF-8",
-              },
+                  "application/x-www-form-urlencoded; charset=UTF-8"
+              }
             })
-              .then((response) => {
+              .then(response => {
                 console.log(
                   response +
                     "注册成功-------------------------------------------------记得删掉"
                 );
-                this.addVisible =false;
-                this.$message.success('创建成功');
+                this.addVisible = false;
+                this.$message.success("创建成功");
               })
-              .catch((error) => {
+              .catch(error => {
                 console.log(
                   error +
                     "--------------------------------------------------记得删掉"
@@ -412,18 +440,18 @@ export default {
         method: "get",
         url: "http://10.10.102.142:8080/user/quaryUser",
         params: {
-          name: this.query.name,
+          name: this.query.name
         },
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        },
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        }
       })
-        .then((response) => {
+        .then(response => {
           this.tableData = response.data.object;
 
           //this.pageTotal = response.data.object.total;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
 
@@ -434,40 +462,39 @@ export default {
     handleDelete(index, row) {
       // 二次确认删除
       this.$confirm("确定要删除吗？", "提示", {
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           this.axios({
             method: "get",
             url: "http://10.10.102.142:8080/user/deleteUser",
             params: {
-              id: row.user_id,
+              id: row.user_id
             },
             headers: {
-              "Content-Type":
-                "application/x-www-form-urlencoded; charset=UTF-8",
-            },
+              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+            }
           })
-            .then((response) => {
+            .then(response => {
               this.axios({
                 method: "get",
                 url: "http://10.10.102.142:8080/user/quaryExistUser",
                 params: {},
                 headers: {
                   "Content-Type":
-                    "application/x-www-form-urlencoded; charset=UTF-8",
-                },
+                    "application/x-www-form-urlencoded; charset=UTF-8"
+                }
               })
-                .then((response) => {
+                .then(response => {
                   this.tableData = response.data.object;
 
                   //this.pageTotal = response.data.object.total;
                 })
-                .catch((error) => {
+                .catch(error => {
                   console.log(error);
                 });
             })
-            .catch((error) => {
+            .catch(error => {
               console.log(error);
             });
         })
@@ -488,17 +515,17 @@ export default {
         url: "http://10.10.102.142:8080/user/detail",
         params: {
           user_id: row.user_id,
-          user_name: row.user_name,
+          user_name: row.user_name
         },
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        },
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        }
       })
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.usera = response.data.object;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
 
@@ -510,22 +537,22 @@ export default {
         method: "get",
         url: "http://10.10.102.142:8080/user/getAll",
         params: {
-          pageNum: val,
+          pageNum: val
         },
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        },
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        }
       })
-        .then((response) => {
+        .then(response => {
           console.log(response.data.object.list);
           this.tableData = response.data.object.list;
           this.pageTotal = response.data.object.total;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
