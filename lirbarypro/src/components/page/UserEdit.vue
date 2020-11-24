@@ -265,8 +265,8 @@ export default {
                 user_phone: this.ruleForm.user_phone, //手机号
                 user_address: this.ruleForm.user_address, //地址
                 user_self_desc: this.ruleForm.user_self_desc,
-                // user_password: this.ruleForm.user_password,
-                // checkPassword: this.ruleForm.checkPassword,
+                user_password: this.ruleForm.user_password,
+                checkPassword: this.ruleForm.checkPassword,
               },
             headers: {
               "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

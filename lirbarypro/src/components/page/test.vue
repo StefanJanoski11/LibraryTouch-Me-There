@@ -77,7 +77,7 @@ export default {
       Vue.axios({
       method: "post",
     
-      url: "http://10.10.102.143:8080/record/returnBook",
+      url: "http://10.10.102.142:8080/record/returnBook",
       params: //JSON.stringify(this.books[index]),
       //this.books[index],
       {
@@ -111,7 +111,7 @@ export default {
     query(){
        Vue.axios({
       method: "get",
-      url: "http://10.10.102.143:9090/books/getBookAllInfo",
+      url: "http://10.10.102.142:9090/books/getBookAllInfo",
       params: {id : this.bid},
       headers: {
       // "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

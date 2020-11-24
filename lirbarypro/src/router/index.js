@@ -13,6 +13,7 @@ import Rent from '../components/page/Rent.vue';
 import Bookshelf from '../components/page/Bookshelf.vue';
 import UserLibrary from '../components/page/UserLibrary.vue';
 import ManagerLibrary from '../components/page/ManagerLibrary.vue';
+import UserIndex from '../components/page/UserIndex.vue';
 import test from '../components/page/test.vue'
 
 Vue.use(Router);
@@ -51,12 +52,17 @@ export default new Router({
         },
         {
             path: '/user',
-            redirect: '/user/library'
+            redirect: '/user/index'
         },
         {
             path: '/user',
             component: UserHome,
             children: [{
+                    path: 'index',
+                    component: UserIndex,
+                    meta: { title: '热点首页' }
+                },
+                {
                     path: 'library',
                     component: UserLibrary,
                     meta: { title: '图书库' }
