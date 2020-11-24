@@ -52,7 +52,10 @@ export default new Router({
             path: '/user',
             redirect: '/user/library'
         },
+<<<<<<< HEAD
+=======
 
+>>>>>>> 01ef36be4ba6600be54e29d1442ecea8b1b0aa56
         {
             path: '/user',
             component: UserHome,
