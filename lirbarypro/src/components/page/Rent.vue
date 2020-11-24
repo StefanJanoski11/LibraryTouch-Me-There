@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-input v-model="tableDataName" placeholder="请输入书名" style="width:240px"></el-input>
-    <el-button type="primary"  @click="doFilter">搜索</el-button>
+    <el-button type="primary"  @click="doFilter()">搜索</el-button>
     <el-table :data="tableDataEnd" border style="margin-top: 25px">
           <el-table-column prop="book_name" label="书名" width="240">
           </el-table-column>
@@ -101,7 +101,7 @@ import Vue from "vue";
       doFilter() {
         Vue.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/book/quaryName",
+      url: "http://10.10.102.142:8080/books/quaryName",
       params: {name:this.tableDataName},
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -177,7 +177,7 @@ import Vue from "vue";
          console.log(row.book_id);
          Vue.axios({
       method: "get",
-      url: "http://10.10.102.143:8080//book/getBookAllInfo",
+      url: "http://10.10.102.143:8080/books/getBookAllInfo",
       params: {id:row.book_id},
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
