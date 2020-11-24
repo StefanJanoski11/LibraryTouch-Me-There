@@ -70,14 +70,22 @@ public interface BooksMapper {
     public Integer editBooksLast(Integer type,Integer last);
 
     //根据id来修改图书上架下架
-    @Update("update Books set books_state = #{status} where book_id = #{bookId}")
+    @Update("update Books set books_state = #{status} where books_id = #{bookId}")
     public Integer setBookStatus(Integer bookId,Integer status);
 
     //根据图书id使图书加一
-    @Update("update Books set books_last =books_last+1  where book_id = #{bookId}")
+    @Update("update Books set books_last =books_last+1  where books_id = #{bookId}")
     public Integer BooksLastRaise(Integer bookId);
-
+    //根据图书id使图书减一
+    @Update("update Books set books_last =books_last-1  where books_id = #{bookId}")
+    public Integer BooksLastDown(Integer bookId);
     //根据id查询所有所有图书信息
-    @Select("select * from books a,books_info b where a.books_id =#{booksId} and a.books_type = b.info_type ")
+    @Select("select * from books a,books_info b where a.books_id =#{booksId} and a.books_type = b.info_id ")
     public BookDTO getAllBookInfo(Integer booksId);
+    //根据图书id获取图片位置
+    @Select("select a.books_pic ,a.books_id ,r.book_id from books a,record r where r.book_id=#{bookId} and r.book_id = a.books_id   ")
+    public String getPicByBookId(Integer bookId);
+
+
+
 }

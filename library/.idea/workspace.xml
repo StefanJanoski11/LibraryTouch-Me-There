@@ -20,9 +20,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a696e13-c5b5-4ede-932b-e4e1790498e4" name="Default Changelist" comment="20201118-0.5版本">
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/LibraryApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/component/WebMvcConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/config/MyInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/config/MyInterceptorConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/RecordDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/entity/Record.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/InfoEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/ResultEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/redis/JedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/util/HttpUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/util/StringCodeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/black.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/muji1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/xunzi.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/BooksMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/black.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/muji1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/xunzi.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_16.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_12.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library.iml" beforeDir="false" afterPath="$PROJECT_DIR$/library.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/RecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/RecordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/BookStatusDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/BookStatusDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/UserSincerityEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/UserSincerityEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/mapper/BooksMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/mapper/BooksMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/BooksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/BooksService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/BooksServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/BooksServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/RecordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/RecordServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/LibraryApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/LibraryApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/RecordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/RecordController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/BookStatusDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/BookStatusDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/Result.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/mapper/BooksMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/mapper/BooksMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/BooksService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/BooksService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/BooksServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/BooksServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/RecordServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/RecordServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/cn/Boys/library/LibraryApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +85,6 @@
   <component name="ProjectId" id="1kRq2kS59XYjDyliJyJebvGVIzd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -55,10 +94,11 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -69,17 +109,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Newproject\11.23.1\1.0版本\library\src\main\java\cn\Boys\library\redis" />
       <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\service\impl" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="cn.Boys.library.config" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\dto" />
-      <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\enums" />
-      <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\config" />
-      <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\entity" />
-      <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\controller" />
+      <recent name="D:\Newproject\11.23.1\1.0版本\library\src\main\resources" />
+      <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library" />
+      <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library\entity" />
+      <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library\enums" />
+      <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library\dto" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.LibraryApplication">
@@ -127,7 +168,9 @@
       <workItem from="1606091184131" duration="561000" />
       <workItem from="1606091690217" duration="652000" />
       <workItem from="1606092364878" duration="27110000" />
-      <workItem from="1606131037750" duration="3765000" />
+      <workItem from="1606131037750" duration="4850000" />
+      <workItem from="1606136519898" duration="2827000" />
+      <workItem from="1606183265420" duration="13667000" />
     </task>
     <servers />
   </component>
@@ -168,50 +211,50 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="355" y="163" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1605750306258" />
-    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser" timestamp="1606128345982">
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser" timestamp="1606183953350">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1606128345982" />
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1606183953350" />
     <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605683267040">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1605683267040" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1606091213302">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1606135681215">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1606091213302" />
-    <state width="1306" height="227" key="GridCell.Tab.0.bottom" timestamp="1606135039653">
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1606135681215" />
+    <state width="1322" height="235" key="GridCell.Tab.0.bottom" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
-    <state width="1306" height="227" key="GridCell.Tab.0.center" timestamp="1606135039653">
+    <state width="1322" height="235" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
+    <state width="1322" height="235" key="GridCell.Tab.0.center" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
-    <state width="1306" height="227" key="GridCell.Tab.0.left" timestamp="1606135039653">
+    <state width="1322" height="235" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
+    <state width="1322" height="235" key="GridCell.Tab.0.left" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
-    <state width="1306" height="227" key="GridCell.Tab.0.right" timestamp="1606135039653">
+    <state width="1322" height="235" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
+    <state width="1322" height="235" key="GridCell.Tab.0.right" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
-    <state width="1306" height="227" key="GridCell.Tab.1.bottom" timestamp="1606135039653">
+    <state width="1322" height="235" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
+    <state width="1322" height="235" key="GridCell.Tab.1.bottom" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
-    <state width="1306" height="227" key="GridCell.Tab.1.center" timestamp="1606135039653">
+    <state width="1322" height="235" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
+    <state width="1322" height="235" key="GridCell.Tab.1.center" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
-    <state width="1306" height="227" key="GridCell.Tab.1.left" timestamp="1606135039653">
+    <state width="1322" height="235" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
+    <state width="1322" height="235" key="GridCell.Tab.1.left" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
-    <state width="1306" height="227" key="GridCell.Tab.1.right" timestamp="1606135039653">
+    <state width="1322" height="235" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
+    <state width="1322" height="235" key="GridCell.Tab.1.right" timestamp="1606209964071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="227" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1606135039653" />
+    <state width="1322" height="235" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1606209964071" />
     <state width="1306" height="351" key="GridCell.Tab.2.bottom" timestamp="1606123016012">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -228,6 +271,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1306" height="351" key="GridCell.Tab.2.right/0.0.1366.728@0.0.1366.728" timestamp="1606123016012" />
+    <state x="213" y="18" key="Maven.ArtifactSearchDialog" timestamp="1606136727309">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="213" y="18" key="Maven.ArtifactSearchDialog/0.0.1366.728@0.0.1366.728" timestamp="1606136727309" />
     <state x="184" y="0" key="SettingsEditor" timestamp="1606091733035">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -240,10 +287,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="157" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1605754358166" />
-    <state x="349" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1605758276774">
+    <state x="349" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1606138741859">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="349" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1605758276774" />
+    <state x="349" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1606138741859" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

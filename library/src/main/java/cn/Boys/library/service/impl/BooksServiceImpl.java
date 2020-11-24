@@ -213,8 +213,8 @@ public class BooksServiceImpl implements BooksService {
             if(status<0){
                 DTOList.add(new BookStatusDTO(BookStatusEnum.NONE,book));
             }else if (status==0){
-                DTOList.add(new BookStatusDTO(BookStatusEnum.HAVE,book));
-            }else DTOList.add(new BookStatusDTO(BookStatusEnum.NORETURN,book));
+                DTOList.add(new BookStatusDTO(BookStatusEnum.NORETURN,book));
+            }else DTOList.add(new BookStatusDTO(BookStatusEnum.HAVE,book));
         }
         return DTOList;
     }
@@ -266,6 +266,11 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public Integer BooksLastRaise(Integer bookId) {
         return booksMapper.BooksLastRaise(bookId);
+    }
+
+    @Override
+    public Integer BooksLastDown(Integer bookId) {
+        return booksMapper.BooksLastDown(bookId);
     }
 
     @Override

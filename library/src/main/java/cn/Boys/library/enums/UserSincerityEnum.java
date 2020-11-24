@@ -30,6 +30,4 @@ public enum UserSincerityEnum {
         }
         return null;
     }
-
-
 }

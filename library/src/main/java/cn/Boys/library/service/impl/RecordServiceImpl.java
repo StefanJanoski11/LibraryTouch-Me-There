@@ -17,7 +17,10 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -44,13 +47,23 @@ public class RecordServiceImpl implements RecordService {
     public RecordDTO InsertNotReturn(Record record) {
         //记录mysql插入状态
         int status = 0;
+        Date date = record.getBook_lend_date();
+        //Calendar来进行日期增加
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(date);
+        rightNow.add(Calendar.DAY_OF_YEAR,30);
+        date = rightNow.getTime();
+        record.setBook_scheduled(date);
+        System.out.println(date);
+
         if(recordMapper.getNotReturnById(record.getUser_id()).size()>=3){
             return new RecordDTO(ResultEnum.NOT_ACCEPTABLE,record);
         }
         //mysql插入失败则返回
-       if(recordMapper.setNotReturnById(record)!=1) {
+       if(recordMapper.setNotReturnById(record)<=0) {
            return new RecordDTO(ResultEnum.NOT_ACCEPTABLE,record);
        }
+       booksService.BooksLastDown(record.getBook_id());
        String PutKey = key+record.getUser_id();
        System.out.println(record);
        String name = record.getUser_id().toString()+record.getBook_id().toString();
@@ -73,7 +86,6 @@ public class RecordServiceImpl implements RecordService {
         String name = record.getUser_id().toString() + record.getBook_id().toString();
 //        System.out.println();
         logger.info("name:"+name);
-
         BoundHashOperations op = redisTemplate.boundHashOps(GetKey);
         //先从数据库中把归还记录更改
         List<Record> list = recordMapper.getNotReturnById(record.getUser_id());
@@ -92,6 +104,7 @@ public class RecordServiceImpl implements RecordService {
             return new RecordDTO(ResultEnum.NOT_FOUND, record);
 
     }
+
 
 
     //看看你又多少本书没还

@@ -46,7 +46,7 @@ public class RecordController {
     }
     //借书
     @ApiOperation("借书,填好借书记录表传record对象")
-    @PutMapping("/insertNotReturn")
+    @PostMapping("/insertNotReturn")
     public RecordDTO insertNotReturn(@RequestBody Record record){
         return recordService.InsertNotReturn(record);
     }
@@ -76,7 +76,7 @@ public class RecordController {
 
     //还书
     @ApiOperation("还书，传入record对象")
-    @PutMapping("/returnBook")
+    @PostMapping("/returnBook")
     public RecordDTO returnBookById(@RequestBody Record record){
         return recordService.setHaveReturn(record);
     }

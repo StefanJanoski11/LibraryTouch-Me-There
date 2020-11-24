@@ -38,6 +38,7 @@ public interface BooksService {
     public Result publishBook(Integer bookId,Integer status);
     //根据ID为剩余数量加一
     public Integer BooksLastRaise(Integer bookId);
+    public Integer BooksLastDown(Integer bookId);
     //真，所有信息
     public Result getAllBookInfo(Integer booksId);
 
