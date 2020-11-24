@@ -19,51 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a696e13-c5b5-4ede-932b-e4e1790498e4" name="Default Changelist" comment="20201118-0.5版本">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/LibraryApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/component/WebMvcConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/config/MyInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/config/MyInterceptorConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/RecordDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/entity/Record.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/InfoEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/ResultEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/redis/JedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/util/HttpUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/util/StringCodeUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/black.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/muji1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/xunzi.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/BooksMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/black.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/muji1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/xunzi.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_16.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_12.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library.iml" beforeDir="false" afterPath="$PROJECT_DIR$/library.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/RecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/RecordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/BookStatusDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/BookStatusDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/UserSincerityEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/UserSincerityEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/mapper/BooksMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/mapper/BooksMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/BooksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/BooksService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/BooksServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/BooksServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/RecordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/RecordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/LibraryApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/LibraryApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/RecordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/RecordController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/BookStatusDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/BookStatusDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/Result.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/mapper/BooksMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/mapper/BooksMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/BooksService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/BooksService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/BooksServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/BooksServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/RecordServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/RecordServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/cn/Boys/library/LibraryApplicationTests.class" beforeDir="false" />
-    </list>
+    <list default="true" id="9a696e13-c5b5-4ede-932b-e4e1790498e4" name="Default Changelist" comment="20201118-0.5版本" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,8 +126,23 @@
       <workItem from="1606092364878" duration="27110000" />
       <workItem from="1606131037750" duration="4850000" />
       <workItem from="1606136519898" duration="2827000" />
-      <workItem from="1606183265420" duration="13667000" />
+      <workItem from="1606183265420" duration="16183000" />
     </task>
+    <task id="LOCAL-00001" summary="20201118-0.5版本">
+      <created>1606210743137</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606210743137</updated>
+    </task>
+    <task id="LOCAL-00002" summary="20201118-0.5版本">
+      <created>1606210747546</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606210747546</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
