@@ -46,7 +46,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" class="firstSearch"
+        <el-button type="primary" @click="onSubmit()" class="firstSearch"
           >查询</el-button
         >
       </el-form-item>
@@ -54,37 +54,59 @@
 
     <el-input
       v-model="input"
-      placeholder="请输入内容"
+      placeholder="请输入书名进行搜索"
       class="searchBox"
     ></el-input>
-    <el-button type="primary" icon="el-icon-search" class="searchButton" @click="inittable()"
+    <el-button
+      type="primary"
+      icon="el-icon-search"
+      class="searchButton"
+      @click="inittable()"
       >搜索</el-button
     >
 
     <el-table :data="tableDataEnd" style="width: 90%" class="detail">
-      <el-table-column fixed prop="date" label="上架日期" width="150">
+      <el-table-column
+        fixed
+        prop="books_createTime"
+        label="上架日期"
+        width="150"
+      >
       </el-table-column>
-      <el-table-column prop="name" label="书名" width="120"> </el-table-column>
-      <el-table-column prop="province" label="作者" width="120">
+      <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
-      <el-table-column prop="city" label="库存" width="120"> </el-table-column>
-      <el-table-column prop="address" label="出版社" width="300">
+      <el-table-column prop="books_author" label="作者" width="120">
       </el-table-column>
-      <el-table-column prop="zip" label="ID" width="120"> </el-table-column>
+      <el-table-column prop="books_last" label="库存" width="120">
+      </el-table-column>
+      <el-table-column prop="books_publisherId" label="出版社" width="300">
+      </el-table-column>
+      <el-table-column prop="books_id" label="ID" width="120">
+      </el-table-column>
       <el-table-column fixed="right" label="详情" width="120">
-      <el-popover
-  placement="left"
-  width="600px"
-  trigger="click">
-  <el-table :data="gridData">
-    <el-table-column width="600" property="description" label="描述"></el-table-column>
-  </el-table>
-  <el-button slot="reference">详情</el-button>
-</el-popover>
-       
+        <el-popover
+          placement="left"
+          width="600px"
+          trigger="click"
+          
+        >
+          <el-table :data="gridData">
+            <el-table-column width="600" label="描述">
+              <!-- 国家：{{info_country}} 类型：{{books_type}}<br>
+             篇幅：{{info_length}} 主题：{{info_theme}} -->
+            </el-table-column>
+          </el-table>
+          <template slot-scope="scope">
+          <el-button slot="reference" @click="bookInfo(scope.row)">详情</el-button>
+          </template>
+        </el-popover>
       </el-table-column>
+
       <el-table-column fixed="right" label="操作" width="120">
-        <el-button type="text" @click="open">借阅</el-button>
+        <!-- scope就相当于是tableData的一行,scope.row 就能拿到整行的值，scope.$index就能代表当前行的下标 -->
+        <template slot-scope="scope">
+          <el-button type="text" @click="open(scope.row)">借阅</el-button>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -108,121 +130,18 @@
 export default {
   data() {
     return {
-      gridData: [{
-          description: '全球最大的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。百度超过千亿的中文网页数据库，可以瞬间找到相关的搜索结果。',
-        }],
-      imgSrc: require("../../assets/img/2.jpg"),
-      tableDataEnd: [],
-      tableDataBegin: [
+      gridData: [
         {
-          date: "2016-05-03",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
+          description: "",
         },
       ],
+      imgSrc: require("../../assets/img/2.jpg"),
+      tableDataEnd: [],
+      tableDataBegin: [],
       input: "",
       totalItems: 0,
       currentPage: 0,
-      pageSize:8,
+      pageSize: 8,
       formInline: {
         user: "",
         region: "",
@@ -233,50 +152,144 @@ export default {
       },
     };
   },
-  methods: {
-    open() {
-      this.$confirm("你是否确定借阅此书籍?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "已预约借阅!",
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消借阅",
-          });
-        });
-    },
-    onSubmit() {
-      console.log("submit!");
-    },
+  mounted() {
+    this.axios({
+      method: "get",
+      url: "http://10.10.102.143:8080/books/BooksList",
+      //url: "/user.json",
+      data: "",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        let array = response.data;
+        this.totalItems = array.length;
+        for (let i = 0; i < this.totalItems; i++) {
+          this.tableDataBegin[i] = array[i].book;
+        }
 
-    inittable(){
-      this.tableDataEnd= [],
-       this.totalItems = this.tableDataBegin.length;
         if (this.totalItems > this.pageSize) {
           //如果有好多，只需要第一页的数据
-          this.currentPage=1;
           for (let index = 0; index < this.pageSize; index++) {
             this.tableDataEnd.push(this.tableDataBegin[index]);
           }
         } else {
           this.tableDataEnd = this.tableDataBegin;
         }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    open(row) {
+      // console.log(row.books_id);
+      // console.log(row);
+      // console.log(window.sessionStorage.getItem("ms_userid"));
+      this.$confirm("你是否确定借阅此书籍?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.axios({
+            method: "post",
+            url: "http://10.10.102.143:8080/record/insertNotReturn",
+            //url: "/user.json",
+            data: {
+              "book_id": row.books_id,
+              "book_name": row.books_name,
+              "user_id": window.sessionStorage.getItem("ms_userid"),
+              "user_name": window.sessionStorage.getItem("ms_username"),
+
+            },
+            headers: {
+              "Content-Type":
+                "application/json; charset=UTF-8",
+            }
+          })
+          .then((response) => {
+        console.log(response);
+        if(response.data.state == 406){
+            this.$message({
+            type: "warn",
+            message: "无法借阅!",
+          });
+        }else if(response.data.state == 200){
+          this.$message({
+            type: "success",
+            message: "已预约借阅!",
+          });
+        }
+      })
+        })
+        .catch(() => {
+          
+        });
     },
 
+    onSubmit() {
+      console.log("submit!");
+    },
+
+    inittable() {
+      this.axios({
+        method: "get",
+        url: "http://10.10.102.142:8080/books/quaryName",
+        //url: "/user.json",
+        params: {
+          name: this.input,
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      })
+        .then((response) => {
+          this.tableDataEnd = [];
+          this.tableDataBegin = [];
+          console.log(response);
+          this.tableDataBegin = response.data.object;
+          console.log(this.tableDataBegin);
+          this.totalItems = this.tableDataBegin.length;
+          if (this.totalItems > this.pageSize) {
+            //如果有好多，只需要第一页的数据
+            for (let index = 0; index < this.pageSize; index++) {
+              this.tableDataEnd.push(this.tableDataBegin[index]);
+            }
+          } else {
+            this.tableDataEnd = this.tableDataBegin;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    bookInfo(row) {
+      this.axios({
+        method: "get",
+        url: "http://10.10.102.143:8080/books/getBookAllInfo",
+        //url: "/user.json",
+        params: {
+          id:row.book_id
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
       this.currentPage = val;
       //tableDataBegin不能写成tableDataEnd，不然在没有进行搜索功能的时候，不能进行分页操作，数据丢失
       this.currentChangePage(this.tableDataBegin);
-
     }, //组件自带监控当前页码
     currentChangePage(list) {
       //根据第几页，有多少条，填入该页合适的数据
@@ -289,7 +302,8 @@ export default {
         }
       }
     },
-  },
+    },
+
 };
 </script>
 
@@ -311,7 +325,7 @@ export default {
 
 .searchBox {
   width: 300px;
-  padding:0 0 0 60px;
+  padding: 0 0 0 60px;
   margin: 5px;
   opacity: 0.8;
 }

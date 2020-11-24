@@ -45,9 +45,15 @@
         <el-input v-model="form.user_address" maxlength="30"> </el-input>
       </el-form-item>
 
+<<<<<<< HEAD
       <el-form-item prop="user_phone" label="电话" placeholder="手机号码">
         <el-input v-model="form.user_phone" @blur="checkPhoneExist()"> </el-input>
         <el-button :disabled="msg_isAbled"  @click="getVerrifyCode">{{ form.btnTitle }}</el-button>
+=======
+      <el-form-item prop="user_phone" label="手机号" placeholder="手机号码">
+        <el-input v-model="form.user_phone"> </el-input>
+        <el-button @click="getVerrifyCode">{{ form.btnTitle }}</el-button>
+>>>>>>> 6014be071162ce080fb7623df7f68e3c066835e2
       </el-form-item>
 
       <el-form-item prop="telCode" label="短信验证码" placeholder="验证码">
@@ -182,13 +188,27 @@ export default {
         user_address: [
           {
             required: true,
+<<<<<<< HEAD
             message: "目前只支持中国大陆的手机号码",
             trigger: "blur"
           }
+=======
+            message: "请输入地址",
+            trigger: "blur",
+          },
+>>>>>>> 6014be071162ce080fb7623df7f68e3c066835e2
         ],
-        user_email: [{ type: "email", required: true, trigger: "change" }],
+        user_email: [{ type: "email", required: true, trigger: "change" },{
+            required: true,
+            message: "请输入邮箱地址",
+            trigger: "blur",
+          }],
         user_sex: [
+<<<<<<< HEAD
           { required: true, message: "请选择性别", trigger: "change" }
+=======
+          { required: true, message: "请选择性别", trigger: "blur" },
+>>>>>>> 6014be071162ce080fb7623df7f68e3c066835e2
         ],
         user_birthday: [
           {
@@ -196,17 +216,34 @@ export default {
             format: "yyyy-MM-dd",
             required: true,
             message: "请选择日期",
+<<<<<<< HEAD
             trigger: "change"
           }
+=======
+            trigger: "blur",
+          },
+>>>>>>> 6014be071162ce080fb7623df7f68e3c066835e2
         ],
         user_phone: [
           {
             required: true,
             pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/,
+<<<<<<< HEAD
             message: "目前只支持中国大陆的手机号码",
             trigger: "change" //输入时就会验证
           }
         ]
+=======
+            message: "请输入中国大陆的手机号码",
+            trigger: "change", //输入时就会验证
+          },
+          {
+            required: true,
+            message: "请输入手机号",
+            trigger: "blur",
+          },
+        ],
+>>>>>>> 6014be071162ce080fb7623df7f68e3c066835e2
       },
       verifyCode: null
     };

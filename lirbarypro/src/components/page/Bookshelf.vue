@@ -16,7 +16,7 @@
             <el-table-column width="100" property="book_sche duled" label="期望还书日期"></el-table-column>
             <el-table-column width="100" property="book_lend_date" label="借书日期"></el-table-column>
           </el-table>
-        <el-image :src="book.img" class="image" slot="reference"></el-image>
+        <el-image :src="require('../../assets/img/2.jpg')" class="image" slot="reference"></el-image>
       </el-popover>
     </div>
       
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       books:[],
-      
+      img : require("../../assets/img/2.jpg"),
       
      
       currentDate: new Date()
@@ -123,26 +123,26 @@ export default {
     returnbook(index){
       Vue.axios({
       method: "post",
-    
       url: "http://10.10.102.143:8080/record/returnBook",
-      params: //JSON.stringify(this.books[index]),
-      //this.books[index],
-      {
-        // record : JSON.stringify(this.books[index])
-          //record : this.books[index]
-        "user_id": this.books[index].user_id,
-        "user_name": this.books[index].user_name,
-        "book_id": this.books[index].book_id,
-        "book_name": this.books[index].book_name,
-        "book_return_state": this.books[index].book_return_state,
-        "book_return_date": this.books[index].book_return_date,
-        "book_lend_date": this.books[index].book_lend_date,
-        "book_scheduled": this.books[index].book_scheduled
-      },
+      data : JSON.stringify(this.books[index]),
+      // params: //JSON.stringify(this.books[index]),
+      // // this.books[index],
+      // {
+      //   // record : JSON.stringify(this.books[index])
+      //     //record : this.books[index]
+      //   "user_id": this.books[index].user_id,
+      //   "user_name": this.books[index].user_name,
+      //   "book_id": this.books[index].book_id,
+      //   "book_name": this.books[index].book_name,
+      //   "book_return_state": this.books[index].book_return_state,
+      //   "book_return_date": this.books[index].book_return_date,
+      //   "book_lend_date": this.books[index].book_lend_date,
+      //   "book_scheduled": this.books[index].book_scheduled
+      // },
       headers: {
-      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-Type": "application/json; charset=UTF-8",
       },
-      
+
     })
     .then((response) => {
         
