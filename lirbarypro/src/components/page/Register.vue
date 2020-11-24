@@ -12,7 +12,7 @@
       <h2 class="login-title">注册</h2>
 
       <el-form-item label="姓名" placeholder="姓名" prop="user_name">
-        <el-input v-model="form.user_name" maxlength="30" show-word-limit @blur="checkUsernameExist()">
+        <el-input v-model="form.user_name" maxlength="30" show-word-limit>
         </el-input>
       </el-form-item>
 
@@ -46,8 +46,11 @@
       </el-form-item>
 
       <el-form-item prop="user_phone" label="手机" placeholder="手机号码">
-        <el-input v-model="form.user_phone" @blur="checkPhoneExist()"> </el-input>
-        <el-button :disabled="msg_isAbled"  @click="getVerrifyCode">{{ form.btnTitle }}</el-button>
+        <el-input v-model="form.user_phone" @blur="checkPhoneExist()">
+        </el-input>
+        <el-button :disabled="msg_isAbled" @click="getVerrifyCode">{{
+          form.btnTitle
+        }}</el-button>
       </el-form-item>
 
       <el-form-item prop="telCode" label="短信验证码" placeholder="验证码">
@@ -79,7 +82,7 @@
       </el-form-item>
 
       <div class="register-btn">
-        <el-button type="primary" @click="onSubmit()" :disabled="submit_isAbled">注册</el-button>
+        <el-button type="primary" @click="onSubmit()">注册</el-button>
       </div>
     </el-form>
   </div>
@@ -88,7 +91,6 @@
 <script>
 export default {
   data() {
-    
     // 是否包含一位大写字母
     const reg = /(?=.*[A-Z])/;
     // 是否包含一位数字
@@ -143,8 +145,8 @@ export default {
       }
     };
     return {
-      msg_isAbled : true,
-      submit_isAbled : true,
+      msg_isAbled: true,
+      // submit_isAbled : true,
       form: {
         user_name: "",
         user_email: "",
@@ -159,9 +161,7 @@ export default {
       },
       realVerifyCode: "",
       rules: {
-        verifyCode:[
-          { required: true, message: "输入名字", trigger: "blur" },
-        ],
+        verifyCode: [{ required: true, message: "输入名字", trigger: "blur" }],
         user_name: [
           { required: true, message: "输入名字", trigger: "blur" },
           {
@@ -183,39 +183,40 @@ export default {
           {
             required: true,
             message: "请输入地址",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
-        user_email: [{ type: "email", required: true, trigger: "change" },{
+        user_email: [
+          { type: "email", required: true, trigger: "change" },
+          {
             required: true,
             message: "请输入邮箱地址",
-            trigger: "blur",
-          }],
-        user_sex: [
-          { required: true, message: "请选择性别", trigger: "blur" },
+            trigger: "blur"
+          }
         ],
+        user_sex: [{ required: true, message: "请选择性别", trigger: "blur" }],
         user_birthday: [
           {
             type: "date",
             format: "yyyy-MM-dd",
             required: true,
             message: "请选择日期",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         user_phone: [
           {
             required: true,
             pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/,
             message: "请输入中国大陆的手机号码",
-            trigger: "change", //输入时就会验证
+            trigger: "change" //输入时就会验证
           },
           {
             required: true,
             message: "请输入手机号",
-            trigger: "blur",
-          },
-        ],
+            trigger: "blur"
+          }
+        ]
       },
       verifyCode: null
     };
@@ -231,45 +232,63 @@ export default {
     btnTitle: String //input框中的文字
   },
   methods: {
-    checkUsernameExist() {
-      this.axios({
-        method: "get",
-        url: "http://10.10.102.142:8080/user/checkUsernameIsExist",
-        params: {
-          user_name: this.form.user_name
-        },
-      })
-      .then(response => {
-        if(response.data.code == 406){
-          this.submit_isAbled = true;
-          alert("已经存在用户注册使用该用户名");
-        }else{
-          this.submit_isAbled = false;
+    //     checkUsernameExist() {
+    //       this.axios({
+    //         method: "get",
+    //         url: "http://10.10.102.142:8080/user/checkUsernameIsExist",
+    //         params: {
+    //           user_name: this.form.user_name
+    //         },
+    //       })
+    //       .then(response => {
+    //         if(response.data.code == 406){
+    //           this.submit_isAbled = true;
+    //           alert("已经存在用户注册使用该用户名");
+    //         }else{
+    //           this.submit_isAbled = false;
+    //         }
+    //         })
+    //       .catch(error => {console.log(error);});
+    //     },
+    checkPhoneExist() {
+      this.axios({
+        method: "get",
+        url: "http://10.10.102.142:8080/user/checkPhoneIsExist",
+        params: {
+          user_phone: this.form.user_phone
         }
+      })
+        .then(response => {
+          if (response.data.code == 406) {
+            this.msg_isAbled = true;
+            alert("已经存在用户注册使用该手机号码");
+          } else {
+            this.msg_isAbled = false;
+          }
         })
-      .catch(error => {console.log(error);});
-    },
-    checkPhoneExist() {
-      this.axios({
-        method: "get",
-        url: "http://10.10.102.142:8080/user/checkPhoneIsExist",
-        params: {
-          user_phone: this.form.user_phone
-        },
-      })
-      .then(response => {
-        if(response.data.code == 406){
-          this.msg_isAbled = true;
-          alert("已经存在用户注册使用该手机号码");
-        }else{
-          this.msg_isAbled = false;
-        }
-        })
-      .catch(error => {console.log(error);});
-    },
+        .catch(error => {
+          console.log(error);
+        });
+    },
     onSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.axios({
+            method: "get",
+            url: "http://10.10.102.142:8080/user/checkUsernameIsExist",
+            params: {
+              user_name: this.form.user_name
+            }
+          })
+            .then(response => {
+              if (response.data.code == 406) {
+                return false;
+                alert("已经存在用户注册使用该用户名");
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
           console.log(this.realVerifyCode);
           if (this.realVerifyCode == this.form.verifyCode) {
             console.log(this.form);
@@ -392,6 +411,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
+  overflow: auto;
   background-image: url("../../assets/img/login-bg.jpg");
   background-size: 100%;
 }
