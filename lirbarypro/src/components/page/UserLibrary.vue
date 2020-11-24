@@ -10,38 +10,38 @@
       label-width="60px"
     >
       <el-form-item label="国家">
-        <el-select v-model="formInline.region" placeholder="国家">
+        <el-select v-model="formInline.info_country" placeholder="国家">
           <el-option label="中国" value="china"></el-option>
-          <el-option label="日本" value="japan"></el-option>
-          <el-option label="北美" value="noramerica"></el-option>
-          <el-option label="欧洲" value="europe"></el-option>
+          <el-option label="日本" value="2"></el-option>
+          <el-option label="北美" value="america"></el-option>
+          <el-option label="欧洲" value="4"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="类型">
-        <el-select v-model="formInline.sort" placeholder="类型">
-          <el-option label="历史" value="history"></el-option>
-          <el-option label="文学" value="literature"></el-option>
-          <el-option label="军事" value="military"></el-option>
-          <el-option label="科学" value="science"></el-option>
+        <el-select v-model="formInline.info_type" placeholder="类型">
+          <el-option label="历史" value="1"></el-option>
+          <el-option label="文学" value="2"></el-option>
+          <el-option label="军事" value="3"></el-option>
+          <el-option label="科学" value="4"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="篇幅">
-        <el-select v-model="formInline.para" placeholder="篇幅">
-          <el-option label="短篇" value="short"></el-option>
-          <el-option label="中篇" value="mid"></el-option>
-          <el-option label="长篇" value="long"></el-option>
-          <el-option label="超长篇" value="splong"></el-option>
+        <el-select v-model="formInline.info_length" placeholder="篇幅">
+          <el-option label="短篇" value="1"></el-option>
+          <el-option label="中篇" value="2"></el-option>
+          <el-option label="长篇" value="3"></el-option>
+          <el-option label="超长篇" value="4"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="主题">
-        <el-select v-model="formInline.topic" placeholder="主题">
-          <el-option label="一" value="one"></el-option>
-          <el-option label="二" value="two"></el-option>
-          <el-option label="三" value="three"></el-option>
-          <el-option label="四" value="four"></el-option>
+        <el-select v-model="formInline.info_theme" placeholder="主题">
+          <el-option label="喜剧" value="1"></el-option>
+          <el-option label="悲剧" value="2"></el-option>
+          <el-option label="恶作剧" value="3"></el-option>
+          <el-option label="默剧" value="4"></el-option>
         </el-select>
       </el-form-item>
 
@@ -79,35 +79,34 @@
       </el-table-column>
       <el-table-column prop="books_last" label="库存" width="120">
       </el-table-column>
-      <el-table-column prop="books_publisherId" label="出版社" width="300">
-      </el-table-column>
+
       <el-table-column prop="books_id" label="ID" width="120">
       </el-table-column>
-      <el-table-column fixed="right" label="详情" width="120">
-        <el-popover
-          placement="left"
-          width="600px"
-          trigger="click"
-          
-        >
+      <el-table-column fixed="right" label="操作" width="120">
+        <template slot-scope="scope">
+          <!-- <el-button slot="reference" @click="bookDetail(scope.row)"
+            >详情</el-button> -->
+
+          <el-button type="text" @click="bookDetail(scope.row)">详情</el-button>
+
+          <el-button type="text" @click="open(scope.row)">借阅</el-button>
+        </template>
+
+        <!-- <el-popover placement="left" width="600px" trigger="click">
           <el-table :data="gridData">
             <el-table-column width="600" label="描述">
-              <!-- 国家：{{info_country}} 类型：{{books_type}}<br>
-             篇幅：{{info_length}} 主题：{{info_theme}} -->
+              国家：{{info_country}} 类型：{{books_type}}<br>
+             篇幅：{{info_length}} 主题：{{info_theme}}
             </el-table-column>
           </el-table>
-          <template slot-scope="scope">
-          <el-button slot="reference" @click="bookInfo(scope.row)">详情</el-button>
-          </template>
-        </el-popover>
+        </el-popover> -->
       </el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="120">
-        <!-- scope就相当于是tableData的一行,scope.row 就能拿到整行的值，scope.$index就能代表当前行的下标 -->
+      <!-- <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">
           <el-button type="text" @click="open(scope.row)">借阅</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
 
     <div>
@@ -122,12 +121,26 @@
       >
       </el-pagination>
     </div>
+
+    <el-dialog title="详情" :visible.sync="detailVisible" width="30%">
+      <el-row label-width="70px" >
+        <el-col :span="12"> 国家：{{ this.booksInfo.info_country }} </el-col>
+        <el-col :span="12"> 类型: {{ this.booksInfo.info_type }} </el-col>
+        <el-col :span="12"> 篇幅：{{ this.booksInfo.info_length }} </el-col>
+        <el-col :span="12"> 主题: {{ this.booksInfo.info_theme }} </el-col>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="detailVisible = false">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 
 <script>
+import Vue from 'vue'
 export default {
+  
   data() {
     return {
       gridData: [
@@ -139,25 +152,26 @@ export default {
       tableDataEnd: [],
       tableDataBegin: [],
       input: "",
+      detailVisible: false,
       totalItems: 0,
       currentPage: 0,
       pageSize: 8,
+      booksInfo :{},
       formInline: {
-        user: "",
-        region: "",
-        sort: "",
-        para: "",
-        tpic: "",
-        name,
+        country: "",
+        type: "",
+        length: "",
+        theme: "",
+        
       },
     };
   },
   mounted() {
     this.axios({
       method: "get",
-      url: "http://10.10.102.143:8080/books/BooksList",
+      url: "http://10.10.102.142:8080/books/booksList",
       //url: "/user.json",
-      data: "",
+      data: {},
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
@@ -196,42 +210,71 @@ export default {
         .then(() => {
           this.axios({
             method: "post",
-            url: "http://10.10.102.143:8080/record/insertNotReturn",
+            url: "http://10.10.102.142:8080/record/insertNotReturn",
             //url: "/user.json",
             data: {
-              "book_id": row.books_id,
-              "book_name": row.books_name,
-              "user_id": window.sessionStorage.getItem("ms_userid"),
-              "user_name": window.sessionStorage.getItem("ms_username"),
-
+              book_id: row.books_id,
+              book_name: row.books_name,
+              user_id: window.sessionStorage.getItem("ms_userid"),
+              user_name: window.sessionStorage.getItem("ms_username"),
+              book_return_state:0, 
+              book_lend_date:0
             },
             headers: {
-              "Content-Type":
-                "application/json; charset=UTF-8",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          }).then((response) => {
+            console.log(response);
+            if (response.data.state == 406) {
+              this.$message({
+                type: "warn",
+                message: "无法借阅!",
+              });
+            } else if (response.data.state == 200) {
+              this.$message({
+                type: "success",
+                message: "已预约借阅!",
+              });
             }
-          })
-          .then((response) => {
-        console.log(response);
-        if(response.data.state == 406){
-            this.$message({
-            type: "warn",
-            message: "无法借阅!",
           });
-        }else if(response.data.state == 200){
-          this.$message({
-            type: "success",
-            message: "已预约借阅!",
-          });
-        }
-      })
         })
-        .catch(() => {
-          
-        });
+        .catch(() => {});
     },
 
     onSubmit() {
-      console.log("submit!");
+      this.axios({
+        method: "post",
+        url: "http://10.10.102.143:8080/books/quaryType",
+        //url: "/user.json",
+        data: {
+              info_theme:this.formInline.info_theme,
+              info_type:this.formInline.info_type,
+              info_length:this.formInline.info_length,
+              info_country:this.formInline.info_country
+            },
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      })
+      .then((response) => {
+          this.tableDataEnd = [];
+          this.tableDataBegin = [];
+          console.log(response);
+          this.tableDataBegin = response.data.object;
+          console.log(this.tableDataBegin);
+          this.totalItems = this.tableDataBegin.length;
+          if (this.totalItems > this.pageSize) {
+            //如果有好多，只需要第一页的数据
+            for (let index = 0; index < this.pageSize; index++) {
+              this.tableDataEnd.push(this.tableDataBegin[index]);
+            }
+          } else {
+            this.tableDataEnd = this.tableDataBegin;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     inittable() {
@@ -266,24 +309,29 @@ export default {
           console.log(error);
         });
     },
-    bookInfo(row) {
+    bookDetail(row) {
+      console.log(row.books_id);
       this.axios({
         method: "get",
-        url: "http://10.10.102.143:8080/books/getBookAllInfo",
-        //url: "/user.json",
+        url: "http://10.10.102.142:8080/books/detail",
         params: {
-          id:row.book_id
+          books_id: row.books_id,
         },
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
       })
         .then((response) => {
-          console.log(response);
+           this.booksInfo = {};
+          console.log(response.data.object);
+          this.booksInfo = response.data.object.books_info;
         })
         .catch((error) => {
           console.log(error);
         });
+      this.detailVisible = true;
+      
+      
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
