@@ -244,7 +244,7 @@ export default {
     onSubmit() {
       this.axios({
         method: "post",
-        url: "http://10.10.102.143:8080/books/quaryType",
+        url: "http://10.10.102.142:8080/books/quaryType",
         //url: "/user.json",
         data: {
               info_theme:this.formInline.info_theme,
