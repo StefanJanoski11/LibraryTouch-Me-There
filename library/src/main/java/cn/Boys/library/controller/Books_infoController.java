@@ -5,6 +5,8 @@ import cn.Boys.library.entity.Books_info;
 import cn.Boys.library.enums.ResultEnum;
 import cn.Boys.library.mapper.Books_infoMapper;
 import cn.Boys.library.service.impl.Books_infoServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/books_info")
 @CrossOrigin
+@Api(description = "图书类型")
 public class Books_infoController {
     @Autowired
     Books_infoMapper books_infoMapper;
@@ -21,6 +24,7 @@ public class Books_infoController {
     Books_infoServiceImpl books_infoService;
 
     /*添加图书类型*/
+    @ApiOperation(value = "添加图书类型",notes = "通过图书类型全字段进行添加")
     @GetMapping("/insert")
     public Result insert(Books_info books_info){
         int i = books_infoMapper.insertBooks_info(books_info);

@@ -65,9 +65,9 @@ public interface BooksMapper {
     @Select("select books_last from books where books_id=#{type}")
     public Integer getBooksLastByType(Integer type);
 
-    //根据类型窗口通过type修改数量
-    @Update("update Books set books_last=#{last} where books_last=#{type} ")
-    public Integer editBooksLast(Integer type,Integer last);
+    //根据类型窗口通过info_id修改数量
+    @Update("update Books set books_last=#{last} where books_type=#{id} ")
+    public Integer editBooksLast(Integer id,Integer last);
 
     //根据id来修改图书上架下架
     @Update("update Books set books_state = #{status} where books_id = #{bookId}")

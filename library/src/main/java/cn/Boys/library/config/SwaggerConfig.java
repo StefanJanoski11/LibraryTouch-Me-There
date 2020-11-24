@@ -49,7 +49,7 @@ public class SwaggerConfig {
      * @return
      */
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("兄弟足浴").description("图书馆文档").termsOfServiceUrl("http://www.localhost:8080").version("1.0.0").build();
+        return new ApiInfoBuilder().title("图书管理系统").description("接口文档").termsOfServiceUrl("http://www.localhost:8080").version("1.0.0").build();
     }
 
     private List<ApiKey> security() {

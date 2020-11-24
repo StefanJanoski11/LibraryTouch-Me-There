@@ -241,13 +241,13 @@ public class BooksServiceImpl implements BooksService {
             return new Result(books_info,ResultEnum.NOT_ACCEPTABLE);
         }
         Integer last = books_info.getInfo_state();
-        Integer type = books_info.getInfo_type();
+        Integer id = books_info.getInfo_id();
 
         if (last<0){
             return new Result(books_info,ResultEnum.NOT_ACCEPTABLE);
         }
 
-        if(booksMapper.editBooksLast(type,last) !=1 ){
+        if(booksMapper.editBooksLast(id,last) !=1 ){
             return new Result(books_info,ResultEnum.SERVER_ERROR);
         }
         return new Result(books_info,ResultEnum.OK);

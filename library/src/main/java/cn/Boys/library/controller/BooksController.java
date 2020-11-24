@@ -27,17 +27,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RequestMapping("/books")
 @RestController
 @CrossOrigin
-@Api(value="与图书有关类",description="借书还书展示" )
+@Api(description="图书")
 public class BooksController {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Log4j.class);
     @Autowired
@@ -53,6 +51,7 @@ public class BooksController {
 
 
     /*获取日点击量多的5个*/
+    @ApiOperation(value = "获取每日热点图书",notes = "获取每日热点图书")
     @GetMapping("/getDailyHot")
     public Result getDailyHot() {
         Set<Books> booksSet = booksService.getDailyHotByRedis();
@@ -60,6 +59,7 @@ public class BooksController {
     }
 
     /*获取周点击量多的5个*/
+    @ApiOperation(value = "获取每周热点图书",notes = "获取每周热点图书")
     @GetMapping("/getWeeklyHot")
     public Result getWeeklyHot() {
         Set<Books> booksSet = booksService.getWeeklyHotByRedis();
@@ -67,6 +67,7 @@ public class BooksController {
     }
 
     /*获取月点击量多的5个*/
+    @ApiOperation(value = "获取每月热点图书",notes = "获取每月热点图书")
     @GetMapping("/getMonthlyHot")
     public Result getMonthlyHot() {
         Set<Books> booksSet = booksService.getMonthlyHotByRedis();
@@ -74,6 +75,7 @@ public class BooksController {
     }
 
     /*查看所有存在的图书*/
+    @ApiOperation(value = "获取所有存在图书",notes = "分页获取所有存在的图书")
     @GetMapping("/getAll")
     public Result getAllExistBooks(Integer pageNum) {
         pageNum = pageNum == null ? 1 : pageNum;
@@ -89,18 +91,19 @@ public class BooksController {
     }
 
     /*查看图书详情*/
-    @GetMapping("/detail/{book_id}")
-    public Result detail(@PathVariable("book_id") Integer book_id) {
+    @ApiOperation(value = "获取图书详情",notes = "根据图书编号获取图书详情")
+    @GetMapping("/detail")
+    public Result detail(Integer books_id) {
         Map<String, Object> map = new HashMap<>();
         /*先在redis中查找图书*/
-        Books book = booksService.selectBookById(book_id);
+        Books book = booksService.selectBookById(books_id);
         if (book != null) {/*在redis中找到了*/
             map.put("books", book);
             return getAndSetBooks_infoInRedis(map, book);
         }
         /*redis中没找到*/
         /*到数据库中查找*/
-        book = booksMapper.selectBooksByPrimaryKey(book_id);
+        book = booksMapper.selectBooksByPrimaryKey(books_id);
         if (book != null) {/*在数据库中找到了*/
             /*将图书存放到redis*/
             if (!booksService.putBooksInRedis(book)) {
@@ -135,8 +138,9 @@ public class BooksController {
     }
 
     /*插入图书信息*/
+    @ApiOperation(value = "插入图书信息",notes = "通过图书全字段信息插入图书")
     @PostMapping("/insert")
-    public Result insertBook(Books book) {
+    public Result insertBook(@RequestBody Books book) {
         int i = booksMapper.insertBook(book);
         /*将图书插入到数据库*/
         if (i <= 0) {
@@ -150,6 +154,7 @@ public class BooksController {
     }
 
     /*批量导出图书信息*/
+    @ApiOperation(value = "批量导出获取图书",notes = "批量导出获取图书")
     @GetMapping("/download")
     public Result download(HttpServletResponse response) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -174,13 +179,14 @@ public class BooksController {
             sheetRow.createCell(2).setCellValue(book.getBooks_name());
             sheetRow.createCell(3).setCellValue(book.getBooks_author());
             sheetRow.createCell(4).setCellValue(book.getBooks_last());
-            sheetRow.createCell(5).setCellValue(book.getBooks_state());
-            sheetRow.createCell(6).setCellValue(book.getBooks_registerDate().toString());
+            sheetRow.createCell(5).setCellValue(book.getBooks_state()==1?"上架":"下架");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+            sheetRow.createCell(6).setCellValue(sdf.format(book.getBooks_registerDate()));
             sheetRow.createCell(7).setCellValue(book.getBooks_daily());
             sheetRow.createCell(8).setCellValue(book.getBooks_weekly());
             sheetRow.createCell(9).setCellValue(book.getBooks_monthly());
             sheetRow.createCell(10).setCellValue(book.getBooks_publisherId());
-            sheetRow.createCell(11).setCellValue(book.getBooks_createTime().toString());
+            sheetRow.createCell(11).setCellValue(sdf.format(book.getBooks_createTime()));
         }
         response.setContentType("application/octet-stream");/*二进制流*/
         response.setHeader("Content-disposition", "attachment;filename=" + filename);
@@ -200,38 +206,38 @@ public class BooksController {
     }
 
 
-    @ApiOperation("根据书名模糊查询")
     //模糊查询测试
+    @ApiOperation(value = "根据书名模糊查询",notes = "根据书名模糊查询")
     @GetMapping("/quaryName")
     public Result quaryBooks(@RequestParam String name){
         return booksService.quaryBooks(name);
     }
 
-    @ApiOperation("根据类型进行动态查询")
+    @ApiOperation(value = "根据图书类型查询",notes = "根据图书类型进行动态查询")
     @PostMapping("/quaryType")
     public Result quaryBooks(@RequestBody Books_info bookInfo){
         return booksService.getBooksByType(bookInfo);
     }
 
-    @ApiOperation("上架和下架图书")
+    @ApiOperation(value = "上架和下架图书",notes = "通过图书编号以及状态进行图书上架与下架")
     @GetMapping("/setBookStatus")
     public Result setBookStatus(@RequestParam("bookId") Integer bookId,@RequestParam("status") Integer status){
         return booksService.publishBook(bookId,status);
     }
 
-    @ApiOperation("图书类型各类信息进行修改")
-    @GetMapping("/updateBookType")
-    public Result updateBookType(@RequestBody Books_info booksInfo){
-        return booksService.editBooksInfo(booksInfo);
-    }
+//    @ApiOperation(value = "修改图书类型",notes = "通过图书类型全字段修改")
+//    @GetMapping("/updateBookType")
+//    public Result updateBookType(@RequestBody Books_info booksInfo){
+//        return booksService.editBooksInfo(booksInfo);
+//    }
 
-    @ApiOperation("图书状态列，有货已借无货")
-    @GetMapping("/BooksList")
+    @ApiOperation(value = "获取所有图书",notes = "获取所有图书并在状态列显示有货、已借、无货")
+    @GetMapping("/booksList")
     public List<BookStatusDTO> BooksList(){
         return booksService.BooksStatusList();
     }
 
-    @ApiOperation("得到图书最全的信息")
+    @ApiOperation(value = "获取图书详情",notes = "根据图书编号获取图书详情")
     @GetMapping("/getBookAllInfo")
     public Result getBookAllInfo(@RequestParam Integer id){
         return booksService.getAllBookInfo(id);
