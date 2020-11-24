@@ -54,7 +54,7 @@
         <el-input v-model="form.verifyCode"> </el-input>
       </el-form-item>
 
-      <el-form-item label="输入密码" placeholder="输入密码" prop="password">
+      <el-form-item label="输入密码" placeholder="输入密码" prop="user_password">
         <el-input
           type="password"
           v-model="form.user_password"
