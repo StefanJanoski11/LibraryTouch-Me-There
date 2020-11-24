@@ -3,6 +3,8 @@ package cn.Boys.library.dto;
 import cn.Boys.library.entity.Books;
 import cn.Boys.library.enums.BookStatusEnum;
 
+import java.awt.print.Book;
+
 public class BookStatusDTO {
     //状态
     private Integer state;

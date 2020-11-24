@@ -14,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,11 +29,13 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
-@Api("用户相关")
+@Api(description = "用户")
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
@@ -48,6 +51,7 @@ public class UserController {
     EmailProducer emailProducer;
 
     /*获取所有存在的用户*/
+    @ApiOperation(value = "获取存在用户列表",notes = "分页查询用户列表")
     @GetMapping("/getAll")
     public Result selectAllExistUser(Integer pageNum){
         pageNum = pageNum==null?1:pageNum;
@@ -64,19 +68,20 @@ public class UserController {
     }
 
     /*用户信息修改*/
+    @ApiOperation(value = "修改用户详情",notes = "通过用户编号修改全信息")
     @PostMapping("/alterDetail")
-    public Result alterDetail(@Valid User user,BindingResult result, String checkPassword){
-        if (result.hasErrors()){
-            /*存在格式错误*/
-            return new Result(result,ResultEnum.NOT_ACCEPTABLE);
-        }
+    public Result alterDetail(User user, String checkPassword){
+        log.info(user.toString());
         if (user.getUser_sex() != 1 && user.getUser_sex() != 0){
             return new Result("用户性别有误，请正确选择！",ResultEnum.NOT_ACCEPTABLE);
         }
-        if (!user.getUser_password().equals(checkPassword)){
-            return new Result("两次密码输入必须正确！",ResultEnum.NOT_ACCEPTABLE);
+        if (!StringUtils.isEmpty(user.getUser_password())){/*密码不为空*/
+            if (!user.getUser_password().equals(checkPassword) ){/*不相等*/
+                return new Result("两次密码输入必须正确！",ResultEnum.NOT_ACCEPTABLE);
+            }else {/*相等*/
+                user.setUser_password(DES.getEncryptString(checkPassword));
+            }
         }
-        user.setUser_password(DES.getEncryptString(checkPassword));
         /*数据库修改用户信息*/
         int i = userMapper.alterDetail(user);
         if (i<=0){
@@ -138,16 +143,16 @@ public class UserController {
         User user = userMapper.selectUserByPhone(user_phone);
         if (user!=null){
             /*在数据库中已经存在用户名*/
-            return new Result(null, ResultEnum.NOT_ACCEPTABLE);
+            return new Result("已经存在用户注册使用该手机号码", ResultEnum.NOT_ACCEPTABLE);
         }
         /*用户未存在*/
         return new Result(null, ResultEnum.OK);
     }
 
     /*登录模块*/
+    @ApiOperation(value = "用户登录",notes = "通过用户名与密码进行登录")
     @PostMapping("/login")
     public Result login(@RequestBody User user_temp) {
-        System.out.println(user_temp.toString());
         User user = userService.selectUserByUsername(user_temp.getUser_name());
         user_temp.setUser_password(DES.getEncryptString(user_temp.getUser_password()));
         if (user != null){/*在redis中找到了*/
@@ -173,6 +178,7 @@ public class UserController {
     }
 
     /*注册模块*/
+    @ApiOperation(value = "用户注册",notes = "通过短信验证码进行用户全字段信息，并进行邮箱通知")
     @PostMapping("/register")
     public Result register(@Valid User user, BindingResult result, String checkPassword){
         System.out.println(user);
@@ -206,6 +212,7 @@ public class UserController {
     }
 
     /*用户查看我的详情模块*/
+    @ApiOperation(value = "用户详情",notes = "通过用户编号查询用户详情")
     @GetMapping("/detail")
     public Result getMyDetail(@RequestParam("user_id") Integer user_id, @RequestParam("user_name")String user_name){
         User user = userService.selectUserByUsername(user_name);
@@ -225,6 +232,7 @@ public class UserController {
     }
 
     /*批量导出图书信息*/
+    @ApiOperation(value = "导出图书信息",notes = "批量导出图书信息")
     @GetMapping("/download")
     public Result download(HttpServletResponse response) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -250,17 +258,18 @@ public class UserController {
             sheetRow.createCell(3).setCellValue(user.getUser_email());
             sheetRow.createCell(4).setCellValue(user.getUser_sex());
             sheetRow.createCell(5).setCellValue(user.getUser_phone());
-            sheetRow.createCell(6).setCellValue(user.getUser_birthday());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+            sheetRow.createCell(6).setCellValue(sdf.format(user.getUser_birthday()));
             sheetRow.createCell(7).setCellValue(user.getUser_address());
             sheetRow.createCell(8).setCellValue(user.getUser_self_desc());
             sheetRow.createCell(9).setCellValue(UserSincerityEnum.stateOf(user.getUser_sincerity()).getDescribe());
             sheetRow.createCell(10).setCellValue(user.getUser_exist_state()==1?"存在":"不存在");
-            sheetRow.createCell(11).setCellValue(user.getUser_create_date());
+            sheetRow.createCell(11).setCellValue(sdf.format(user.getUser_create_date()));
             sheetRow.createCell(12).setCellValue(user.getUser_create_admin());
-            sheetRow.createCell(13).setCellValue(user.getUser_alter_date());
+            sheetRow.createCell(13).setCellValue(sdf.format(user.getUser_alter_date()));
             sheetRow.createCell(14).setCellValue(user.getUser_alter_admin());
         }
-        response.setContentType("application/octet-stream");/*二进制流*/
+//        response.setContentType("application/octet-stream");/*二进制流*/
         response.setHeader("Content-disposition", "attachment;filename=" + filename);
         OutputStream os = null;
         try{
@@ -269,7 +278,7 @@ public class UserController {
             workbook.write(os);
         } catch (IOException e) {
             e.printStackTrace();
-            return new Result(null, ResultEnum.SERVER_ERROR);
+            return new Result(filename, ResultEnum.SERVER_ERROR);
         }finally {
             os.close();
         }
@@ -277,29 +286,20 @@ public class UserController {
         return new Result(null, ResultEnum.OK);
     }
 
-    /**
-     * 注销登录
-     * @param
-     * @return
-     */
-    @GetMapping("/logout")
-    public Result logout(User user){
 
-        return new Result("logout",ResultEnum.OK);
-    }
-
-    @ApiOperation("根据用户名模糊查询用户")
+    @ApiOperation(value = "模糊查询用户",notes = "根据用户名模糊查询用户")
     @GetMapping("/quaryUser")
     public Result quaryUser(String name){
         return userService.quaryUserByName(name);
     }
 
-    @ApiOperation("删除用户")
+    @ApiOperation(value = "注销用户",notes = "通过用户编号注销用户")
     @GetMapping("/deleteUser")
     public Result deleteUser(Integer id){
         return userService.deleteUser(id);
     }
-    @ApiOperation("查询所有还存活用户")
+
+    @ApiOperation(value = "查询所有存在用户",notes = "批量查询所有存在用户")
     @GetMapping("/quaryExistUser")
     public Result quaryExistUser(){
         return userService.selectUserExist();
