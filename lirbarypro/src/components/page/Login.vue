@@ -3,7 +3,7 @@
         <div class="ms-login">
             <div class="ms-title">图书管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-                <el-form-item prop="username" >
+                <el-form-item prop="user_name" >
                     <el-input v-model="param.user_name" placeholder="username" maxlength="30" show-word-limit>
                         <el-button slot="prepend"  type="primary" icon="el-icon-user"></el-button>
                     </el-input>

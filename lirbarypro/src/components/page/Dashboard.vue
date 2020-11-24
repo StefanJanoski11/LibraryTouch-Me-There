@@ -141,7 +141,7 @@ export default {
 
       Vue.axios({
       method: "post",
-      url: "http://10.10.102.143:8080/record/addNotice",
+      url: "http://10.10.102.142:8080/record/addNotice",
       params:{
         notice:this.notice
       },

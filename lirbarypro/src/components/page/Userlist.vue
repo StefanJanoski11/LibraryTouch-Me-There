@@ -9,13 +9,6 @@
     </div>
     <div class="container">
       <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-          >批量删除</el-button
-        >
         <el-input
           v-model="query.name"
           placeholder="用户名"
@@ -483,16 +476,6 @@ export default {
     // 多选操作
     handleSelectionChange(val) {
       this.multipleSelection = val;
-    },
-    delAllSelection() {
-      // const length = this.multipleSelection.length;
-      // let str = "";
-      // this.delList = this.delList.concat(this.multipleSelection);
-      // for (let i = 0; i < length; i++) {
-      //   str += this.multipleSelection[i].name + " ";
-      // }
-      // this.$message.error(`删除了${str}`);
-      // this.multipleSelection = [];
     },
     // 编辑操作
     handleEdit(index, row) {

@@ -114,7 +114,7 @@ export default {
   mounted() {
     Vue.axios({
       method: "get",
-      url:'http://10.10.102.143:8080/record/getRecordById',
+      url:'http://10.10.102.142:8080/record/getRecordById',
       // url: "../../../static/mock/rentList.json",
       params: {id: window.sessionStorage.getItem("ms_userid")},
       headers: {
