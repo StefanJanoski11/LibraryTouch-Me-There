@@ -57,6 +57,11 @@ export default {
             collapse: false,
             items: [
                 {
+                    icon: 'el-icon-s-home',
+                    index: 'index',
+                    title: '首页'
+                },
+                {
                     icon: 'el-icon-s-shop',
                     index: 'library',
                     title: '图书库'

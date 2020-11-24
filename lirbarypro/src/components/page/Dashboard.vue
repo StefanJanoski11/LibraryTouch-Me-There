@@ -188,7 +188,7 @@ export default {
     //获取公告
     Vue.axios({
       method: "get",
-      url: "http://10.10.102.143:8080/record/quaryNotice",
+      url: "http://10.10.102.142:8080/record/quaryNotice",
       data: "",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
