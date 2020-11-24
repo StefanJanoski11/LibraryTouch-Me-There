@@ -36,7 +36,7 @@
               <el-form-item label="性别" prop="user_sex">
                 <el-select
                   style="width: 100%"
-                  v-model="ruleForm.sex"
+                  v-model="ruleForm.user_sex"
                   placeholder="选择性别"
                   :disabled="isAble"
                 >
@@ -233,8 +233,8 @@ export default {
     this.ruleForm.user_email = window.sessionStorage.getItem("ms_user_email");
     this.ruleForm.user_address = window.sessionStorage.getItem("ms_user_address");
     this.ruleForm.user_self_desc = window.sessionStorage.getItem("ms_user_self_desc");
-    this.ruleForm.user_password = window.sessionStorage.getItem("ms_user_password");
-    this.ruleForm.checkPassword = window.sessionStorage.getItem("ms_user_password");
+    // this.ruleForm.user_password = window.sessionStorage.getItem("ms_user_password");
+    // this.ruleForm.checkPassword = window.sessionStorage.getItem("ms_user_password");
   },
   methods: {
     edit() {
@@ -256,20 +256,40 @@ export default {
           Vue.axios({
             method: "post",
             url: "http://10.10.102.142:8080/user/alterDetail",
-            data: this.ruleForm,
+            params: {
+                user_id: this.ruleForm.user_id,
+                user_name: this.ruleForm.user_name,
+                user_email: this.ruleForm.user_email,
+                user_sex: this.ruleForm.user_sex,
+                user_birthday: this.ruleForm.user_birthday,
+                user_phone: this.ruleForm.user_phone, //手机号
+                user_address: this.ruleForm.user_address, //地址
+                user_self_desc: this.ruleForm.user_self_desc,
+                // user_password: this.ruleForm.user_password,
+                // checkPassword: this.ruleForm.checkPassword,
+              },
             headers: {
               "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             },
           })
           .then((response) => {
             console.log(response);
-            // this.ruleForm.name = response.data.name;
-            // this.ruleForm.sex = response.data.sex;
-            // this.ruleForm.date = response.data.date;
-            // this.ruleForm.tel = response.data.tel;
-            // this.ruleForm.email = response.data.email;
-            // this.ruleForm.address = response.data.address;
-            // this.ruleForm.resume = response.data.resume;
+
+            let user_sex = response.data.object.user_sex;
+            window.sessionStorage.setItem('ms_user_sex', user_sex);
+            let user_birthday = response.data.object.user_birthday;
+            window.sessionStorage.setItem('ms_user_birthday', user_birthday);
+            let user_phone = response.data.object.user_phone;
+            window.sessionStorage.setItem('ms_user_phone', user_phone);
+            let user_email = response.data.object.user_email;
+            window.sessionStorage.setItem('ms_user_email', user_email);
+            let user_address = response.data.object.user_address;
+            window.sessionStorage.setItem('ms_user_address', user_address);
+            let user_self_desc = response.data.object.user_self_desc;
+            window.sessionStorage.setItem('ms_user_self_desc', user_self_desc);
+            let user_password = response.data.object.user_password;
+            window.sessionStorage.setItem('ms_user_password', user_password);
+            this.$router.push('/user/edit');
           })
           .catch((error) => {
             console.log(error);
