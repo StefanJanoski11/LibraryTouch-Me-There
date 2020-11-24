@@ -84,10 +84,12 @@
 </template>
 
 <script>
+
 import Vue from "vue";
 export default {
   data() {
     return {
+      
       tableDataBegin: [],
       tableDataName: "",
       tableDataEnd: [], //最终显示数据

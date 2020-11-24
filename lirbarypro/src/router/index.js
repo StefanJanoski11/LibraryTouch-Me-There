@@ -53,7 +53,6 @@ export default new Router({
             path: '/user',
             redirect: '/user/library'
         },
-
         {
             path: '/user',
             component: UserHome,
