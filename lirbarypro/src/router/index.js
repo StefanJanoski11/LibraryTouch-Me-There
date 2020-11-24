@@ -12,6 +12,7 @@ import UserEdit from '../components/page/UserEdit.vue';
 import Rent from '../components/page/Rent.vue';
 import Bookshelf from '../components/page/Bookshelf.vue';
 import UserLibrary from '../components/page/UserLibrary.vue';
+import ManagerLibrary from '../components/page/ManagerLibrary.vue';
 
 Vue.use(Router);
 
@@ -42,7 +43,7 @@ export default new Router({
                 },
                 {
                     path: 'library',
-                    component: Dashboard,
+                    component: ManagerLibrary,
                     meta: { title: '书库' }
                 }
             ]
@@ -51,6 +52,7 @@ export default new Router({
             path: '/user',
             redirect: '/user/library'
         },
+
         {
             path: '/user',
             component: UserHome,

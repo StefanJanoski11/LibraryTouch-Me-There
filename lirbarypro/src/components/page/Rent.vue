@@ -71,7 +71,7 @@ import Vue from "vue";
     mounted() {
     Vue.axios({
       method: "get",
-      url: "http://10.10.102.143:8080/record/getAll",
+      url: "http://10.10.102.142:8080/record/getAll",
       data: "",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -101,7 +101,7 @@ import Vue from "vue";
       doFilter() {
         Vue.axios({
       method: "get",
-      url: "http://10.10.102.143:8080/book/quaryName",
+      url: "http://10.10.102.142:8080/book/quaryName",
       params: {name:this.tableDataName},
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
