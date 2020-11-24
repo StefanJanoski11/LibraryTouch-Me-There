@@ -6,7 +6,7 @@
     <div class="pp1">
       
       <el-popover 
-        placement="top"
+        placement="left-end"
         width="400"
         trigger="click"  
       >
