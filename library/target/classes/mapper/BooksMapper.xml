@@ -12,6 +12,12 @@
             <if test="info_theme!=null and info_theme!=''">
                 and info_theme = #{info_theme}
             </if>
+            <if test="info_type!=null and info_type!=''">
+                and info_type = #{info_type}
+            </if>
+            <if test="info_length!=null and info_length!=''">
+                and info_length = #{info_length}
+            </if>
 
         </where>
     </select>

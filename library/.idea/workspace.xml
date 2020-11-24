@@ -19,40 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a696e13-c5b5-4ede-932b-e4e1790498e4" name="Default Changelist" comment="20201118-0.5版本">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/LibraryApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/RecordDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/entity/Record.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/ResultEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/redis/JedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/util/HttpUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/util/StringCodeUtil.java" afterDir="false" />
+    <list default="true" id="a98a1cb3-acc7-4f0e-bd64-16a5f7699e3b" name="Default Changelist" comment="20201118-0.5版本">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/config/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/BooksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/BooksController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/Books_infoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/Books_infoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/RecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/RecordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/BookStatusDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/dto/BookStatusDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/entity/Books_info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/entity/Books_info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/UserSincerityEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/enums/UserSincerityEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/mapper/BooksMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/mapper/BooksMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/BooksServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/Boys/library/service/impl/BooksServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/LibraryApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/LibraryApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/config/SwaggerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/config/SwaggerConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/BooksController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/BooksController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/Books_infoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/Books_infoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/MessageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/MessageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/RecordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/RecordController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/BooksMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/BooksMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/BookStatusDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/BookStatusDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/dto/Result.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/entity/Books_info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/entity/Books_info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/mapper/BooksMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/mapper/BooksMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/BooksService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/BooksService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/BooksServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/Boys/library/service/impl/BooksServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/cn/Boys/library/LibraryApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +49,6 @@
   <component name="ProjectId" id="1kRq2kS59XYjDyliJyJebvGVIzd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -98,18 +71,18 @@
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\service\impl" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="cn.Boys.library.config" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library\redis" />
       <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library" />
       <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library\entity" />
       <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library\enums" />
       <recent name="C:\Users\Administrator\Desktop\备份版本\1.0版本\library\src\main\java\cn\Boys\library\dto" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.Boys.library.config" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\myworkstation\LibraryTouch-Me-There\library\src\main\java\cn\Boys\library\service\impl" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.LibraryApplication">
@@ -161,6 +134,14 @@
       <workItem from="1606136419774" duration="3183000" />
       <workItem from="1606177804412" duration="21076000" />
     </task>
+    <task id="LOCAL-00001" summary="1.2">
+      <created>1606214886949</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606214886949</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,7 +162,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge branch 'main' of https://github.com/StefanJanoski11/LibraryTouch-Me-There into main&#10;&#10;# Conflicts:&#10;#&#9;library/springboot.log&#10;#&#9;library/src/main/java/cn/Boys/library/controller/RecordController.java&#10;#&#9;library/src/main/java/cn/Boys/library/controller/UserController.java&#10;#&#9;library/src/main/java/cn/Boys/library/entity/Book_info.java&#10;#&#9;library/src/main/java/cn/Boys/library/entity/Books.java&#10;#&#9;library/src/main/java/cn/Boys/library/entity/Record.java&#10;#&#9;library/src/main/java/cn/Boys/library/entity/User.java&#10;#&#9;library/src/main/java/cn/Boys/library/mapper/BooksMapper.java&#10;#&#9;library/src/main/java/cn/Boys/library/mapper/RecordMapper.java&#10;#&#9;library/src/main/java/cn/Boys/library/mapper/UserMapper.java&#10;#&#9;library/src/main/java/cn/Boys/library/service/BooksService.java&#10;#&#9;library/src/main/java/cn/Boys/library/service/RecordService.java&#10;#&#9;library/src/main/java/cn/Boys/library/service/impl/BooksServiceImpl.java&#10;#&#9;library/src/main/java/cn/Boys/library/service/impl/RecordServiceImpl.java" />
     <MESSAGE value="20201118-0.5版本" />
-    <option name="LAST_COMMIT_MESSAGE" value="20201118-0.5版本" />
+    <MESSAGE value="1.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="163" y="0" key="#Project_Structure" timestamp="1606091761798">
@@ -212,38 +194,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1606135681215" />
-    <state width="1306" height="286" key="GridCell.Tab.0.bottom" timestamp="1606213214216">
+    <state width="1322" height="269" key="GridCell.Tab.0.bottom" timestamp="1606221090442">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
-    <state width="1306" height="286" key="GridCell.Tab.0.center" timestamp="1606213214216">
+    <state width="1322" height="269" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606221090442" />
+    <state width="1322" height="269" key="GridCell.Tab.0.center" timestamp="1606221090441">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
-    <state width="1306" height="286" key="GridCell.Tab.0.left" timestamp="1606213214216">
+    <state width="1322" height="269" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1606221090441" />
+    <state width="1322" height="269" key="GridCell.Tab.0.left" timestamp="1606221090441">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
-    <state width="1306" height="286" key="GridCell.Tab.0.right" timestamp="1606213214216">
+    <state width="1322" height="269" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1606221090441" />
+    <state width="1322" height="269" key="GridCell.Tab.0.right" timestamp="1606221090442">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
-    <state width="1306" height="286" key="GridCell.Tab.1.bottom" timestamp="1606213214216">
+    <state width="1322" height="269" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1606221090442" />
+    <state width="1322" height="130" key="GridCell.Tab.1.bottom" timestamp="1606220655277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
-    <state width="1306" height="286" key="GridCell.Tab.1.center" timestamp="1606213214216">
+    <state width="1322" height="130" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1606220655277" />
+    <state width="1322" height="130" key="GridCell.Tab.1.center" timestamp="1606220655277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
-    <state width="1306" height="286" key="GridCell.Tab.1.left" timestamp="1606213214216">
+    <state width="1322" height="130" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1606220655277" />
+    <state width="1322" height="130" key="GridCell.Tab.1.left" timestamp="1606220655277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
-    <state width="1306" height="286" key="GridCell.Tab.1.right" timestamp="1606213214216">
+    <state width="1322" height="130" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1606220655277" />
+    <state width="1322" height="130" key="GridCell.Tab.1.right" timestamp="1606220655277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="286" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1606213214216" />
+    <state width="1322" height="130" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1606220655277" />
     <state width="1306" height="351" key="GridCell.Tab.2.bottom" timestamp="1606123016012">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
