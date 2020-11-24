@@ -56,121 +56,71 @@
       size="small" @click="addBook=true" icon="el-icon-circle-plus-outline"  class="settingButton"></el-button>
       </el-form-item>
 
-<el-dialog title="书籍上架" :visible.sync="addBook">
-  <el-form :model="form">
-    <el-form-item label="书　名" >
-      <el-input v-model="form.name" autocomplete="off"></el-input>
-    </el-form-item>
+    <el-dialog title="书籍上架" :visible.sync="addBook">
+      <el-form :model="form">
+        <el-form-item label="书　名" >
+          <el-input v-model="form.books_name" autocomplete="off"></el-input>
+        </el-form-item>
 
-    <el-form-item label="　作　者" >
-      <el-input v-model="form.author" autocomplete="off"></el-input>
-    </el-form-item>
+        <el-form-item label="　作　者" >
+          <el-input v-model="form.books_author" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="上架数量" >
+          <el-input v-model="form.books_last" autocomplete="off"></el-input>
+        </el-form-item>
 
-    <el-form-item label="出版社 " >
-      <el-input v-model="form.public" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="上架数量" >
-      <el-input v-model="form.counter" autocomplete="off"></el-input>
-    </el-form-item>
-
-
-    <el-form-item label="国家" >
-        <el-select v-model="formInline.region" placeholder="国家" class="searchList">
-          <el-option label="中国" value="china"></el-option>
-          <el-option label="日本" value="japan"></el-option>
-          <el-option label="北美" value="noramerica"></el-option>
-          <el-option label="欧洲" value="europe"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="类型" >
-        <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
-          <el-option label="历史" value="history"></el-option>
-          <el-option label="文学" value="literature"></el-option>
-          <el-option label="军事" value="military"></el-option>
-          <el-option label="科学" value="science"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="篇幅" >
-        <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
-          <el-option label="短篇" value="short"></el-option>
-          <el-option label="中篇" value="mid"></el-option>
-          <el-option label="长篇" value="long"></el-option>
-          <el-option label="超长篇" value="splong"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="主题" >
-        <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
-          <el-option label="一" value="one"></el-option>
-          <el-option label="二" value="two"></el-option>
-          <el-option label="三" value="three"></el-option>
-          <el-option label="四" value="four"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="上架日期" :label-width="formLabelWidth">
-      <el-input v-model="form.date" autocomplete="off"></el-input>
-      </el-form-item>
-
-      <el-form-item label="简介" :label-width="formLabelWidth">
-      <el-input v-model="form.detail" autocomplete="off"></el-input>
-      </el-form-item>
-    
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="addBook = false">取 消</el-button>
-    <el-button type="primary" @click="addBook = false">上 架</el-button>
-  </div>
-</el-dialog>      
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addBook = false">取 消</el-button>
+        <el-button type="primary" @click="addBook = false">添 加</el-button>
+      </div>
+    </el-dialog>      
 
     </el-form>
 
-    <el-input
-      v-model="input"
-      placeholder="请输入内容"
-      class="searchBox"
-    ></el-input>
+    <el-input v-model="input" placeholder="请输入内容" class="searchBox"></el-input>
     <el-button type="primary" icon="el-icon-search" class="searchButton" @click="inittable()"
       >搜索</el-button>
-
-      
+    <el-button type="primary" icon="el-icon-plus" @click="bookDownload"
+      >批量导出</el-button
+    >
 
     <el-table :data="tableDataEnd" style="width: 90%" class="detail">
-      <el-table-column fixed prop="date" label="上架日期" width="150">
+      <el-table-column
+        fixed
+        prop="books_createTime"
+        label="上架日期"
+        width="150"
+      >
       </el-table-column>
-      <el-table-column prop="name" label="书名" width="120"> </el-table-column>
-      <el-table-column prop="province" label="作者" width="120">
+      <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
-      <el-table-column prop="city" label="库存" width="120"> </el-table-column>
-      <el-table-column prop="address" label="出版社" width="300">
+      <el-table-column prop="books_author" label="作者" width="120">
+      </el-table-column>
+      <el-table-column prop="books_last" label="库存" width="120">
+      </el-table-column>
+      <el-table-column prop="books_state" :formatter="Formate" label="是否上架" width="90">
+      </el-table-column>
+      <el-table-column prop="books_id" label="ID" width="120">
       </el-table-column>
       
-<el-table-column prop="city" label="下架" width="120" fixed="right"> 
-<el-button icon="el-icon-delete"
-          @click="deleteBook"
+      <el-table-column  label="操作" width="160" fixed="right">
+      <template slot-scope="scope"> 
+        <el-button 
+          @click="deleteBook(scope.$index, scope.row)"
           type="primary"
-          size="small"></el-button>
-</el-table-column>
-
-      <el-table-column fixed="right" label="操作" width="120">
-        <el-button @click="settingVisible =true"
+          size="small">上下架</el-button>
+      
+        <el-button @click="clickSetting(scope.$index, scope.row)"
           type="text"
           size="small">编辑</el-button>
+          </template>
       </el-table-column>
+
     </el-table>
   
   <el-dialog title="编辑书籍信息" :visible.sync="settingVisible">
   <el-form :model="form">
-    <el-form-item label="书名" :label-width="formLabelWidth">
-      <el-input v-model="form.name" autocomplete="off"></el-input>
-    </el-form-item>
-
-    <el-form-item label="简介" :label-width="formLabelWidth">
-      <el-input v-model="form.detail" autocomplete="off"></el-input>
-    </el-form-item>
-
     <el-form-item label="国家" :label-width="formLabelWidth">
         <el-select v-model="formInline.region" placeholder="国家" class="searchList">
           <el-option label="中国" value="china"></el-option>
@@ -207,11 +157,11 @@
         </el-select>
       </el-form-item>
     
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="settingVisible = false">取 消</el-button>
-    <el-button type="primary" @click="settingVisible = false">保 存</el-button>
-  </div>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="settingVisible = false">取 消</el-button>
+        <el-button type="primary" @click="settingVisible = false">保 存</el-button>
+      </div>
 </el-dialog>
 
     <div>
@@ -237,128 +187,18 @@ export default {
     return {
       addBook:false,
         form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          books_name: '',
+          books_author: '',
+          books_last: '',
         },
         formLabelWidth: '120px',
         settingVisible:false,
       gridData: [{
-          description: '全球最大的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。百度超过千亿的中文网页数据库，可以瞬间找到相关的搜索结果。',
+          description: '',
         }],
       imgSrc: require("../../assets/img/3.jpg"),
       tableDataEnd: [],
-      tableDataBegin: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-        },
-      ],
+      tableDataBegin: [],
       input: "",
       totalItems: 0,
       currentPage: 0,
@@ -373,23 +213,103 @@ export default {
       },
     };
   },
-  methods: {
-    onSubmit() {
-      console.log("submit!");
-    },
+  mounted(){
+    this.axios({
+      method: "get",
+      url: "http://10.10.102.143:8080/books/BooksList",
+      //url: "/user.json",
+      data: "",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        let array = response.data;
+        this.totalItems = array.length;
+        for (let i = 0; i < this.totalItems; i++) {
+          this.tableDataBegin[i] = array[i].book;
+        }
 
-    inittable(){
-      this.tableDataEnd= [],
-       this.totalItems = this.tableDataBegin.length;
         if (this.totalItems > this.pageSize) {
           //如果有好多，只需要第一页的数据
-          this.currentPage=1;
           for (let index = 0; index < this.pageSize; index++) {
             this.tableDataEnd.push(this.tableDataBegin[index]);
           }
         } else {
           this.tableDataEnd = this.tableDataBegin;
         }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    Formate(row, index) {
+      if (row.books_state == 0) {
+        return "否";
+      } else {
+        return "是";
+      }
+    },
+    bookDownload() {
+      this.axios({
+        method: "get",
+        url: "http://10.10.102.142:8080/books/download",
+        responseType: "blob"
+      })
+        .then(response => {
+          let url = window.URL.createObjectURL(response.data);
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          let date = new Date();
+          link.setAttribute("download", date.getFullYear()+"_"+date.getMonth()+"_"+date.getDate()+"_books.xlsx");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    onSubmit() {
+      console.log("submit!");
+    },
+    clickSetting(index, row){
+      this.settingVisible =true;
+    },
+    inittable(){
+      this.axios({
+        method: "get",
+        url: "http://10.10.102.143:8080/books/quaryName",
+        //url: "/user.json",
+        params: {
+          name: this.input,
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      })
+        .then((response) => {
+          this.tableDataEnd = [];
+          this.tableDataBegin = [];
+          console.log(response);
+          this.tableDataBegin = response.data.object;
+          console.log(this.tableDataBegin);
+          this.totalItems = this.tableDataBegin.length;
+          if (this.totalItems > this.pageSize) {
+            //如果有好多，只需要第一页的数据
+            for (let index = 0; index < this.pageSize; index++) {
+              this.tableDataEnd.push(this.tableDataBegin[index]);
+            }
+          } else {
+            this.tableDataEnd = this.tableDataBegin;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     handleCurrentChange(val) {
@@ -410,10 +330,63 @@ export default {
         }
       }
     },
-    deleteBook(){
-      
-    },
-  },
+    deleteBook(index, row){
+      this.$confirm("你是否确定上下架此书籍?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then(() => {
+          this.axios({
+            method: "get",
+            url: "http://10.10.102.143:8080/books/setBookStatus",
+            //url: "/user.json",
+            params: {
+              "bookId": row.books_id,
+              "status": row.books_state==1?0:1,
+            },
+            headers: {
+              "Content-Type":"application/json; charset=UTF-8",
+            }
+          })
+          .then((response) => {
+              //重新加载
+            this.axios({
+            method: "get",
+            url: "http://10.10.102.143:8080/books/BooksList",
+            //url: "/user.json",
+            data: "",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            },
+          })
+            .then((response) => {
+              console.log(response);
+              this.tableDataEnd=[];
+              this.tableDataBegin=[];
+              let array = response.data;
+              this.totalItems = array.length;
+              for (let i = 0; i < this.totalItems; i++) {
+                this.tableDataBegin[i] = array[i].book;
+              }
+
+              if (this.totalItems > this.pageSize) {
+                //如果有好多，只需要第一页的数据
+                for (let index = 0; index < this.pageSize; index++) {
+                  this.tableDataEnd.push(this.tableDataBegin[index]);
+                }
+              } else {
+                this.tableDataEnd = this.tableDataBegin;
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch(() => {});
+      })
+    }
+  }
 };
 </script>
 

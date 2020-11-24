@@ -350,7 +350,8 @@ export default {
         }
       }
     },
-  },
+    },
+
 };
 </script>
 

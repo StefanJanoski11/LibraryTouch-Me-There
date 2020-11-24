@@ -90,7 +90,10 @@
         
       </el-col>
       <el-col :span="20">
-        <p style="text-indent: 2em">{{ this.notice }}</p>
+      <div id="div1">
+      <p style="text-indent: 2em">{{ this.notice }}</p>
+      </div>
+      
       </el-col>
     </el-row>
 
@@ -306,6 +309,11 @@ export default {
 .todo-item-del {
   text-decoration: line-through;
   color: #999;
+}
+
+#div1 {
+  background-color: rgba(207, 235, 247, 0.8);
+  height: 752px;
 }
 
 </style>

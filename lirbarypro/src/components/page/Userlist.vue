@@ -47,8 +47,9 @@
         <el-table-column
           prop="user_identity_id"
           label="是否管理员"
+          :formatter="adminFormate"
         ></el-table-column>
-        <el-table-column prop="user_sex" label="性别"></el-table-column>
+        <el-table-column prop="user_sex" :formatter="sexFormate" label="性别"></el-table-column>
         <el-table-column
           prop="user_sincerity"
           label="不良记录"
@@ -357,6 +358,20 @@ export default {
       });
   },
   methods: {
+    sexFormate(row, index) {
+      if (row.user_sex == 0) {
+        return "女";
+      } else {
+        return "男";
+      }
+    },
+    adminFormate(row, index) {
+      if (row.user_identity_id == 0) {
+        return "否";
+      } else {
+        return "是";
+      }
+    },
     userDownload() {
       this.axios({
         method: "get",
