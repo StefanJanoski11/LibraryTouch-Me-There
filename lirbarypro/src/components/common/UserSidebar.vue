@@ -58,7 +58,7 @@ export default {
             items: [
                 {
                     icon: 'el-icon-s-shop',
-                    index: 'dashboard',
+                    index: 'library',
                     title: '图书库'
                 },
                 {
