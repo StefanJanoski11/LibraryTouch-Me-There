@@ -255,7 +255,7 @@ export default {
           //异步请求修改
           Vue.axios({
             method: "post",
-            url: "http://10.10.102.142:8080/user/alterDetail",
+            url:  this.$host+"/user/alterDetail",
             params: {
                 user_id: this.ruleForm.user_id,
                 user_name: this.ruleForm.user_name,

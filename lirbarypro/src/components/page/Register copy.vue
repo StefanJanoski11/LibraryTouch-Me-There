@@ -238,7 +238,7 @@ export default {
       me=this;
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/user/checkUsernameIsExist",
+        url:  this.$host+"/user/checkUsernameIsExist",
         params: {
           user_name: this.form.user_name
         }
@@ -259,7 +259,7 @@ export default {
     checkPhoneExist() {
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/user/checkPhoneIsExist",
+        url:  this.$host+"/user/checkPhoneIsExist",
         params: {
           user_phone: this.form.user_phone
         }
@@ -279,28 +279,12 @@ export default {
     onSubmit() {
       this.$refs.form.validate(valid => {
         if (true && submit_isAbled) {
-          // this.axios({
-          //   method: "get",
-          //   url: "http://10.10.102.142:8080/user/checkUsernameIsExist",
-          //   params: {
-          //     user_name: this.form.user_name
-          //   }
-          // })
-          //   .then(response => {
-          //     if (response.data.code == 406) {
-          //       return false;
-          //       alert("已经存在用户注册使用该用户名");
-          //     }
-          //   })
-          //   .catch(error => {
-          //     console.log(error);
-          //   });
           console.log(this.realVerifyCode);
           if (this.realVerifyCode == this.form.verifyCode) {
             console.log(this.form);
             this.axios({
               method: "post",
-              url: "http://10.10.102.142:8080/user/register",
+              url:  this.$host+"/user/register",
               params: {
                 user_name: this.form.user_name,
                 user_email: this.form.user_email,
@@ -362,7 +346,7 @@ export default {
           //axios传user_phone
           this.axios({
             method: "get",
-            url: "http://10.10.102.142:8080/message/send",
+            url:  this.$host+"/message/send",
             params: {
               user_phone: this.form.user_phone
             },
