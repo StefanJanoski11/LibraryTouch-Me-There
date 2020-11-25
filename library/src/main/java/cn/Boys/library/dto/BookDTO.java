@@ -19,8 +19,27 @@ public class BookDTO {
     private String info_country;
     private Integer info_length;
     private String info_theme;
-    private Integer info_type;
+    private String info_type;
     private Integer info_state=1;
+
+    @Override
+    public String toString() {
+        return "BookDTO{" +
+                "books_id=" + books_id +
+                ", books_type=" + books_type +
+                ", books_name='" + books_name + '\'' +
+                ", books_author='" + books_author + '\'' +
+                ", books_last=" + books_last +
+                ", books_state=" + books_state +
+                ", books_registerDate=" + books_registerDate +
+                ", books_pic='" + books_pic + '\'' +
+                ", info_country='" + info_country + '\'' +
+                ", info_length=" + info_length +
+                ", info_theme='" + info_theme + '\'' +
+                ", info_type='" + info_type + '\'' +
+                ", info_state=" + info_state +
+                '}';
+    }
 
     public Integer getBooks_id() {
         return books_id;
@@ -110,11 +129,11 @@ public class BookDTO {
         this.info_theme = info_theme;
     }
 
-    public Integer getInfo_type() {
+    public String getInfo_type() {
         return info_type;
     }
 
-    public void setInfo_type(Integer info_type) {
+    public void setInfo_type(String info_type) {
         this.info_type = info_type;
     }
 
@@ -124,24 +143,5 @@ public class BookDTO {
 
     public void setInfo_state(Integer info_state) {
         this.info_state = info_state;
-    }
-
-    @Override
-    public String toString() {
-        return "BookDTO{" +
-                "books_id=" + books_id +
-                ", books_type=" + books_type +
-                ", books_name='" + books_name + '\'' +
-                ", books_author='" + books_author + '\'' +
-                ", books_last=" + books_last +
-                ", books_state=" + books_state +
-                ", books_registerDate=" + books_registerDate +
-                ", books_pic='" + books_pic + '\'' +
-                ", info_country='" + info_country + '\'' +
-                ", info_length=" + info_length +
-                ", info_theme='" + info_theme + '\'' +
-                ", info_type=" + info_type +
-                ", info_state=" + info_state +
-                '}';
     }
 }

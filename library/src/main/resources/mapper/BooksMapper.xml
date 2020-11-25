@@ -3,8 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.Boys.library.mapper.BooksMapper">
-    <select id="quaryBooksByType" resultType="cn.Boys.library.entity.Books_info">
+    <select id="quaryBooksByType" resultType="cn.Boys.library.entity.Books">
         select * from books_info
+        LEFT JOIN books on books_type = info_id
         <where>
             <if test="info_country!=null and info_country!=''">
                 and info_country = #{info_country}

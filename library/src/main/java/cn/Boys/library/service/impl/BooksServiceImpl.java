@@ -222,6 +222,7 @@ public class BooksServiceImpl implements BooksService {
     //根据图书类型查询
     @Override
     public Result getBooksByType(Books_info bookInfo) {
+        log.info("传回来"+bookInfo);
         List<Books_info> booksList = booksMapper.quaryBooksByType(bookInfo);
         if (booksList.size()==0){
             log.info("怎么走到印度来了？？");
