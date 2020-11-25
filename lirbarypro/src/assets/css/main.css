@@ -20,7 +20,6 @@ a {
     text-decoration: none
 }
 
-
 .content-box {
     position: absolute;
     left: 250px;
@@ -36,7 +35,7 @@ a {
 .content {
     width: auto;
     height: 100%;
-    padding: 10px;
+    /*padding: 10px;*/
     overflow-y: scroll;
     box-sizing: border-box;
 }
@@ -92,6 +91,7 @@ a {
     opacity: 0;
 }
 
+
 /*BaseForm*/
 
 .form-box {
@@ -110,6 +110,7 @@ a {
 .el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
     padding-bottom: 0;
 }
+
 
 /*Upload*/
 
@@ -156,6 +157,7 @@ a {
     font-style: normal;
 }
 
+
 /*VueEditor*/
 
 .ql-container {
@@ -169,6 +171,7 @@ a {
 .editor-btn {
     margin-top: 20px;
 }
+
 
 /*markdown*/
 

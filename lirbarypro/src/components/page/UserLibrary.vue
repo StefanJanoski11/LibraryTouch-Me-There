@@ -11,24 +11,27 @@
     >
       <el-form-item label="国家">
         <el-select v-model="formInline.info_country" placeholder="国家">
-          <el-option label="中国" value="china"></el-option>
-          <el-option label="日本" value="2"></el-option>
-          <el-option label="北美" value="america"></el-option>
-          <el-option label="欧洲" value="4"></el-option>
+          <el-option label="无" value=""></el-option>
+          <el-option label="中国" value="中国"></el-option>
+          <el-option label="法国" value="法国"></el-option>
+          <el-option label="德国" value="德国"></el-option>
+          <el-option label="印度" value="印度"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="类型">
-        <el-select v-model="formInline.info_type" placeholder="类型">
-          <el-option label="历史" value="1"></el-option>
-          <el-option label="文学" value="2"></el-option>
-          <el-option label="军事" value="3"></el-option>
-          <el-option label="科学" value="4"></el-option>
+        <el-select v-model="formInline.info_type"  placeholder="类型">
+          <el-option label="无" value=""></el-option>
+          <el-option label="现实主义" value="现实主义"></el-option>
+          <el-option label="哲学主义" value="哲学主义"></el-option>
+          <el-option label="社会主义" value="社会主义"></el-option>
+          <el-option label="资本主义" value="资本主义"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="篇幅">
         <el-select v-model="formInline.info_length" placeholder="篇幅">
+          <el-option label="无" value=""></el-option>
           <el-option label="短篇" value="1"></el-option>
           <el-option label="中篇" value="2"></el-option>
           <el-option label="长篇" value="3"></el-option>
@@ -38,10 +41,11 @@
 
       <el-form-item label="主题">
         <el-select v-model="formInline.info_theme" placeholder="主题">
-          <el-option label="喜剧" value="1"></el-option>
-          <el-option label="悲剧" value="2"></el-option>
-          <el-option label="恶作剧" value="3"></el-option>
-          <el-option label="默剧" value="4"></el-option>
+          <el-option label="无" value=""></el-option>
+          <el-option label="反映社会现实" value="反映社会现实"></el-option>
+          <el-option label="思考人生哲学" value="思考人生哲学"></el-option>
+          <el-option label="反映底层人民现实" value="反映底层人民现实"></el-option>
+          <el-option label="追寻自我价值" value="追寻自我价值"></el-option>
         </el-select>
       </el-form-item>
 
@@ -148,7 +152,7 @@ export default {
           description: "",
         },
       ],
-      imgSrc: require("../../assets/img/2.jpg"),
+      imgSrc: require("../../assets/img/login-bg.jpg"),
       tableDataEnd: [],
       tableDataBegin: [],
       input: "",
@@ -350,8 +354,7 @@ export default {
         }
       }
     },
-    },
-
+  },
 };
 </script>
 
@@ -359,7 +362,7 @@ export default {
 .background {
   width: 100%;
   height: 100%; /**宽高100%是为了图片铺满屏幕 */
-  z-index: -1;
+  /*index: -1;*/
   position: absolute;
 }
 
@@ -391,7 +394,7 @@ export default {
 .page {
   padding: 0 0 0 65px;
   margin: 10px;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 </style>
 
