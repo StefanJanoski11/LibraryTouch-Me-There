@@ -25,7 +25,7 @@
           :current-page="currentPage"
           :page-sizes="[1, 2, 3, 4, 5, 6]"
           :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="total, sizes, prev, pager, next"
           :total="totalItems"
           style="margin-top: 25px"
         >
