@@ -13,6 +13,7 @@ import VueAxios from 'vue-axios'
 import qs from 'qs';
 
 Vue.prototype.$qs = qs;
+Vue.prototype.$host = 'http://10.10.102.142:8080';
 
 Vue.use(VueAxios, axios);
 Vue.prototype.$axios = axios;

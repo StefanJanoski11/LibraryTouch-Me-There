@@ -236,7 +236,7 @@ export default {
       let me=this;
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/user/checkUsernameIsExist",
+        url:  this.$host+"/user/checkUsernameIsExist",
         params: {
           user_name: me.form.user_name
         }
@@ -257,7 +257,7 @@ export default {
     checkPhoneExist() {
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/user/checkPhoneIsExist",
+        url:  this.$host+"/user/checkPhoneIsExist",
         params: {
           user_phone: this.form.user_phone
         }
@@ -287,7 +287,7 @@ export default {
             console.log(this.form);
             this.axios({
               method: "post",
-              url: "http://10.10.102.142:8080/user/register",
+              url:  this.$host+"/user/register",
               params: {
                 user_name: this.form.user_name,
                 user_email: this.form.user_email,
@@ -349,7 +349,7 @@ export default {
           //axios传user_phone
           this.axios({
             method: "get",
-            url: "http://10.10.102.142:8080/message/send",
+            url:  this.$host+"/message/send",
             params: {
               user_phone: this.form.user_phone
             },

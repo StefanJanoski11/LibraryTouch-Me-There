@@ -103,7 +103,7 @@ export default {
    console.log(userid);
    Vue.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/record/getNRById",
+      url:  this.$host+"/record/getNRById",
       params: {id : userid},
       headers: {
       // "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -123,22 +123,8 @@ export default {
     returnbook(index){
       Vue.axios({
       method: "post",
-      url: "http://10.10.102.142:8080/record/returnBook",
+      url:  this.$host+"/record/returnBook",
       data : JSON.stringify(this.books[index]),
-      // params: //JSON.stringify(this.books[index]),
-      // // this.books[index],
-      // {
-      //   // record : JSON.stringify(this.books[index])
-      //     //record : this.books[index]
-      //   "user_id": this.books[index].user_id,
-      //   "user_name": this.books[index].user_name,
-      //   "book_id": this.books[index].book_id,
-      //   "book_name": this.books[index].book_name,
-      //   "book_return_state": this.books[index].book_return_state,
-      //   "book_return_date": this.books[index].book_return_date,
-      //   "book_lend_date": this.books[index].book_lend_date,
-      //   "book_scheduled": this.books[index].book_scheduled
-      // },
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
