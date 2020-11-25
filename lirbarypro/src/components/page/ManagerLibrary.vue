@@ -11,7 +11,7 @@
       label-width="60px">
   
       <el-form-item label="国家" >
-        <el-select v-model="formInline.region" placeholder="国家" class="searchList">
+        <el-select v-model="formInline.info_country" placeholder="国家" class="searchList">
           <el-option label="中国" value="china"></el-option>
           <el-option label="日本" value="japan"></el-option>
           <el-option label="北美" value="noramerica"></el-option>
@@ -20,8 +20,8 @@
       </el-form-item>
 
       <el-form-item label="类型">
-        <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
-          <el-option label="历史" value="1"></el-option>
+        <el-select v-model="formInline.info_type" placeholder="类型" class="searchList">
+          <el-option label="历史" value="history"></el-option>
           <el-option label="文学" value="2"></el-option>
           <el-option label="军事" value="3"></el-option>
           <el-option label="科学" value="4"></el-option>
@@ -29,7 +29,7 @@
       </el-form-item>
 
       <el-form-item label="篇幅">
-        <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
+        <el-select v-model="formInline.info_length" placeholder="篇幅" class="searchList">
           <el-option label="短篇" value="1"></el-option>
           <el-option label="中篇" value="2"></el-option>
           <el-option label="长篇" value="3"></el-option>
@@ -38,7 +38,7 @@
       </el-form-item>
 
       <el-form-item label="主题">
-        <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
+        <el-select v-model="formInline.info_theme" placeholder="主题" class="searchList">
            <el-option label="喜剧" value="1"></el-option>
           <el-option label="悲剧" value="2"></el-option>
           <el-option label="恶作剧" value="3"></el-option>
@@ -122,7 +122,7 @@
   <el-dialog title="编辑书籍信息" :visible.sync="settingVisible">
   <el-form :model="form">
     <el-form-item label="国家" :label-width="formLabelWidth">
-        <el-select v-model="formInline.region" placeholder="国家" class="searchList">
+        <el-select v-model="formInline.info_country" placeholder="国家" class="searchList">
           <el-option label="中国" value="china"></el-option>
           <el-option label="日本" value="japan"></el-option>
           <el-option label="北美" value="noramerica"></el-option>
@@ -131,8 +131,8 @@
       </el-form-item>
 
       <el-form-item label="类型" :label-width="formLabelWidth">
-        <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
-          <el-option label="历史" value="1"></el-option>
+        <el-select v-model="formInline.info_type" placeholder="类型" class="searchList">
+          <el-option label="历史" value="history"></el-option>
           <el-option label="文学" value="2"></el-option>
           <el-option label="军事" value="3"></el-option>
           <el-option label="科学" value="4"></el-option>
@@ -140,7 +140,7 @@
       </el-form-item>
 
       <el-form-item label="篇幅" :label-width="formLabelWidth">
-        <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
+        <el-select v-model="formInline.info_length" placeholder="篇幅" class="searchList">
           <el-option label="短篇" value="1"></el-option>
           <el-option label="中篇" value="2"></el-option>
           <el-option label="长篇" value="3"></el-option>
@@ -149,7 +149,7 @@
       </el-form-item>
 
       <el-form-item label="主题" :label-width="formLabelWidth">
-        <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
+        <el-select v-model="formInline.info_theme" placeholder="主题" class="searchList">
            <el-option label="喜剧" value="1"></el-option>
           <el-option label="悲剧" value="2"></el-option>
           <el-option label="恶作剧" value="3"></el-option>
@@ -203,6 +203,7 @@ export default {
       totalItems: 0,
       currentPage: 0,
       pageSize:8,
+      booksInfo :{},
       formInline: {
         user: "",
         region: "",
@@ -216,7 +217,7 @@ export default {
   mounted(){
     this.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/books/BooksList",
+      url: "http://10.10.102.142:8080/books/booksList",
       //url: "/user.json",
       data: "",
       headers: {
@@ -264,7 +265,7 @@ export default {
           link.style.display = "none";
           link.href = url;
           let date = new Date();
-          link.setAttribute("download", date.getFullYear()+"_"+date.getMonth()+"_"+date.getDate()+"_books.xlsx");
+          link.setAttribute("download", date.getFullYear()+"_"+date.getMonth()+"_"+date.getDate()+"_book.xlsx");
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -279,10 +280,10 @@ export default {
         url: "http://10.10.102.142:8080/books/quaryType",
         //url: "/user.json",
         data: {
-              info_theme:this.formInline.info_theme,
-              info_type:this.formInline.info_type,
-              info_length:this.formInline.info_length,
-              info_country:this.formInline.info_country
+              "info_theme":this.formInline.info_theme,
+              "info_type":this.formInline.info_type,
+              "info_length":this.formInline.info_length,
+              "info_country":this.formInline.info_country
             },
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -385,7 +386,7 @@ export default {
               //重新加载
             this.axios({
             method: "get",
-            url: "http://10.10.102.142:8080/books/BooksList",
+            url: "http://10.10.102.142:8080/books/booksList",
             //url: "/user.json",
             data: "",
             headers: {
