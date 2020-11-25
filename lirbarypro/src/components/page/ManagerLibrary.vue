@@ -136,28 +136,28 @@
 
       <el-form-item label="类型" :label-width="formLabelWidth">
         <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
-          <el-option label="历史" value="history"></el-option>
-          <el-option label="文学" value="literature"></el-option>
-          <el-option label="军事" value="military"></el-option>
-          <el-option label="科学" value="science"></el-option>
+          <el-option label="历史" value="1"></el-option>
+          <el-option label="文学" value="2"></el-option>
+          <el-option label="军事" value="3"></el-option>
+          <el-option label="科学" value="4"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="篇幅" :label-width="formLabelWidth">
         <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
-          <el-option label="短篇" value="short"></el-option>
-          <el-option label="中篇" value="mid"></el-option>
-          <el-option label="长篇" value="long"></el-option>
-          <el-option label="超长篇" value="splong"></el-option>
+          <el-option label="短篇" value="1"></el-option>
+          <el-option label="中篇" value="2"></el-option>
+          <el-option label="长篇" value="3"></el-option>
+          <el-option label="超长篇" value="4"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="主题" :label-width="formLabelWidth">
         <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
-          <el-option label="一" value="one"></el-option>
-          <el-option label="二" value="two"></el-option>
-          <el-option label="三" value="three"></el-option>
-          <el-option label="四" value="four"></el-option>
+           <el-option label="喜剧" value="1"></el-option>
+          <el-option label="悲剧" value="2"></el-option>
+          <el-option label="恶作剧" value="3"></el-option>
+          <el-option label="默剧" value="4"></el-option>
         </el-select>
       </el-form-item>
     
@@ -311,6 +311,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    clickSetting(index, row){
+      this.settingVisible =true;
     },
     inittable(){
       this.axios({

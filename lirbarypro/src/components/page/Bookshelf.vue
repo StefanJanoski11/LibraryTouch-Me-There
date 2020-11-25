@@ -103,7 +103,7 @@ export default {
    console.log(userid);
    Vue.axios({
       method: "get",
-      url: "http://10.10.102.143:8080/record/getNRById",
+      url: "http://10.10.102.142:8080/record/getNRById",
       params: {id : userid},
       headers: {
       // "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -123,7 +123,7 @@ export default {
     returnbook(index){
       Vue.axios({
       method: "post",
-      url: "http://10.10.102.143:8080/record/returnBook",
+      url: "http://10.10.102.142:8080/record/returnBook",
       data : JSON.stringify(this.books[index]),
       // params: //JSON.stringify(this.books[index]),
       // // this.books[index],
