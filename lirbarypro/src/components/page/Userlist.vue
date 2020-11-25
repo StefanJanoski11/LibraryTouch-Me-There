@@ -254,6 +254,8 @@ export default {
     };
 
     return {
+      submit_isAbled : true,
+      msg_isAbled: true,
       form: {
         user_name: "",
         user_email: "",
@@ -277,6 +279,16 @@ export default {
         date: "",
         alterDate: "",
         alterAdmin: ""
+      },
+      new_form: {
+        user_name: "",
+        user_email: "",
+        user_sex: "",
+        user_birthday: "",
+        user_phone: "", //手机号
+        user_address: "",
+        user_password: "",
+        checkPassword: "",
       },
       new_form: {
         user_name: "",
@@ -358,7 +370,6 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
-      form: {},
       idx: -1,
       id: -1
     };
