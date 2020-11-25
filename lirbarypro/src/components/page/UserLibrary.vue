@@ -70,21 +70,21 @@
     >
 
     <el-table :data="tableDataEnd" style="width: 90%" class="detail">
-      <el-table-column
-        fixed
-        prop="books_createTime"
-        label="上架日期"
-        width="150"
-      >
-      </el-table-column>
+      
       <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
       <el-table-column prop="books_author" label="作者" width="120">
       </el-table-column>
       <el-table-column prop="books_last" label="库存" width="120">
       </el-table-column>
+      
 
       <el-table-column prop="books_id" label="ID" width="120">
+      </el-table-column>
+      <el-table-column
+        prop="books_createTime"
+        label="上架日期"
+        width="150">
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">

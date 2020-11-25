@@ -108,86 +108,55 @@
     </el-dialog>
 
     <el-dialog title="新增用户" :visible.sync="addVisible" width="40%">
-      <el-form
-        ref="new_form"
-        :model="new_form"
-        status-icon
-        :rules="rules"
-        label-width="100px"
-        class="login-form demo-ruleForm"
-        label-position="righ"
-      >
-        <el-form-item label="姓名" placeholder="姓名" prop="user_name">
-          <el-input
-            v-model="new_form.user_name"
-            maxlength="30"
-            show-word-limit
-            @blur="checkUsernameExist()"
-          >
-          </el-input>
-        </el-form-item>
+        <el-form
+      ref="form"
+      :model="form"
+      status-icon
+      :rules="rules"
+      label-width="100px"
+      class="login-form demo-ruleForm"
+      label-position="righ"
+    >
+        <el-form-item label="ID" placeholder="ID">
+        <el-input v-model="form.ID" maxlength="30" show-word-limit> </el-input>
+      </el-form-item>
 
-        <el-form-item label="邮箱" placeholder="邮箱" prop="user_email">
-          <el-input v-model="new_form.user_email" maxlength="30"> </el-input>
-        </el-form-item>
+      <el-form-item label="姓名" placeholder="姓名">
+        <el-input v-model="form.name" maxlength="30" show-word-limit>
+        </el-input>
+      </el-form-item>
 
-        <el-form-item label="性别" prop="user_sex">
-          <el-select
-            style="width: 100%"
-            v-model="new_form.user_sex"
-            placeholder="选择性别"
-          >
-            <el-option label="男" value="1"></el-option>
-            <el-option label="女" value="0"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="出生年月" required>
-          <el-form-item prop="user_birthday">
-            <el-date-picker
-              type="date"
-              placeholder="选择年月"
-              v-model="new_form.user_birthday"
-              style="width: 100%"
-            ></el-date-picker>
-          </el-form-item>
-        </el-form-item>
+      <el-form-item label="邮箱" placeholder="邮箱">
+        <el-input v-model="form.eamil" maxlength="30"> </el-input>
+      </el-form-item>
 
-        <el-form-item prop="user_address" label="地址" placeholder="地址">
-          <el-input v-model="new_form.user_address" maxlength="30"> </el-input>
-        </el-form-item>
+      <el-form-item prop="phone" label="电话" placeholder="手机号码">
+        <el-input v-model="form.phone"> </el-input>
+      </el-form-item>
 
-        <el-form-item prop="user_phone" label="手机" placeholder="手机号码">
-          <el-input v-model="new_form.user_phone" @blur="checkPhoneExist()">
-          </el-input>
-        </el-form-item>
-
-        <el-form-item
-          label="输入密码"
-          placeholder="输入密码"
-          prop="user_password"
+      <el-form-item label="输入密码" placeholder="输入密码" prop="password">
+        <el-input
+          type="password"
+          v-model="form.password"
+          autocomplete="off"
+          maxlength="30"
+          show-password
         >
-          <el-input
-            type="password"
-            v-model="new_form.user_password"
-            autocomplete="off"
-            maxlength="30"
-            show-password
-          >
-          </el-input>
-        </el-form-item>
+        </el-input>
+      </el-form-item>
 
-        <el-form-item label="确认密码" prop="checkPassword">
-          <el-input
-            type="password"
-            v-model="new_form.checkPassword"
-            autocomplete="off"
-            maxlength="30"
-          ></el-input>
-        </el-form-item>
+      <el-form-item label="确认密码" prop="password2">
+        <el-input
+          type="password"
+          v-model="form.password2"
+          autocomplete="off"
+          maxlength="30"
+        ></el-input>
+      </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="addVisible = false">关 闭</el-button>
-        <el-button type="primary" @click="saveAdd()">确 定 添 加</el-button>
+        <el-button type="primary" @click="saveAdd">确 定 添 加</el-button>
       </span>
     </el-dialog>
   </div>
@@ -197,7 +166,7 @@
 export default {
   name: "userlist",
   data() {
-    // 是否包含一位大写字母
+// 是否包含一位大写字母
     const reg = /(?=.*[A-Z])/;
     // 是否包含一位数字
     const regNumber = /(?=.*[\d])/;
@@ -244,7 +213,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.new_form.user_password) {
+      } else if (value !== this.form.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -252,8 +221,6 @@ export default {
     };
 
     return {
-      submit_isAbled : true,
-      msg_isAbled: true,
       form: {
         name: "",
         ID: "",
@@ -264,70 +231,15 @@ export default {
         password: "",
         password2: "",
       },
-      new_form: {
-        user_name: "",
-        user_email: "",
-        user_sex: "",
-        user_birthday: "",
-        user_phone: "", //手机号
-        user_address: "",
-        user_password: "",
-        checkPassword: "",
-      },
       rules: {
-        user_name: [
-          { required: true, message: "输入名字", trigger: "blur" },
-          {
-            min: 3,
-            max: 20,
-            message: "长度在 3 到 20 个字符",
-            trigger: "blur",
-          },
-        ],
-        user_password: [
-          { validator: validatePass, trigger: "blur" },
-          { required: true, message: "输入密码", trigger: "blur" },
-        ],
-        checkPassword: [
-          { validator: validatePass2, trigger: "blur" },
-          { required: true, message: "输入确认密码", trigger: "blur" },
-        ],
-        user_address: [
-          {
-            required: true,
-            message: "请输入地址",
-            trigger: "blur",
-          },
-        ],
-        user_email: [
-          { type: "email", required: true, trigger: "change" },
-          {
-            required: true,
-            message: "请输入邮箱地址",
-            trigger: "blur",
-          },
-        ],
-        user_sex: [{ required: true, message: "请选择性别", trigger: "blur" }],
-        user_birthday: [
-          {
-            type: "date",
-            format: "yyyy-MM-dd",
-            required: true,
-            message: "请选择日期",
-            trigger: "blur",
-          },
-        ],
-        user_phone: [
+        password: [{ validator: validatePass, trigger: "blur" }],
+        password2: [{ validator: validatePass2, trigger: "blur" }],
+        phone: [
           {
             required: true,
             pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/,
-            message: "请输入中国大陆的手机号码",
+            message: "目前只支持中国大陆的手机号码",
             trigger: "change", //输入时就会验证
-          },
-          {
-            required: true,
-            message: "请输入手机号",
-            trigger: "blur",
           },
         ],
       },
@@ -344,6 +256,7 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
+      form: {},
       idx: -1,
       id: -1,
     };
@@ -375,93 +288,33 @@ export default {
       });
   },
   methods: {
-    checkUsernameExist() {
-      let me = this;
-      this.axios({
-        method: "get",
-        url: "http://10.10.102.142:8080/user/checkUsernameIsExist",
-        params: {
-          user_name: me.new_form.user_name,
-        },
-      })
-        .then((response) => {
-          if (response.data.code == 406) {
-            console.log("---- ");
-            me.submit_isAbled = false;
-            alert("已经存在用户注册使用该用户名");
-          } else {
-            me.submit_isAbled = true;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    checkPhoneExist() {
-      this.axios({
-        method: "get",
-        url: "http://10.10.102.142:8080/user/checkPhoneIsExist",
-        params: {
-          user_phone: this.new_form.user_phone,
-        },
-      })
-        .then((response) => {
-          if (response.data.code == 406) {
-            this.msg_isAbled = true;
-            alert("已经存在用户注册使用该手机号码");
-          } else {
-            this.msg_isAbled = false;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     //提交添加
     saveAdd() {
-      let me = this;
-      this.$refs.new_form.validate((valid) => {
-        if (!me.submit_isAbled) {
-          alert("已经存在用户注册使用该手机号码");
-          return false;
-        }
+        this.$refs.form.validate((valid) => {
         if (valid) {
-          console.log(this.new_form);
           this.axios({
             method: "post",
-            url: "http://10.10.102.142:8080/user/register",
-            params: {
-              user_name: this.new_form.user_name,
-              user_email: this.new_form.user_email,
-              user_sex: this.new_form.user_sex,
-              user_birthday: this.new_form.user_birthday,
-              user_phone: this.new_form.user_phone, //手机号
-              user_address: this.new_form.user_address, //地址
-              user_password: this.new_form.user_password,
-              checkPassword: this.new_form.checkPassword,
-            },
+            url: "",
+            data: this.$qs.stringify(this.form),
             headers: {
               "Content-Type":
                 "application/x-www-form-urlencoded; charset=UTF-8",
             },
           })
             .then((response) => {
-              console.log(
-                response +
-                  "注册成功-------------------------------------------------记得删掉"
-              );
+              console.log(response+"--------------------------------------------------记得删掉");
+                //提交完成
+
+
+
+
               this.addVisible = false;
             })
             .catch((error) => {
-              console.log(
-                error +
-                  "--------------------------------------------------记得删掉"
-              );
+              console.log(error+"--------------------------------------------------记得删掉");
             });
         } else {
-          console.log(
-            "获取失败，请重试！--------------------------------------------------记得删掉"
-          );
+          console.log("获取失败，请重试！--------------------------------------------------记得删掉");
           return false;
         }
       });
