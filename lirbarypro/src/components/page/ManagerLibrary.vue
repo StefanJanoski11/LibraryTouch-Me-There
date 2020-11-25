@@ -8,41 +8,45 @@
       :inline="true"
       :model="formInline"
       class="demo-form-inline"
-      label-width="60px">
+      label-width="50px">
   
-      <el-form-item label="国家" >
-        <el-select v-model="formInline.region" placeholder="国家" class="searchList">
-          <el-option label="中国" value="china"></el-option>
-          <el-option label="日本" value="japan"></el-option>
-          <el-option label="北美" value="noramerica"></el-option>
-          <el-option label="欧洲" value="europe"></el-option>
+      <el-form-item label="国家">
+        <el-select v-model="formInline.info_country" placeholder="国家">
+          <el-option label="无" value=""></el-option>
+          <el-option label="中国" value="中国"></el-option>
+          <el-option label="法国" value="法国"></el-option>
+          <el-option label="德国" value="德国"></el-option>
+          <el-option label="印度" value="印度"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="类型">
-        <el-select v-model="formInline.sort" placeholder="类型" class="searchList">
-          <el-option label="历史" value="history"></el-option>
-          <el-option label="文学" value="literature"></el-option>
-          <el-option label="军事" value="military"></el-option>
-          <el-option label="科学" value="science"></el-option>
+        <el-select v-model="formInline.info_type"  placeholder="类型">
+          <el-option label="无" value=""></el-option>
+          <el-option label="现实主义" value="现实主义"></el-option>
+          <el-option label="哲学主义" value="哲学主义"></el-option>
+          <el-option label="社会主义" value="社会主义"></el-option>
+          <el-option label="资本主义" value="资本主义"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="篇幅">
-        <el-select v-model="formInline.para" placeholder="篇幅" class="searchList">
-          <el-option label="短篇" value="short"></el-option>
-          <el-option label="中篇" value="mid"></el-option>
-          <el-option label="长篇" value="long"></el-option>
-          <el-option label="超长篇" value="splong"></el-option>
+        <el-select v-model="formInline.info_length" placeholder="篇幅">
+          <el-option label="无" value=""></el-option>
+          <el-option label="短篇" value="1"></el-option>
+          <el-option label="中篇" value="2"></el-option>
+          <el-option label="长篇" value="3"></el-option>
+          <el-option label="超长篇" value="4"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="主题">
-        <el-select v-model="formInline.topic" placeholder="主题" class="searchList">
-          <el-option label="一" value="one"></el-option>
-          <el-option label="二" value="two"></el-option>
-          <el-option label="三" value="three"></el-option>
-          <el-option label="四" value="four"></el-option>
+        <el-select v-model="formInline.info_theme" placeholder="主题">
+          <el-option label="无" value=""></el-option>
+          <el-option label="反映社会现实" value="反映社会现实"></el-option>
+          <el-option label="思考人生哲学" value="思考人生哲学"></el-option>
+          <el-option label="反映底层人民现实" value="反映底层人民现实"></el-option>
+          <el-option label="追寻自我价值" value="追寻自我价值"></el-option>
         </el-select>
       </el-form-item>
 
@@ -81,7 +85,7 @@
     <el-input v-model="input" placeholder="请输入内容" class="searchBox"></el-input>
     <el-button type="primary" icon="el-icon-search" class="searchButton" @click="inittable()"
       >搜索</el-button>
-    <el-button type="primary" icon="el-icon-plus" @click="bookDownload"
+    <el-button type="primary" icon="el-icon-plus" @click="bookDownload" class="downLoad"
       >批量导出</el-button
     >
 
@@ -196,7 +200,7 @@ export default {
       gridData: [{
           description: '',
         }],
-      imgSrc: require("../../assets/img/3.jpg"),
+      imgSrc: require("../../assets/img/2.jpg"),
       tableDataEnd: [],
       tableDataBegin: [],
       input: "",
@@ -216,7 +220,7 @@ export default {
   mounted(){
     this.axios({
       method: "get",
-      url: "http://10.10.102.143:8080/books/BooksList",
+      url: "http://10.10.102.142:8080/books/booksList",
       //url: "/user.json",
       data: "",
       headers: {
@@ -274,15 +278,44 @@ export default {
         });
     },
     onSubmit() {
-      console.log("submit!");
-    },
-    clickSetting(index, row){
-      this.settingVisible =true;
+      this.axios({
+        method: "post",
+        url: "http://10.10.102.142:8080/books/quaryType",
+        //url: "/user.json",
+        data: {
+              info_theme:this.formInline.info_theme,
+              info_type:this.formInline.info_type,
+              info_length:this.formInline.info_length,
+              info_country:this.formInline.info_country
+            },
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      })
+      .then((response) => {
+          this.tableDataEnd = [];
+          this.tableDataBegin = [];
+          console.log(response);
+          this.tableDataBegin = response.data.object;
+          console.log(this.tableDataBegin);
+          this.totalItems = this.tableDataBegin.length;
+          if (this.totalItems > this.pageSize) {
+            //如果有好多，只需要第一页的数据
+            for (let index = 0; index < this.pageSize; index++) {
+              this.tableDataEnd.push(this.tableDataBegin[index]);
+            }
+          } else {
+            this.tableDataEnd = this.tableDataBegin;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     inittable(){
       this.axios({
         method: "get",
-        url: "http://10.10.102.143:8080/books/quaryName",
+        url: "http://10.10.102.142:8080/books/quaryName",
         //url: "/user.json",
         params: {
           name: this.input,
@@ -339,7 +372,7 @@ export default {
       .then(() => {
           this.axios({
             method: "get",
-            url: "http://10.10.102.143:8080/books/setBookStatus",
+            url: "http://10.10.102.142:8080/books/setBookStatus",
             //url: "/user.json",
             params: {
               "bookId": row.books_id,
@@ -353,7 +386,7 @@ export default {
               //重新加载
             this.axios({
             method: "get",
-            url: "http://10.10.102.143:8080/books/BooksList",
+            url: "http://10.10.102.142:8080/books/booksList",
             //url: "/user.json",
             data: "",
             headers: {
@@ -394,12 +427,16 @@ export default {
 .background {
   width: 100%;
   height: 100%; /**宽高100%是为了图片铺满屏幕 */
-  z-index: -1;
+  /*z-index: -1;*/
   position: absolute;
 }
 
 .searchList{
   opacity: 0.8;
+}
+
+.downLoad{
+  opacity: 0.7;
 }
 
 .firstSearch {
