@@ -145,7 +145,7 @@ export default {
       }
     };
     return {
-      submit_isAbled : false,//?????
+      submit_isAbled : false,
       msg_isAbled: true,
       form: {
         user_name: "",
