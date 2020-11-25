@@ -11,8 +11,10 @@
     >
       <h2 class="login-title">注册</h2>
 
+      <input type="text" hidden v-model="submit_isAbled"/>
+
       <el-form-item label="姓名" placeholder="姓名" prop="user_name">
-        <el-input v-model="form.user_name" maxlength="30" show-word-limit @blur="checkUsernameExist()">
+        <el-input v-model="form.user_name" maxlength="30" show-word-limit>
         </el-input>
       </el-form-item>
 
@@ -145,7 +147,7 @@ export default {
       }
     };
     return {
-      submit_isAbled : false,
+      submit_isAbled : false,//?????
       msg_isAbled: true,
       form: {
         user_name: "",
@@ -233,17 +235,17 @@ export default {
   },
   methods: {
     checkUsernameExist() {
-      let me=this;
+      me=this;
       this.axios({
         method: "get",
         url:  this.$host+"/user/checkUsernameIsExist",
         params: {
-          user_name: me.form.user_name
+          user_name: this.form.user_name
         }
       })
         .then(response => {
           if (response.data.code == 406) {
-            console.log("---- ");
+            console.log(me);
             me.submit_isAbled = false;
             alert("已经存在用户注册使用该用户名");
           } else {
@@ -275,13 +277,8 @@ export default {
         });
     },
     onSubmit() {
-      let me=this;
       this.$refs.form.validate(valid => {
-        if(!me.submit_isAbled){
-          alert("已经存在用户注册使用该手机号码");
-          return false;
-        }
-        if (valid) {
+        if (true && submit_isAbled) {
           console.log(this.realVerifyCode);
           if (this.realVerifyCode == this.form.verifyCode) {
             console.log(this.form);
@@ -345,7 +342,7 @@ export default {
     getVerrifyCode() {
       //先判断user_phone
       this.$refs.form.validate(valid => {
-        if (valid) {
+        if (true) {
           //axios传user_phone
           this.axios({
             method: "get",

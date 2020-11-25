@@ -173,7 +173,7 @@ export default {
   mounted() {
     this.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/books/booksList",
+      url:  this.$host+"/books/booksList",
       //url: "/user.json",
       data: {},
       headers: {
@@ -214,7 +214,7 @@ export default {
         .then(() => {
           this.axios({
             method: "post",
-            url: "http://10.10.102.142:8080/record/insertNotReturn",
+            url:  this.$host+"/record/insertNotReturn",
             //url: "/user.json",
             data: {
               book_id: row.books_id,
@@ -248,7 +248,7 @@ export default {
     onSubmit() {
       this.axios({
         method: "post",
-        url: "http://10.10.102.142:8080/books/quaryType",
+        url:  this.$host+"/books/quaryType",
         //url: "/user.json",
         data: {
               info_theme:this.formInline.info_theme,
@@ -284,7 +284,7 @@ export default {
     inittable() {
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/books/quaryName",
+        url:  this.$host+"/books/quaryName",
         //url: "/user.json",
         params: {
           name: this.input,
@@ -317,7 +317,7 @@ export default {
       console.log(row.books_id);
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/books/detail",
+        url:  this.$host+"/books/detail",
         params: {
           books_id: row.books_id,
         },

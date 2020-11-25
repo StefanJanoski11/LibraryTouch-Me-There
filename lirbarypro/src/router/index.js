@@ -14,7 +14,7 @@ import Bookshelf from '../components/page/Bookshelf.vue';
 import UserLibrary from '../components/page/UserLibrary.vue';
 import ManagerLibrary from '../components/page/ManagerLibrary.vue';
 import UserIndex from '../components/page/UserIndex.vue';
-import test from '../components/page/test.vue'
+import HotBookslist from '../components/page/HotBookslist.vue'
 
 Vue.use(Router);
 
@@ -81,6 +81,11 @@ export default new Router({
                     path: 'history',
                     component: History,
                     meta: { title: '借阅记录' }
+                }, {
+                    path: 'hotbookslist',
+                    component: HotBookslist,
+                    meta: { title: '热点图书' }
+
                 }
 
             ]
@@ -109,10 +114,6 @@ export default new Router({
         {
             path: '*',
             redirect: '/404'
-        },
-        {
-            path: '/test',
-            component: test,
         }
     ]
 });

@@ -53,7 +53,7 @@ export default {
 
                      Vue.axios({
                         method: "post",
-                        url: "http://10.10.102.142:8080/user/login",
+                        url: this.$host+"/user/login",
                         data: this.param,
                         headers: {
                         "Content-Type": "application/json; charset=UTF-8",

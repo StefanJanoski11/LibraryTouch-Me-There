@@ -71,7 +71,7 @@ import Vue from "vue";
     mounted() {
     Vue.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/record/getAll",
+      url:  this.$host+"/record/getAll",
       data: "",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -98,34 +98,6 @@ import Vue from "vue";
     methods: {
       //前端搜索功能需要区分是否检索,因为对应的字段的索引不同
       //用两个变量接收currentChangePage函数的参数
-    //   doFilter() {
-    //     Vue.axios({
-    //   method: "get",
-    //   url: "http://10.10.102.143:8080/books/quaryName",
-    //   params: {name:this.tableDataName},
-    //   headers: {
-    //     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-    //   },
-    // })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     this.tableDataBegin = [];
-    //     this.tableDataEnd =[];
-    //     this.tableDataBegin = response.data.object;
-    //     this.totalItems = this.tableDataBegin.length;
-    //     if (this.totalItems > this.pageSize) {
-    //       //如果有好多，只需要第一页的数据
-    //       for (let index = 0; index < this.pageSize; index++) {
-    //         this.tableDataEnd.push(this.tableDataBegin[index]);
-    //       }
-    //     } else {
-    //       this.tableDataEnd = this.tableDataBegin;
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-      // },
 
       doFilter() {
       if (this.tableDataName == "") {
@@ -181,7 +153,7 @@ import Vue from "vue";
          console.log(row.book_id);
          Vue.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/books/getBookAllInfo",
+      url:  this.$host+"/books/getBookAllInfo",
       params: {id:row.book_id},
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

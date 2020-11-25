@@ -70,7 +70,12 @@ export default {
                     icon: 'el-icon-shopping-cart-full',
                     index: 'bookshelf',
                     title: '我的书架'
-                },           
+                },   
+                {
+                    icon: 'el-icon-medal-1',
+                    index: 'hotbookslist',
+                    title: '热点图书'
+                },         
                 {
                     icon: 'el-icon-hot-water',
                     index: 'me',

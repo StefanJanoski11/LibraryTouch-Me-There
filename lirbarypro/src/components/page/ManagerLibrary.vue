@@ -83,31 +83,15 @@
           </el-form-item>
 
           <el-form-item label="上传图片" ref="uploadElement" prop="books_img">
-            <!--<el-input v-model="form.books_img" v-if="false"></el-input>
-            <el-upload
-            list-type="picture-card"
-              class="avatar-uploader"
-              ref="upload"
-              :show-file-list="false"
-              :multiple="true"
-              :action="img"
-              :before-upload="beforeUpload"
-              :on-change="handleChange"
-              :on-success="saveImg"
-              :auto-upload="false"
+            <form enctype="multipart/form-data" id="uploadform">
+  	          <input  type="file" id="img_file" @change="getfile($event)" name="books_img"><br><br>
+  	          
               
-            >
-              <img v-if="form.books_img" :src="form.books_img" class="avatar" style="width:145px"/>
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>-->
-            <input
-              type="file"
-              enctype="multipart/form-data"
-              @change="showImg()"
-              id="img_file"
-            /><img src="" alt="" id="img_id" style="width: 100px" />
+            <el-button type="primary" @click="upTemp($event)">添 加</el-button>
+            </form>
           </el-form-item>
         </el-form>
+        
         <div slot="footer" class="dialog-footer">
           <el-button @click="addBook = false">取 消</el-button>
           <el-button type="primary" @click="uploadBook">添 加</el-button>
@@ -246,6 +230,7 @@
 
 
 <script>
+import Vue from 'vue'
 export default {
   data() {
     return {
@@ -287,7 +272,7 @@ export default {
   mounted() {
     this.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/books/booksList",
+      url:  this.$host+"/books/booksList",
       //url: "/user.json",
       data: "",
       headers: {
@@ -326,7 +311,7 @@ export default {
     bookDownload() {
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/books/download",
+        url:  this.$host+"/books/download",
         responseType: "blob",
       })
         .then((response) => {
@@ -355,7 +340,7 @@ export default {
     onSubmit() {
       this.axios({
         method: "post",
-        url: "http://10.10.102.142:8080/books/quaryType",
+        url:  this.$host+"/books/quaryType",
         //url: "/user.json",
         data: {
           info_theme: this.formInline.info_theme,
@@ -418,7 +403,7 @@ export default {
     inittable() {
       this.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/books/quaryName",
+        url:  this.$host+"/books/quaryName",
         //url: "/user.json",
         params: {
           name: this.input,
@@ -465,52 +450,37 @@ export default {
         }
       }
     },
-    saveImg(res){
-      //console.log(res);
-     // this.form.books_img = res.data.filePath; 
+    getfile(e){
+      this.file = e.target.files[0];
+      console.log("daozhe");
     },
-    showImg(){
-      var file =  document.getElementById('img_file').files[0];
-      //console.log(file);
-       var re = new FileReader();
-      
-      // re.readAsDataURL(file);
-      // re.onload = function(re){
-      //     //$('#img_id').attr("src", re.target.result);
-      // }
-      console.log(re.readAsDataURL(file));
-            this.axios({
+    upTemp(e){
+      e.preventDefault();//取消默认操作
+      var bookImg=new FormData();
+      //this.file=document.getElementById('img_file').files[0];//此方法也可用
+      bookImg.append("books_img",this.file);
+      console.log(this.file);
+      this.axios({
               method: "post",
-              url: "http://10.10.102.142:8080/books/upload",
-              //url: "/user.json",
-              //  data: file,
-              params:{
-                books_img:re.readAsDataURL(file)
-              },
+              url: this.$host+"/books/upload",
+              data:bookImg,
               headers: {
                  "Content-Type":"multipart/form-data",
-                // "Content-Type":
-                //   "application/x-www-form-urlencoded; charset=UTF-8"
               },
             })
               .then((response) => {
                 console.log(response);
+                this.form.books_img = response.data.object;
               })
               .catch((error) => {
                 console.log(error);
               });
     },
     uploadBook(){
-
-      // const formData = new FormData();
       console.log(this.form);
-      // formData.append('file',this.form.books_img);
-      // this.form.books_img = formData;
       this.axios({
               method: "post",
-              url: "http://10.10.102.142:8080/books/insert",
-              //url: "/user.json",
-              // data: this.form,
+              url: this.$host+"/books/insert",
               data:{
                 "books_img":this.form.books_img,
                 "books_author":this.form.books_author,
@@ -518,9 +488,7 @@ export default {
                 "books_last":this.form.books_last
               },
               headers: {
-                // "Content-Type":"multipart/form-data",
-                "Content-Type":
-                  "application/x-www-form-urlencoded; charset=UTF-8"
+                "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"
               },
             })
               .then((response) => {
@@ -533,35 +501,6 @@ export default {
 
       this.addBook = false;
     },
-    handleChange(file, fileList) {
-      
-      this.form.books_img = URL.createObjectURL(file.raw);
-      this.axios({
-              method: "post",
-              url: "http://10.10.102.142:8080/books/upload",
-              //url: "/user.json",
-              // data: this.form,
-              params:{
-                books_img:this.form.books_img             
-              },
-              headers: {
-                 "Content-Type":"multipart/form-data",
-                // "Content-Type":
-                //   "application/x-www-form-urlencoded; charset=UTF-8"
-              },
-            })
-              .then((response) => {
-                console.log(response);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-    },
-
-    beforeUpload(file) {
-      return true;
-    },
-
     deleteBook(index, row) {
       this.$confirm("你是否确定上下架此书籍?", "提示", {
         confirmButtonText: "确定",
@@ -570,7 +509,7 @@ export default {
       }).then(() => {
         this.axios({
           method: "get",
-          url: "http://10.10.102.142:8080/books/setBookStatus",
+          url: this.$host+"/books/setBookStatus",
           //url: "/user.json",
           params: {
             bookId: row.books_id,
@@ -584,7 +523,7 @@ export default {
             //重新加载
             this.axios({
             method: "get",
-            url: "http://10.10.102.142:8080/books/booksList",
+            url:  this.$host+"/books/booksList",
             //url: "/user.json",
             data: "",
             headers: {
@@ -653,6 +592,10 @@ export default {
 }
 
 .downLoad {
+  opacity: 0.7;
+}
+
+.upLoad {
   opacity: 0.7;
 }
 
