@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="div2">
     <el-row :gutter="20">
       <el-col :span="24">
         <el-row :gutter="20" class="mgb20">
@@ -153,7 +153,7 @@ export default {
       },
     })
       .then((response) => {
-          
+          console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -196,6 +196,7 @@ export default {
     })
       .then((response) => {
         this.notice = response.data.object.notice_text;
+        console.log(this.notice);
         
       })
       .catch((error) => {
@@ -313,7 +314,13 @@ export default {
 
 #div1 {
   background-color: rgba(207, 235, 247, 0.8);
-  height: 752px;
+  height: 166px;
+  width: 95%;
+}
+
+#div2{
+  height: 100%;
+  // background-image: url("../../assets/img/login-bg.jpg");
 }
 
 </style>

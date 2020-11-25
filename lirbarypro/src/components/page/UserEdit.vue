@@ -310,6 +310,7 @@ export default {
 
 <style scoped>
 #div1 {
+  overflow: auto;
   background-image: url(../../assets/img/login-bg.jpg);
   background-size: 100%;
   height: 780px;
