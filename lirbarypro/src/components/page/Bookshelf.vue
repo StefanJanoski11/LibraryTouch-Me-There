@@ -10,13 +10,13 @@
         width="400"
         trigger="click"  
       >
-          <el-table :data="books" >
+          <el-table :data="this.books.record" >
             <el-table-column width="100" property="book_id" label="图书编号" ></el-table-column>
             <el-table-column width="100" property="book_name" label="图书名字"></el-table-column>
             <el-table-column width="100" property="book_sche duled" label="期望还书日期"></el-table-column>
             <el-table-column width="100" property="book_lend_date" label="借书日期"></el-table-column>
           </el-table>
-        <el-image :src="require('../../assets/img/2.jpg')" class="image" slot="reference"></el-image>
+        <el-image :src="$host + book.books_pic" class="image" slot="reference"></el-image>
       </el-popover>
     </div>
       
@@ -24,9 +24,9 @@
         <el-collapse accordion>
           <el-collapse-item>
             <template slot="title" class="itembg">
-              {{book.book_name}}<i class="header-icon el-icon-info"></i>
+              {{book.record.book_name}}<i class="header-icon el-icon-info"></i>
             </template>
-            <div>{{book.book_lend_date}}</div>
+            <div>{{book.record.book_lend_date}}</div>
             
           </el-collapse-item>
         </el-collapse>
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       books:[],
-      img : require("../../assets/img/2.jpg"),
+      //img : '/img/default.jpg',
       
      
       currentDate: new Date()
@@ -124,7 +124,7 @@ export default {
       Vue.axios({
       method: "post",
       url:  this.$host+"/record/returnBook",
-      data : JSON.stringify(this.books[index]),
+      data : JSON.stringify(this.books[index].record),
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
