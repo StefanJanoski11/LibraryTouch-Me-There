@@ -46,20 +46,29 @@
         <el-table-column prop="user_name" label="用户名"></el-table-column>
         <el-table-column
           prop="user_identity_id"
+          width="100s"
           label="是否管理员"
         ></el-table-column>
-        <el-table-column prop="user_sex" label="性别"></el-table-column>
+        <el-table-column prop="user_sex" width="55" label="性别"></el-table-column>
         <el-table-column
           prop="user_sincerity"
           label="不良记录"
+          width="155"
           align="center"
         ></el-table-column>
         <el-table-column
           prop="user_create_date"
           label="注册时间"
+          width="210"
         ></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column label="操作" width="230" align="center">
           <template slot-scope="scope">
+          <el-button
+              type="text"
+              icon="el-icon-edit"
+              @click="history(scope.$index, scope.row)"
+              >借阅记录</el-button
+            >
             <el-button
               type="text"
               icon="el-icon-edit"
@@ -564,7 +573,11 @@ export default {
                 }
               })
                 .then(response => {
-                  this.tableData = response.data.object;
+                  // this.tableData = response.data.object;
+                  this.tableData = response.data.object.list;
+
+                  this.pageTotal = response.data.object.total;
+                
 
                   //this.pageTotal = response.data.object.total;
                 })
@@ -629,6 +642,9 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    history(){
+
     }
   }
 };

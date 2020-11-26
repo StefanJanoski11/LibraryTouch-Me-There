@@ -84,7 +84,7 @@
 
           <el-form-item label="上传图片" ref="uploadElement" prop="books_img">
             <form enctype="multipart/form-data" id="uploadform">
-  	          <input  type="file" id="img_file" @change="getfile($event)" name="books_img"><br><br>
+  	          <input  type="file" id="img_file" @change="upTemp($event)" name="books_img"><br><br>
   	          
               
             <el-button type="primary" @click="upTemp($event)">添 加</el-button>
@@ -441,7 +441,7 @@ export default {
     upTemp(e){
       e.preventDefault();//取消默认操作
       var bookImg=new FormData();
-      //this.file=document.getElementById('img_file').files[0];//此方法也可用
+      this.file=document.getElementById('img_file').files[0];//此方法也可用
       bookImg.append("books_img",this.file);
       console.log(this.file);
       this.axios({
@@ -466,13 +466,14 @@ export default {
               method: "post",
               url: this.$host+"/books/insert",
               data:{
-                "books_img":this.form.books_img,
+                "books_pic":this.form.books_img,
                 "books_author":this.form.books_author,
                 "books_name":this.form.books_name,
-                "books_last":this.form.books_last
+                "books_last":this.form.books_last,
+                "books_publisherId":window.sessionStorage.getItem('ms_userid')
               },
               headers: {
-                "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"
+                "Content-Type":"application/json; charset=UTF-8"
               },
             })
               .then((response) => {
