@@ -19,9 +19,10 @@
             <if test="info_length!=null and info_length!=''">
                 and info_length = #{info_length}
             </if>
+               and info_state = 1
         </where>
     </select>
-    <update id="editBooksInfo" parameterType="java.lang.Integer">
+    <update id="editBooksInfo" parameterType="cn.Boys.library.entity.Books_info">
         update books_info
         <trim prefix="set" suffixOverrides=",">
 
@@ -31,8 +32,8 @@
 
         <if test="info_theme!=null">info_theme=#{info_theme},</if>
 
-        <if test="info_state!=null">info_state=#{info_state},</if>
+        <if test="info_state!=null">info_type=#{info_type},</if>
     </trim>
-    where info_type=#{info_type}
+    where info_id=#{info_id}
     </update>
 </mapper>

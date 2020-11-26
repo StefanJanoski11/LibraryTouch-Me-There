@@ -3,6 +3,7 @@ package cn.Boys.library.service;
 import cn.Boys.library.dto.RecordDTO;
 import cn.Boys.library.dto.Result;
 import cn.Boys.library.entity.Record;
+import cn.Boys.library.entity.RecordPic;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface RecordService {
 
     public RecordDTO setHaveReturn(Record record);
 
-    public List<Record> getNotReturn(Integer id);
+    public List<RecordPic> getNotReturn(Integer id);
 
     public List<Record> getHaveReturn(Integer id);
 

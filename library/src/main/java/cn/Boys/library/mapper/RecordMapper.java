@@ -69,5 +69,6 @@ public interface RecordMapper {
             "from record where book_name like CONCAT('%',#{name},'%')")
     public List<Record> quaryRecord(String name);
 
-
+    @Select("select books_pic from books where books_id = #{bookId}")
+    public String getBookPic(Integer bookId);
 }

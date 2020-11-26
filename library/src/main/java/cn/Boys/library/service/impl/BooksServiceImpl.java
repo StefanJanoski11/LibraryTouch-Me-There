@@ -237,20 +237,11 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public Result editBooksInfo(Books_info books_info) {
         //先更新类型
-        if (booksMapper.editBooksInfo(books_info) == null){
+        if (booksMapper.editBooksInfo(books_info) == 0){
             return new Result(books_info,ResultEnum.NOT_ACCEPTABLE);
         }
-        Integer last = books_info.getInfo_state();
-        Integer id = books_info.getInfo_id();
+        return  new Result(books_info,ResultEnum.OK);
 
-        if (last<0){
-            return new Result(books_info,ResultEnum.NOT_ACCEPTABLE);
-        }
-
-        if(booksMapper.editBooksLast(id,last) !=1 ){
-            return new Result(books_info,ResultEnum.SERVER_ERROR);
-        }
-        return new Result(books_info,ResultEnum.OK);
     }
 
     //图书上架下架

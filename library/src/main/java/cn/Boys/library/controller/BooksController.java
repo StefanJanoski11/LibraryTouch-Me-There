@@ -225,11 +225,12 @@ public class BooksController {
         return booksService.publishBook(bookId,status);
     }
 
-//    @ApiOperation(value = "修改图书类型",notes = "通过图书类型全字段修改")
-//    @GetMapping("/updateBookType")
-//    public Result updateBookType(@RequestBody Books_info booksInfo){
-//        return booksService.editBooksInfo(booksInfo);
-//    }
+    @ApiOperation(value = "修改图书类型",notes = "通过图书类型全字段修改")
+    @PostMapping("/updateBookType")
+    public Result updateBookType(@RequestBody Books_info booksInfo){
+        log.info("印度佬");
+        return booksService.editBooksInfo(booksInfo);
+    }
 
     @ApiOperation(value = "获取所有图书",notes = "获取所有图书并在状态列显示有货、已借、无货")
     @GetMapping("/booksList")

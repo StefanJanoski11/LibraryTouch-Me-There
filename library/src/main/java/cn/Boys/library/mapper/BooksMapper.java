@@ -59,7 +59,7 @@ public interface BooksMapper {
     public List<Books_info> quaryBooksByType(Books_info bookInfo);
 
     //动态更新修改类别之类信息
-    public Books_info editBooksInfo(Books_info books_info);
+    public Integer editBooksInfo(Books_info books_info);
 
     //根据类型窗口通过type查询剩余数量
     @Select("select books_last from books where books_id=#{type}")
@@ -83,8 +83,10 @@ public interface BooksMapper {
     @Select("select * from books a,books_info b where a.books_id =#{booksId} and a.books_type = b.info_id ")
     public BookDTO getAllBookInfo(Integer booksId);
     //根据图书id获取图片位置
-    @Select("select a.books_pic ,a.books_id ,r.book_id from books a,record r where r.book_id=#{bookId} and r.book_id = a.books_id   ")
+    @Select("select a.books_pic ,a.books_id ,r.book_id from books a,record r where r.book_id=#{bookId} and r.book_id = a.books_id ")
     public String getPicByBookId(Integer bookId);
+
+
 
 
 

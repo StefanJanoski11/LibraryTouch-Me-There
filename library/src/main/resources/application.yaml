@@ -31,6 +31,11 @@ spring:
     password: root  #修改为自己的数据库密码
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/library?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone = GMT
+#    datasource:
+#      username: root
+#      password: root  #修改为自己的数据库密码
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/library?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone = GMT
 
 mybatis:
   # 指定全局配置文件位置

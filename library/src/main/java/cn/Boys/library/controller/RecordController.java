@@ -4,6 +4,7 @@ import cn.Boys.library.dto.RecordDTO;
 import cn.Boys.library.dto.Result;
 import cn.Boys.library.entity.BooksStatistic;
 import cn.Boys.library.entity.Record;
+import cn.Boys.library.entity.RecordPic;
 import cn.Boys.library.enums.ResultEnum;
 import cn.Boys.library.mapper.RecordMapper;
 import cn.Boys.library.service.RecordService;
@@ -52,7 +53,7 @@ public class RecordController {
     //查询还没还
     @ApiOperation(value = "获取用户所有未还借阅记录",notes = "根据用户编号查询所有未还借阅记录")
     @GetMapping("/getNRById")
-    public List<Record> getNotReturnById(@RequestParam("id")Integer id){
+    public List<RecordPic> getNotReturnById(@RequestParam("id")Integer id){
         return recordService.getNotReturn(id);
     }
 
@@ -69,7 +70,7 @@ public class RecordController {
     @GetMapping("/getRecordById")
     public List<Record> getAllById(@RequestParam("id")Integer id){
         List<Record> list1 = recordService.getHaveReturn(id);
-        List<Record> list2 = recordService.getNotReturn(id);
+        List<Record> list2 = recordMapper.getNotReturnById(id);
         list1.addAll(list2);
         return list1;
     }

@@ -2,10 +2,7 @@ package cn.Boys.library.service.impl;
 
 import cn.Boys.library.dto.RecordDTO;
 import cn.Boys.library.dto.Result;
-import cn.Boys.library.entity.Books;
-import cn.Boys.library.entity.Notice;
-import cn.Boys.library.entity.Record;
-import cn.Boys.library.entity.User;
+import cn.Boys.library.entity.*;
 import cn.Boys.library.enums.ResultEnum;
 import cn.Boys.library.mapper.RecordMapper;
 import cn.Boys.library.service.BooksService;
@@ -109,18 +106,28 @@ public class RecordServiceImpl implements RecordService {
 
     //看看你又多少本书没还
     @Override
-    public List<Record> getNotReturn(Integer id) {
+    public List<RecordPic> getNotReturn(Integer id) {
         String GetKey =key+id;
-        System.out.println("require:"+GetKey);
+
+        RecordPic pic = new RecordPic();
         //从redis里面找
         List<Record> notrecord =  redisTemplate.boundHashOps(GetKey).values();
+        List<RecordPic> list = new ArrayList<>();
+
+
         //如果找不到，到数据库找
         if (notrecord.size()==0){
            notrecord =  recordMapper.getNotReturnById(id);
-        }else {
-            return notrecord;
         }
-        return notrecord;
+        System.out.println(notrecord.size());
+        for (Record item: notrecord ) {
+            pic.setRecord(item);
+            pic.setBooks_pic(recordMapper.getBookPic(item.getBook_id()));
+            list.add(pic);
+            System.out.println(pic);
+        }
+
+        return list;
     }
 
     //还书记录查询
