@@ -32,11 +32,7 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column
-          type="selection"
-          width="55"
-          align="center"
-        ></el-table-column>
+        
         <el-table-column
           prop="user_id"
           label="ID"

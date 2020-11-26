@@ -14,7 +14,7 @@ import qs from 'qs';
 
 Vue.prototype.$qs = qs;
 Vue.prototype.$host = 'http://10.10.102.142:8080';
-
+// Vue.prototype.$host = 'http://39.108.218.95:8080';
 Vue.use(VueAxios, axios);
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
