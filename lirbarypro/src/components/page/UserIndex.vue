@@ -33,12 +33,12 @@ export default {
     return {
       notice: "",
       imgList: [
-        { url: require("../../assets/img/2.jpg") },
+        { url: require("../../assets/img/今日大件事.png") },
 
-        { url: require("../../assets/img/2.jpg") },
-        { url: require("../../assets/img/2.jpg") },
-        { url: require("../../assets/img/2.jpg") },
-        { url: require("../../assets/img/2.jpg") },
+        { url: require("../../assets/img/看过来.png") },
+        { url: require("../../assets/img/好果汁.png") },
+        { url: require("../../assets/img/书室.png") },
+        { url: require("../../assets/img/每日阅读.png") },
       ],
     };
   },
