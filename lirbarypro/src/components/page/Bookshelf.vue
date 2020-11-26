@@ -5,29 +5,29 @@
     <el-card :body-style="{ padding: '50px'}" shadow="hover" >
     <div class="pp1">
       
-      <el-popover 
+      <!-- <el-popover 
         placement="top"
         width="400"
         trigger="click"  
       >
-          <el-table :data="books" >
+          <el-table :data="books[index].record" >
             <el-table-column width="100" property="book_id" label="图书编号" ></el-table-column>
             <el-table-column width="100" property="book_name" label="图书名字"></el-table-column>
-            <el-table-column width="100" property="book_sche duled" label="期望还书日期"></el-table-column>
+            <el-table-column width="100" property="book_scheduled" label="期望还书日期"></el-table-column>
             <el-table-column width="100" property="book_lend_date" label="借书日期"></el-table-column>
-          </el-table>
-        <el-image :src="require('../../assets/img/2.jpg')" class="image" slot="reference"></el-image>
-      </el-popover>
+          </el-table> -->
+        <el-image :src="$host + book.books_pic" class="image" slot="reference"></el-image>
+      <!-- </el-popover> -->
     </div>
       
       <div style="padding: 14px;">
         <el-collapse accordion>
           <el-collapse-item>
             <template slot="title" class="itembg">
-              {{book.book_name}}<i class="header-icon el-icon-info"></i>
+              {{book.record.book_name}}<i class="header-icon el-icon-info"></i>
             </template>
-            <div>{{book.book_lend_date}}</div>
-            
+            <div>期望还书日期：{{book.record.book_scheduled}}</div>
+            <div>借书日期：{{book.record.book_lend_date}}</div>
           </el-collapse-item>
         </el-collapse>
         <div class="bottom clearfix">
@@ -92,9 +92,7 @@ export default {
   data() {
     return {
       books:[],
-      img : require("../../assets/img/2.jpg"),
-      
-     
+      //img : '/img/default.jpg',
       currentDate: new Date()
     };
   },
@@ -124,7 +122,7 @@ export default {
       Vue.axios({
       method: "post",
       url:  this.$host+"/record/returnBook",
-      data : JSON.stringify(this.books[index]),
+      data : JSON.stringify(this.books[index].record),
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
