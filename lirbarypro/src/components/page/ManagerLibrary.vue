@@ -119,14 +119,8 @@
       >批量导出</el-button
     >
 
-    <el-table :data="tableDataEnd" style="width: 90%" class="detail">
-      <el-table-column
-        fixed
-        prop="books_createTime"
-        label="上架日期"
-        width="150"
-      >
-      </el-table-column>
+    <el-table :data="tableDataEnd" style="width: 80%" class="detail">
+      
       <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
       <el-table-column prop="books_author" label="作者" width="120">
@@ -141,6 +135,16 @@
       >
       </el-table-column>
       <el-table-column prop="books_id" label="ID" width="120">
+      </el-table-column>
+      <el-table-column
+        prop="books_create_date"
+        label="上架日期"
+        width="150">
+      </el-table-column>
+      <el-table-column
+        prop="books_alter_date"
+        label="修改日期"
+        width="150">
       </el-table-column>
 
       <el-table-column label="操作" width="160" fixed="right">
@@ -164,61 +168,50 @@
 
     <el-dialog title="编辑书籍信息" :visible.sync="settingVisible">
       <el-form :model="form">
+
         <el-form-item label="国家" :label-width="formLabelWidth">
-          <el-select
-            v-model="formInline.region"
-            placeholder="国家"
-            class="searchList"
-          >
-            <el-option label="中国" value="china"></el-option>
-            <el-option label="日本" value="japan"></el-option>
-            <el-option label="北美" value="noramerica"></el-option>
-            <el-option label="欧洲" value="europe"></el-option>
-          </el-select>
-        </el-form-item>
+        <el-select v-model="ffInline.info_country" placeholder="国家" class=“searchList>
+          
+          <el-option label="中国" value="中国"></el-option>
+          <el-option label="法国" value="法国"></el-option>
+          <el-option label="德国" value="德国"></el-option>
+          <el-option label="印度" value="印度"></el-option>
+        </el-select>
+      </el-form-item>
 
         <el-form-item label="类型" :label-width="formLabelWidth">
-          <el-select
-            v-model="formInline.sort"
-            placeholder="类型"
-            class="searchList"
-          >
-            <el-option label="历史" value="1"></el-option>
-            <el-option label="文学" value="2"></el-option>
-            <el-option label="军事" value="3"></el-option>
-            <el-option label="科学" value="4"></el-option>
-          </el-select>
+          <el-select v-model="ffInline.info_type" placeholder="类型" class=“searchList>
+          
+          <el-option label="现实主义" value="现实主义"></el-option>
+          <el-option label="哲学主义" value="哲学主义"></el-option>
+          <el-option label="社会主义" value="社会主义"></el-option>
+          <el-option label="资本主义" value="资本主义"></el-option>
+        </el-select>
         </el-form-item>
 
         <el-form-item label="篇幅" :label-width="formLabelWidth">
-          <el-select
-            v-model="formInline.para"
-            placeholder="篇幅"
-            class="searchList"
-          >
-            <el-option label="短篇" value="1"></el-option>
-            <el-option label="中篇" value="2"></el-option>
-            <el-option label="长篇" value="3"></el-option>
-            <el-option label="超长篇" value="4"></el-option>
-          </el-select>
+        <el-select v-model="ffInline.info_length" placeholder="篇幅" class=“searchList>
+          
+          <el-option label="短篇" value="1"></el-option>
+          <el-option label="中篇" value="2"></el-option>
+          <el-option label="长篇" value="3"></el-option>
+          <el-option label="超长篇" value="4"></el-option>
+        </el-select>
         </el-form-item>
 
         <el-form-item label="主题" :label-width="formLabelWidth">
-          <el-select
-            v-model="formInline.topic"
-            placeholder="主题"
-            class="searchList"
-          >
-            <el-option label="喜剧" value="1"></el-option>
-            <el-option label="悲剧" value="2"></el-option>
-            <el-option label="恶作剧" value="3"></el-option>
-            <el-option label="默剧" value="4"></el-option>
-          </el-select>
+          <el-select v-model="ffInline.info_theme" placeholder="主题" class=“searchList>
+          
+          <el-option label="反映社会现实" value="反映社会现实"></el-option>
+          <el-option label="思考人生哲学" value="思考人生哲学"></el-option>
+          <el-option label="反映底层人民现实" value="反映底层人民现实"></el-option>
+          <el-option label="追寻自我价值" value="追寻自我价值"></el-option>
+        </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="settingVisible = false">取 消</el-button>
-        <el-button type="primary" @click="settingVisible = false"
+        <el-button type="primary" @click="save()"
           >保 存</el-button
         >
       </div>
@@ -256,8 +249,8 @@ export default {
       formLabelWidth: "120px",
       settingVisible: false,
 
-        formLabelWidth: '120px',
-        settingVisible:false,
+        // formLabelWidth: '120px',
+        // settingVisible:false,
       gridData: [{
           description: '',
         }],
@@ -265,6 +258,7 @@ export default {
       tableDataEnd: [],
       tableDataBegin: [],
       input: "",
+      booknum: "",
       totalItems: 0,
       currentPage: 0,
       pageSize: 8,
@@ -276,6 +270,7 @@ export default {
         tpic: "",
         name,
       },
+      ffInline:{},
     };
   },
   mounted() {
@@ -383,7 +378,30 @@ export default {
     },
     clickSetting(index, row) {
       this.settingVisible = true;
+      
+      this.booknum = row.books_id;
+      console.log(row.books_id);
     },
+
+    save(){
+      this.settingVisible = false;
+      this.axios({
+        method: "post",
+        url: "http://10.10.102.143:8080/books/updateBookType",
+        //url: "/user.json",
+        data: {
+              "info_id":this.booknum,
+              "info_theme":this.ffInline.info_theme,
+              "info_type":this.ffInline.info_type,
+              "info_length":this.ffInline.info_length,
+              "info_country":this.ffInline.info_country
+            },
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+    })
+    },
+
     inittable() {
       this.axios({
         method: "get",
@@ -600,15 +618,16 @@ export default {
   padding: 0 0 0 60px;
   margin: 5px;
   opacity: 0.8;
+  left:65px;
 }
 .searchButton {
-  margin: 0;
+  margin: 0 0 10px 65px;
   border: 0;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .detail {
-  left: 60px;
+  left: 125px;
   opacity: 0.8;
   border-radius: 10px;
 }
