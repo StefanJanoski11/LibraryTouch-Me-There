@@ -23,20 +23,36 @@ Vue.use(ElementUI, {
 });
 
 //使用钩子函数对路由进行权限跳转
-// router.beforeEach((to, from, next) => {
-//     const username = window.sessionStorage.getItem('ms_username');
-//     document.title = `${to.meta.title} | 好果汁书室`;
-//     console.log("----------------------");
-//     if (to.name == 'login') { //如果进入的是login
-//         next(); //直接放行
-//     } else {
-//         if (!username) { //在其他页面如果没有登录
-//             next({ name: 'login' });
-//         } else { //登录了就放行
-//             next();
-//         }
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    const username = window.sessionStorage.getItem('ms_username');
+    const userType = window.sessionStorage.getItem('ms_user_type');
+    document.title = `${to.meta.title} | 好果汁书室`;
+    console.log("----------------------");
+    if (to.name == 'login') { //如果进入的是login
+        next(); //直接放行
+
+    } else {
+        if (!username) { //在其他页面如果没有登录
+            next({ name: 'login' });
+        } else { //登录了就放行
+
+            if (to.path == '/admin/dashboard' || to.path == '/admin/userlist' ||
+                to.path == '/admin/rent' || to.path == '/admin/library') { //管理员去后台
+
+                if (userType == 1) next();
+                else next({ path: '404' });
+                //this.$router.push('/admin');
+            } else if (to.path == '/user/index' || to.path == '/user/library' ||
+                to.path == '/user/bookshelf' || to.path == '/user/edit' ||
+                to.path == '/user/history' || to.path == '/user/hotbookslist') { //普通用户去普通页面
+                if (userType == 0) next();
+                else next({ path: '404' });
+                // this.$router.push('/user');
+            }
+
+        }
+    }
+});
 
 Vue.config.productionTip = false
 

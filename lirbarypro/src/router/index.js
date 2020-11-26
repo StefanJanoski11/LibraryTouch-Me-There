@@ -28,6 +28,7 @@ export default new Router({
         {
             path: '/admin',
             component: Home,
+            name: 'admin',
             children: [{
                     path: 'dashboard',
                     component: Dashboard,
@@ -56,6 +57,7 @@ export default new Router({
         },
         {
             path: '/user',
+            name: 'user',
             component: UserHome,
             children: [{
                     path: 'index',

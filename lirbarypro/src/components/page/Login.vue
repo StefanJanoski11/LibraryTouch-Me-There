@@ -82,6 +82,7 @@ export default {
                     window.sessionStorage.setItem('ms_user_password', user_password);
 
                     let userType = response.data.object.user_identity_id;
+                    window.sessionStorage.setItem('ms_user_type', userType);
                     if(userType == 1){
                         this.$router.push('/admin');
                     }else if(userType == 0){
