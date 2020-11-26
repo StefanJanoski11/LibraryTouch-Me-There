@@ -69,13 +69,19 @@ public class UserServiceImpl implements UserService {
         if(res==0){
             return new Result(res,ResultEnum.NOT_ACCEPTABLE);
         }
+        User user = userMapper.selectUserByPrimaryKey(userId);
+        if (user == null){
+            return new Result(null, ResultEnum.OK);
+        }
+        user.setUser_exist_state(0);
+        putUserInRedis(user);
         return new Result(res, ResultEnum.OK);
     }
 
     @Override
     public Result selectUserExist() {
         List<User> list = userMapper.selectUserExist();
-        if( list.size()==0){
+        if(list.size()==0){
             return  new Result(null, ResultEnum.NOT_FOUND);
         }
         return new Result(list,ResultEnum.OK);

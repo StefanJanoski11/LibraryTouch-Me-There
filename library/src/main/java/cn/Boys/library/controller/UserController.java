@@ -253,10 +253,10 @@ public class UserController {
         for (User user :userList) {
             Row sheetRow = sheet.createRow(currRow++);
             sheetRow.createCell(0).setCellValue(user.getUser_id());
-            sheetRow.createCell(1).setCellValue(user.getUser_identity_id());
+            sheetRow.createCell(1).setCellValue(user.getUser_identity_id()==1?"管理员":"普通用户");
             sheetRow.createCell(2).setCellValue(user.getUser_name());
             sheetRow.createCell(3).setCellValue(user.getUser_email());
-            sheetRow.createCell(4).setCellValue(user.getUser_sex());
+            sheetRow.createCell(4).setCellValue(user.getUser_sex()==1?"男":"女");
             sheetRow.createCell(5).setCellValue(user.getUser_phone());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
             sheetRow.createCell(6).setCellValue(sdf.format(user.getUser_birthday()));
@@ -269,7 +269,7 @@ public class UserController {
             sheetRow.createCell(13).setCellValue(sdf.format(user.getUser_alter_date()));
             sheetRow.createCell(14).setCellValue(user.getUser_alter_admin());
         }
-//        response.setContentType("application/octet-stream");/*二进制流*/
+        response.setContentType("application/octet-stream");/*二进制流*/
         response.setHeader("Content-disposition", "attachment;filename=" + filename);
         OutputStream os = null;
         try{
@@ -295,7 +295,7 @@ public class UserController {
 
     @ApiOperation(value = "注销用户",notes = "通过用户编号注销用户")
     @GetMapping("/deleteUser")
-    public Result deleteUser(Integer id){
+    public Result deleteUser(@RequestParam("id") Integer id){
         return userService.deleteUser(id);
     }
 
