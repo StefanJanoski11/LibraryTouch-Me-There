@@ -24,7 +24,7 @@
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
                 <div class="register-btn">
-                    <el-button type="primary" @click="register()">当场注册</el-button>
+                    <el-button type="primary" @click="register()">注册</el-button>
                 </div>            
             </el-form>
         </div>

@@ -194,7 +194,7 @@ export default {
             trigger: "blur"
           }
         ],
-        user_sex: [{ required: true, message: "请选择性别", trigger: "blur" }],
+        user_sex: [{ required: true, message: "请选择性别", trigger: "change" }],
         user_birthday: [
           {
             type: "date",

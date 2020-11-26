@@ -49,7 +49,11 @@
           width="100s"
           label="是否管理员"
         ></el-table-column>
-        <el-table-column prop="user_sex" width="55" label="性别"></el-table-column>
+        <el-table-column
+          prop="user_sex"
+          width="55"
+          label="性别"
+        ></el-table-column>
         <el-table-column
           prop="user_sincerity"
           label="不良记录"
@@ -63,10 +67,10 @@
         ></el-table-column>
         <el-table-column label="操作" width="230" align="center">
           <template slot-scope="scope">
-          <el-button
+            <el-button
               type="text"
               icon="el-icon-edit"
-              @click="history(scope.$index, scope.row)"
+              @click="history(scope.row)"
               >借阅记录</el-button
             >
             <el-button
@@ -119,56 +123,76 @@
     </el-dialog>
 
     <el-dialog title="新增用户" :visible.sync="addVisible" width="40%">
-        <el-form
-      ref="form"
-      :model="form"
-      status-icon
-      :rules="rules"
-      label-width="100px"
-      class="login-form demo-ruleForm"
-      label-position="righ"
-    >
+      <el-form
+        ref="form"
+        :model="form"
+        status-icon
+        :rules="rules"
+        label-width="100px"
+        class="login-form demo-ruleForm"
+        label-position="righ"
+      >
         <el-form-item label="ID" placeholder="ID">
-        <el-input v-model="form.ID" maxlength="30" show-word-limit> </el-input>
-      </el-form-item>
+          <el-input v-model="form.ID" maxlength="30" show-word-limit>
+          </el-input>
+        </el-form-item>
 
-      <el-form-item label="姓名" placeholder="姓名">
-        <el-input v-model="form.name" maxlength="30" show-word-limit>
-        </el-input>
-      </el-form-item>
+        <el-form-item label="姓名" placeholder="姓名">
+          <el-input v-model="form.name" maxlength="30" show-word-limit>
+          </el-input>
+        </el-form-item>
 
-      <el-form-item label="邮箱" placeholder="邮箱">
-        <el-input v-model="form.eamil" maxlength="30"> </el-input>
-      </el-form-item>
+        <el-form-item label="邮箱" placeholder="邮箱">
+          <el-input v-model="form.eamil" maxlength="30"> </el-input>
+        </el-form-item>
 
-      <el-form-item prop="phone" label="电话" placeholder="手机号码">
-        <el-input v-model="form.phone"> </el-input>
-      </el-form-item>
+        <el-form-item prop="phone" label="电话" placeholder="手机号码">
+          <el-input v-model="form.phone"> </el-input>
+        </el-form-item>
 
-      <el-form-item label="输入密码" placeholder="输入密码" prop="password">
-        <el-input
-          type="password"
-          v-model="form.password"
-          autocomplete="off"
-          maxlength="30"
-          show-password
-        >
-        </el-input>
-      </el-form-item>
+        <el-form-item label="输入密码" placeholder="输入密码" prop="password">
+          <el-input
+            type="password"
+            v-model="form.password"
+            autocomplete="off"
+            maxlength="30"
+            show-password
+          >
+          </el-input>
+        </el-form-item>
 
-      <el-form-item label="确认密码" prop="password2">
-        <el-input
-          type="password"
-          v-model="form.password2"
-          autocomplete="off"
-          maxlength="30"
-        ></el-input>
-      </el-form-item>
+        <el-form-item label="确认密码" prop="password2">
+          <el-input
+            type="password"
+            v-model="form.password2"
+            autocomplete="off"
+            maxlength="30"
+          ></el-input>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="addVisible = false">关 闭</el-button>
         <el-button type="primary" @click="saveAdd">确 定 添 加</el-button>
       </span>
+    </el-dialog>
+
+    <el-dialog
+      title="借阅记录"
+      :visible.sync="dialogTableVisible"
+      width=720px
+    >
+      <el-table :data="tableDataEnd" border style="margin-top: 25px">
+        <el-table-column prop="book_name" label="书名" width="180">
+        </el-table-column>
+        <el-table-column prop="book_lend_date" label="借阅日期" width="150">
+        </el-table-column>
+        <el-table-column prop="book_scheduled" label="期望归还日期" width="150">
+        </el-table-column>
+        <el-table-column prop="book_return_date" label="还书日期" width="150">
+        </el-table-column>
+        <el-table-column prop="book_return_state" label="是否还了" width="50">
+        </el-table-column>
+      </el-table>
     </el-dialog>
   </div>
 </template>
@@ -177,7 +201,7 @@
 export default {
   name: "userlist",
   data() {
-// 是否包含一位大写字母
+    // 是否包含一位大写字母
     const reg = /(?=.*[A-Z])/;
     // 是否包含一位数字
     const regNumber = /(?=.*[\d])/;
@@ -242,7 +266,7 @@ export default {
         user_address: "",
         user_password: "",
         checkPassword: "",
-        btnTitle: "获取验证码"
+        btnTitle: "获取验证码",
       },
       user: {
         user_name: "",
@@ -254,7 +278,7 @@ export default {
         selfDesc: "",
         date: "",
         alterDate: "",
-        alterAdmin: ""
+        alterAdmin: "",
       },
       new_form: {
         user_name: "",
@@ -281,11 +305,12 @@ export default {
       query: {
         name: "",
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       usera: [],
       tableData: [],
-      //tableDataEnd: [],
+      tableDataBegin: [],
+      tableDataEnd: [],
       multipleSelection: [],
       delList: [],
       editVisible: false,
@@ -293,33 +318,34 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      dialogTableVisible: false,
     };
   },
   mounted() {
     this.axios({
       method: "get",
-      url: this.$host+"/user/getAll",
+      url: this.$host + "/user/getAll",
       params: {
-        pageNum: this.pageIndex
+        pageNum: this.pageIndex,
       },
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-      }
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
     })
-      .then(response => {
+      .then((response) => {
         this.tableData = response.data.object.list;
 
         this.pageTotal = response.data.object.total;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   },
   methods: {
     //提交添加
     saveAdd() {
-        this.$refs.form.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (valid) {
           this.axios({
             method: "post",
@@ -331,19 +357,24 @@ export default {
             },
           })
             .then((response) => {
-              console.log(response+"--------------------------------------------------记得删掉");
-                //提交完成
-
-
-
+              console.log(
+                response +
+                  "--------------------------------------------------记得删掉"
+              );
+              //提交完成
 
               this.addVisible = false;
             })
             .catch((error) => {
-              console.log(error+"--------------------------------------------------记得删掉");
+              console.log(
+                error +
+                  "--------------------------------------------------记得删掉"
+              );
             });
         } else {
-          console.log("获取失败，请重试！--------------------------------------------------记得删掉");
+          console.log(
+            "获取失败，请重试！--------------------------------------------------记得删掉"
+          );
           return false;
         }
       });
@@ -351,21 +382,29 @@ export default {
     userDownload() {
       this.axios({
         method: "get",
-        url: this.$host+"/user/download",
-        responseType: "blob"
+        url: this.$host + "/user/download",
+        responseType: "blob",
       })
-        .then(response => {
+        .then((response) => {
           let url = window.URL.createObjectURL(response.data);
           let link = document.createElement("a");
           link.style.display = "none";
           link.href = url;
           let date = new Date();
-          link.setAttribute("download", date.getFullYear()+"_"+date.getMonth()+"_"+date.getDate()+"_user.xlsx");
+          link.setAttribute(
+            "download",
+            date.getFullYear() +
+              "_" +
+              date.getMonth() +
+              "_" +
+              date.getDate() +
+              "_user.xlsx"
+          );
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
@@ -378,20 +417,20 @@ export default {
       // console.log(query.name);
       this.axios({
         method: "get",
-        url: this.$host+"/user/quaryUser",
+        url: this.$host + "/user/quaryUser",
         params: {
-          name: this.query.name
+          name: this.query.name,
         },
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-        }
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
       })
-        .then(response => {
+        .then((response) => {
           this.tableData = response.data.object;
 
           //this.pageTotal = response.data.object.total;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
 
@@ -402,43 +441,42 @@ export default {
     handleDelete(index, row) {
       // 二次确认删除
       this.$confirm("确定要删除吗？", "提示", {
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           this.axios({
             method: "get",
-            url: this.$host+"/user/deleteUser",
+            url: this.$host + "/user/deleteUser",
             params: {
-              id: row.user_id
+              id: row.user_id,
             },
             headers: {
-              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
+              "Content-Type":
+                "application/x-www-form-urlencoded; charset=UTF-8",
+            },
           })
-            .then(response => {
+            .then((response) => {
               this.axios({
                 method: "get",
-                url: this.$host+"/user/quaryExistUser",
+                url: this.$host + "/user/quaryExistUser",
                 params: {},
                 headers: {
                   "Content-Type":
-                    "application/x-www-form-urlencoded; charset=UTF-8"
-                }
+                    "application/x-www-form-urlencoded; charset=UTF-8",
+                },
               })
-                .then(response => {
+                .then((response) => {
                   // this.tableData = response.data.object;
                   this.tableData = response.data.object.list;
+                  this.$message("删除该用户成功");
 
                   this.pageTotal = response.data.object.total;
-                
-
-                  //this.pageTotal = response.data.object.total;
                 })
-                .catch(error => {
+                .catch((error) => {
                   console.log(error);
                 });
             })
-            .catch(error => {
+            .catch((error) => {
               console.log(error);
             });
         })
@@ -456,20 +494,20 @@ export default {
       console.log(row);
       this.axios({
         method: "get",
-        url: this.$host+"/user/detail",
+        url: this.$host + "/user/detail",
         params: {
           user_id: row.user_id,
-          user_name: row.user_name
+          user_name: row.user_name,
         },
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-        }
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
       })
-        .then(response => {
+        .then((response) => {
           console.log(response);
           this.usera = response.data.object;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
 
@@ -479,27 +517,47 @@ export default {
     handlePageChange(val) {
       this.axios({
         method: "get",
-        url: this.$host+"/user/getAll",
+        url: this.$host + "/user/getAll",
         params: {
-          pageNum: val
+          pageNum: val,
         },
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-        }
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
       })
-        .then(response => {
+        .then((response) => {
           console.log(response.data.object.list);
           this.tableData = response.data.object.list;
           this.pageTotal = response.data.object.total;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
-    history(){
-
-    }
-  }
+    history(row) {
+      console.log(row);
+      this.axios({
+        method: "get",
+        url: this.$host + "/record/getRecordById",
+        // url: "../../../static/mock/rentList.json",
+        params: { id: row.user_id },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      })
+        .then((response) => {
+          this.tableDataBegin = [];
+          console.log(response.data);
+          this.tableDataBegin = response.data;
+          console.log(this.tableDataEnd.length);
+          this.tableDataEnd = this.tableDataBegin;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.dialogTableVisible = true;
+    },
+  },
 };
 </script>
 

@@ -127,12 +127,7 @@
       </el-table-column>
       <el-table-column prop="books_last" label="库存" width="120">
       </el-table-column>
-      <el-table-column
-        prop="books_state"
-        :formatter="Formate"
-        label="是否上架"
-        width="90"
-      >
+      <el-table-column prop="books_state" :formatter="Formate" label="是否上架" width="90">
       </el-table-column>
       <el-table-column prop="books_id" label="ID" width="120">
       </el-table-column>
@@ -147,14 +142,14 @@
         width="150">
       </el-table-column>
 
-      <el-table-column label="操作" width="160" fixed="right">
+      <el-table-column  label="操作" width="160" fixed="right">
         <template slot-scope="scope">
-          <el-button
-            @click="deleteBook(scope.$index, scope.row)"
-            type="primary"
-            size="small"
-            >上下架</el-button
-          >
+          <el-button @click="deleteBook(scope.$index, scope.row)" 
+          v-if="scope.row.books_state == 0"
+          type="primary" size="small" >上架</el-button>
+          <el-button @click="deleteBook(scope.$index, scope.row)"
+          v-else 
+          type="primary" size="small" >下架</el-button>
 
           <el-button
             @click="clickSetting(scope.$index, scope.row)"
@@ -238,6 +233,7 @@ import Vue from 'vue'
 export default {
   data() {
     return {
+      title: "",
       addBook: false,
       form: {
         books_publisherId: window.sessionStorage.getItem("ms_userid"),
@@ -525,55 +521,36 @@ export default {
           .then((response) => {
             //重新加载
             this.axios({
-            method: "get",
-            url:  this.$host+"/books/booksList",
-            //url: "/user.json",
-            data: "",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            },
-          })
-            .then((response) => {
-              console.log(response);
-              this.tableDataEnd=[];
-              this.tableDataBegin=[];
-              let array = response.data;
-              this.totalItems = array.length;
-              for (let i = 0; i < this.totalItems; i++) {
-                this.tableDataBegin[i] = array[i].book;
-              }
+      method: "get",
+      url:  this.$host+"/books/booksList",
+      //url: "/user.json",
+      data: "",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        this.tableDataBegin = [];
+        this.tableDataEnd = [];
+        let array = response.data;
+        this.totalItems = array.length;
+        for (let i = 0; i < this.totalItems; i++) {
+          this.tableDataBegin[i] = array[i].book;
+        }
 
-              if (this.totalItems > this.pageSize) {
-                //如果有好多，只需要第一页的数据
-                for (let index = 0; index < this.pageSize; index++) {
-                  this.tableDataEnd.push(this.tableDataBegin[index]);
-                }
-              } else {
-                this.tableDataEnd = this.tableDataBegin;
-              }
-            })
-              .then((response) => {
-                console.log(response);
-                this.tableDataEnd = [];
-                this.tableDataBegin = [];
-                let array = response.data;
-                this.totalItems = array.length;
-                for (let i = 0; i < this.totalItems; i++) {
-                  this.tableDataBegin[i] = array[i].book;
-                }
-
-                if (this.totalItems > this.pageSize) {
-                  //如果有好多，只需要第一页的数据
-                  for (let index = 0; index < this.pageSize; index++) {
-                    this.tableDataEnd.push(this.tableDataBegin[index]);
-                  }
-                } else {
-                  this.tableDataEnd = this.tableDataBegin;
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+        if (this.totalItems > this.pageSize) {
+          //如果有好多，只需要第一页的数据
+          for (let index = 0; index < this.pageSize; index++) {
+            this.tableDataEnd.push(this.tableDataBegin[index]);
+          }
+        } else {
+          this.tableDataEnd = this.tableDataBegin;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
           })
           .catch(() => {});
       });
