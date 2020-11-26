@@ -119,7 +119,7 @@
       >批量导出</el-button
     >
 
-    <el-table :data="tableDataEnd" style="width: 90%" class="detail">
+    <el-table :data="tableDataEnd" style="width: 80%" class="detail">
       
       <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
@@ -137,10 +137,14 @@
       <el-table-column prop="books_id" label="ID" width="120">
       </el-table-column>
       <el-table-column
-        prop="books_createTime"
+        prop="books_create_date"
         label="上架日期"
-        width="150"
-      >
+        width="150">
+      </el-table-column>
+      <el-table-column
+        prop="books_alter_date"
+        label="修改日期"
+        width="150">
       </el-table-column>
 
       <el-table-column label="操作" width="160" fixed="right">
@@ -380,19 +384,17 @@ export default {
     },
 
     save(){
-      console.log(this.booknum);
-      console.log(this.ffInline.info_type);
       this.settingVisible = false;
       this.axios({
         method: "post",
         url: "http://10.10.102.143:8080/books/updateBookType",
         //url: "/user.json",
         data: {
-              info_id:this.booknum,
-              info_theme:this.ffInline.info_theme,
+              "info_id":this.booknum,
+              "info_theme":this.ffInline.info_theme,
               "info_type":this.ffInline.info_type,
-              info_length:this.ffInline.info_length,
-              info_country:this.ffInline.info_country
+              "info_length":this.ffInline.info_length,
+              "info_country":this.ffInline.info_country
             },
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -616,15 +618,16 @@ export default {
   padding: 0 0 0 60px;
   margin: 5px;
   opacity: 0.8;
+  left:65px;
 }
 .searchButton {
-  margin: 0;
+  margin: 0 0 10px 65px;
   border: 0;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .detail {
-  left: 60px;
+  left: 125px;
   opacity: 0.8;
   border-radius: 10px;
 }
