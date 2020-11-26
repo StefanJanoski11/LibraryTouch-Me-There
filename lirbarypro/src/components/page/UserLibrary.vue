@@ -69,24 +69,29 @@
       >搜索</el-button
     >
 
-    <el-table :data="tableDataEnd" style="width: 90%" class="detail">
-      <el-table-column
-        fixed
-        prop="books_createTime"
-        label="上架日期"
-        width="150"
-      >
-      </el-table-column>
+    <el-table :data="tableDataEnd" style="width: 70%" class="detail">
+      
       <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
       <el-table-column prop="books_author" label="作者" width="120">
       </el-table-column>
       <el-table-column prop="books_last" label="库存" width="120">
       </el-table-column>
+      
 
       <el-table-column prop="books_id" label="ID" width="120">
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="120">
+      <el-table-column
+        prop="books_create_date"
+        label="上架日期"
+        width="150">
+      </el-table-column>
+      <el-table-column
+        prop="books_alter_date"
+        label="修改日期"
+        width="150">
+      </el-table-column>
+      <el-table-column label="操作" width="120">
         <template slot-scope="scope">
           <!-- <el-button slot="reference" @click="bookDetail(scope.row)"
             >详情</el-button> -->
@@ -379,15 +384,17 @@ export default {
   padding: 0 0 0 60px;
   margin: 5px;
   opacity: 0.8;
+  left:100px;
 }
 .searchButton {
-  margin: 0;
+  margin: 0 0 0 100px;
   border: 0;
   opacity: 0.7;
+  
 }
 
 .detail {
-  left: 60px;
+  left: 160px;
   opacity: 0.8;
   border-radius: 10px;
 }
