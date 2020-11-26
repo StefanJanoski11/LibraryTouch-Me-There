@@ -11,8 +11,8 @@ import java.util.List;
 
 @Mapper
 public interface BooksMapper {
-    String allFields = " books_id,books_type,books_name,books_author,books_last,books_state,books_registerDate,books_daily" +
-            ",books_weekly,books_monthly,books_publisherId,books_modifiedId,books_createTime ";
+    String allFields = " books_id,books_type,books_name,books_author,books_last,books_state,books_create_date,books_pic,books_daily" +
+            ",books_weekly,books_monthly,books_publisherId,books_modifiedId,books_alter_date ";
 
     @Update("update books set books_daily=#{books_daily} where books_id=#{book_id}")
     public int updateBooks_daily(Books books);
@@ -33,10 +33,10 @@ public interface BooksMapper {
 
     /*插入图书*/
     @Options(useGeneratedKeys = true,keyProperty = "books_id")
-    @Insert("insert into books(books_type,books_name,books_author,books_last,books_state," +
-            "books_registerDate,books_publisherId,books_daily,books_weekly,books_monthly,books_createTime)" +
-            " values(#{books_type},#{books_name},#{books_author},#{books_last},#{books_state},#{books_registerDate}," +
-            "#{books_publisherId},#{books_daily},#{books_weekly},#{books_monthly},#{books_createTime})")
+    @Insert("insert into books(books_type,books_name,books_author,books_last,books_state,books_create_date," +
+            "books_pic,books_daily,books_weekly,books_monthly,books_publisherId,books_modifiedId,books_alter_date)" +
+            " values(#{books_type},#{books_name},#{books_author},#{books_last},#{books_state},#{books_create_date}," +
+            "#{books_pic},#{books_daily},#{books_weekly},#{books_monthly},#{books_publisherId},#{books_publisherId},#{books_create_date})")
     public int insertBook(Books books);
 
     /*根据图书主键查询*/
@@ -45,21 +45,18 @@ public interface BooksMapper {
 
 
     //图书表模糊查询
-    @Select("Select books_id,books_type,books_name,books_author,books_last,books_state,books_registerDate,books_daily" +
-            ",books_weekly,books_monthly,books_publisherId,books_createTime from books " +
-            "where books_name like  CONCAT('%',#{name},'%')")
+    @Select("Select " +allFields + " from books " +"where books_name like  CONCAT('%',#{name},'%')")
     public List<Books> quaryBook(String name);
 
     //根据图书type查询类别信息
-    @Select("Select info_id,info_country,info_length,info_theme,info_type,info_state,info_createTime,info_publisher,info_modifiedId" +
-            "from books_info where books_info =#{type} ")
+    @Select("Select " + allFields +"from books_info where books_info =#{type} ")
     public Books_info getBooksByType(Integer type);
 
     //根据类型动态查询
     public List<Books_info> quaryBooksByType(Books_info bookInfo);
 
     //动态更新修改类别之类信息
-    public Integer editBooksInfo(Books_info books_info);
+    public Books_info editBooksInfo(Books_info books_info);
 
     //根据类型窗口通过type查询剩余数量
     @Select("select books_last from books where books_id=#{type}")
@@ -83,10 +80,8 @@ public interface BooksMapper {
     @Select("select * from books a,books_info b where a.books_id =#{booksId} and a.books_type = b.info_id ")
     public BookDTO getAllBookInfo(Integer booksId);
     //根据图书id获取图片位置
-    @Select("select a.books_pic ,a.books_id ,r.book_id from books a,record r where r.book_id=#{bookId} and r.book_id = a.books_id ")
+    @Select("select a.books_pic ,a.books_id ,r.book_id from books a,record r where r.book_id=#{bookId} and r.book_id = a.books_id")
     public String getPicByBookId(Integer bookId);
-
-
 
 
 

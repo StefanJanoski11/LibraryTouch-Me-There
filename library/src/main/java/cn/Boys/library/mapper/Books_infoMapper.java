@@ -6,11 +6,17 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface Books_infoMapper {
     @Select("select info_id,info_country,info_length,info_theme,info_type,info_state,info_createTime," +
             "info_publisher,info_modifiedId from books_info where info_id=#{books_type} and info_state=1")
     public Books_info selectBooks_infoByPrimaryKey(Integer books_type);
+
+    @Select("select info_id,info_country,info_length,info_theme,info_type,info_state,info_createTime," +
+            "info_publisher,info_modifiedId from books_info")
+    public List<Books_info> getAllBooks_info();
 
     @Options(useGeneratedKeys = true,keyProperty = "info_id")
     @Insert("insert into books_info(info_country,info_length,info_theme,info_type," +

@@ -14,7 +14,7 @@ public class BookDTO {
     private Integer books_state;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date books_registerDate;
+    private Date books_create_date;
     private String books_pic;
     private String info_country;
     private Integer info_length;
@@ -31,7 +31,7 @@ public class BookDTO {
                 ", books_author='" + books_author + '\'' +
                 ", books_last=" + books_last +
                 ", books_state=" + books_state +
-                ", books_registerDate=" + books_registerDate +
+                ", books_create_date=" + books_create_date +
                 ", books_pic='" + books_pic + '\'' +
                 ", info_country='" + info_country + '\'' +
                 ", info_length=" + info_length +
@@ -39,6 +39,25 @@ public class BookDTO {
                 ", info_type='" + info_type + '\'' +
                 ", info_state=" + info_state +
                 '}';
+    }
+
+    public BookDTO() {
+    }
+
+    public BookDTO(Integer books_id, Integer books_type, String books_name, String books_author, Integer books_last, Integer books_state, Date books_create_date, String books_pic, String info_country, Integer info_length, String info_theme, String info_type, Integer info_state) {
+        this.books_id = books_id;
+        this.books_type = books_type;
+        this.books_name = books_name;
+        this.books_author = books_author;
+        this.books_last = books_last;
+        this.books_state = books_state;
+        this.books_create_date = books_create_date;
+        this.books_pic = books_pic;
+        this.info_country = info_country;
+        this.info_length = info_length;
+        this.info_theme = info_theme;
+        this.info_type = info_type;
+        this.info_state = info_state;
     }
 
     public Integer getBooks_id() {
@@ -89,12 +108,12 @@ public class BookDTO {
         this.books_state = books_state;
     }
 
-    public Date getBooks_registerDate() {
-        return books_registerDate;
+    public Date getBooks_create_date() {
+        return books_create_date;
     }
 
-    public void setBooks_registerDate(Date books_registerDate) {
-        this.books_registerDate = books_registerDate;
+    public void setBooks_create_date(Date books_create_date) {
+        this.books_create_date = books_create_date;
     }
 
     public String getBooks_pic() {
