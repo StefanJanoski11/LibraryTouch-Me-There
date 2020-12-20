@@ -233,8 +233,6 @@ export default {
     this.ruleForm.user_email = window.sessionStorage.getItem("ms_user_email");
     this.ruleForm.user_address = window.sessionStorage.getItem("ms_user_address");
     this.ruleForm.user_self_desc = window.sessionStorage.getItem("ms_user_self_desc");
-    // this.ruleForm.user_password = window.sessionStorage.getItem("ms_user_password");
-    // this.ruleForm.checkPassword = window.sessionStorage.getItem("ms_user_password");
   },
   methods: {
     edit() {
@@ -243,15 +241,12 @@ export default {
       } else alert("已是可编辑状态");
     },
     edit2() {
-      console.log(this.value1);
-      console.log(this.value2);
       this.value2 = !this.value2;
     },
     submitForm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm);
-          alert("submit!--------------------------------------------------记得删掉");
+          alert("修改成功。");
           //异步请求修改
           Vue.axios({
             method: "post",
@@ -273,8 +268,6 @@ export default {
             },
           })
           .then((response) => {
-            console.log(response);
-
             let user_sex = response.data.object.user_sex;
             window.sessionStorage.setItem('ms_user_sex', user_sex);
             let user_birthday = response.data.object.user_birthday;
@@ -289,14 +282,14 @@ export default {
             window.sessionStorage.setItem('ms_user_self_desc', user_self_desc);
             let user_password = response.data.object.user_password;
             window.sessionStorage.setItem('ms_user_password', user_password);
-            this.$router.push('/user/edit');
+            this.$router.push('/user');
           })
           .catch((error) => {
             console.log(error);
           });
 
         } else {
-          console.log("error submit!!--------------------------------------------------记得删掉");
+          console.log("error submit!");
           return false;
         }
       });

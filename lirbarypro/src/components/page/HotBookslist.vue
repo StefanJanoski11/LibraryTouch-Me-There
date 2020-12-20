@@ -26,18 +26,16 @@
           </el-table-column>
         </el-table>
         <el-dialog
-          title="书本详情"
+          title="图书详情"
           :visible.sync="dialogTableVisible"
           width="720px"
         >
           <el-row :model="bookDetail" label-width="70px">
             <el-col :span="12"> 书名：{{ bookDetail.books_name }} </el-col>
             <el-col :span="12"> 作者:{{ bookDetail.books_author }} </el-col>
-            <el-col :span="12"> 国家：{{ bookDetail.info_country }} </el-col>
-            <el-col :span="12"> 类型:{{ bookDetail.info_theme }} </el-col>
             <el-col :span="12"> 剩余数量:{{ bookDetail.books_last }} </el-col>
             <el-col :span="24">
-              上架日期:{{ bookDetail.books_registerDate }}
+              上架日期:{{ bookDetail.books_create_date }}
             </el-col>
           </el-row>
           <span slot="footer" class="dialog-footer">
@@ -78,7 +76,7 @@ export default {
   mounted() {
     Vue.axios({
       method: "get",
-      url: "http://10.10.102.142:8080/books/getDailyHot",
+      url: this.$host+"/books/getDailyHot",
       data: "",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -88,7 +86,6 @@ export default {
         if (response.data.object == null) {
           return false;
         }
-        console.log(response.data.object[0]);
         let array = response.data.object;
         this.totalItems = array.length;
         for (let i = 0; i < this.totalItems; i++) {
@@ -106,71 +103,19 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-        console.log("报错了");
       });
   },
   methods: {
-    // doFilter() {
-    //   if (this.tableDataName == "") {
-    //     this.$message.warning("查询条件不能为空！");
-    //     return;
-    //   }
-    //   this.tableDataEnd = [];
-    //   //每次手动将数据置空,因为会出现多次点击搜索情况
-    //   this.filterTableDataEnd = [];
-    //   this.tableDataBegin.forEach((value, index) => {
-    //     if (value.book_name) {
-    //       if (value.book_name.indexOf(this.tableDataName) >= 0) {
-    //         this.filterTableDataEnd.push(value);
-    //       }
-    //     }
-    //   });
-    //   //页面数据改变重新统计数据数量和当前页
-    //   this.currentPage = 1;
-    //   this.totalItems = this.filterTableDataEnd.length;
-    //   //渲染表格,根据值
-    //   this.currentChangePage(this.filterTableDataEnd);
-    //   //页面初始化数据需要判断是否检索过
-    //   this.flag = true;
-    // },
-
-    // handleSizeChange(val) {
-    //   console.log(`每页 ${val} 条`);
-    //   this.pageSize = val;
-    //   this.handleCurrentChange(this.currentPage);
-    // },
-    // handleCurrentChange(val) {
-    //   console.log(`当前页: ${val}`);
-    //   this.currentPage = val;
-    //   //需要判断是否检索
-    //   if (!this.flag) {
-    //     //tableDataBegin不能写成tableDataEnd，不然在没有进行搜索功能的时候，不能进行分页操作，数据丢失
-    //     this.currentChangePage(this.tableDataBegin);
-    //   } else {
-    //     this.currentChangePage(this.filterTableDataEnd);
-    //   }
-    // }, //组件自带监控当前页码
-    // currentChangePage(list) {
-    //   let from = (this.currentPage - 1) * this.pageSize;
-    //   let to = this.currentPage * this.pageSize;
-    //   this.tableDataEnd = [];
-    //   for (; from < to; from++) {
-    //     if (list[from]) {
-    //       this.tableDataEnd.push(list[from]);
-    //     }
-    //   }
-    // },
     info(index, row) {
-      console.log(row);
       this.bookDetail = row;
       this.dialogTableVisible = true;
     },
     daily() {
       document.getElementById("hotTitle").innerHTML = "本日热门图书";
-      this.$message('获取本日热门图书成功');
+      this.$message.success('获取本日热门图书成功');
       Vue.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/books/getDailyHot",
+        url: this.$host+"/books/getDailyHot",
         data: "",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -180,7 +125,6 @@ export default {
           if (response.data.object == null) {
             return false;
           }
-          console.log(response.data.object[0]);
           let array = response.data.object;
           this.totalItems = array.length;
           for (let i = 0; i < this.totalItems; i++) {
@@ -198,15 +142,14 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          console.log("报错了");
         });
     },
     weekly() {
       document.getElementById("hotTitle").innerHTML = "本周热门图书";
-      this.$message("获取本周热门图书成功");
+      this.$message.success("获取本周热门图书成功");
       Vue.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/books/getWeeklyHot",
+        url: this.$host+"/books/getWeeklyHot",
         data: "",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -216,7 +159,6 @@ export default {
           if (response.data.object == null) {
             return false;
           }
-          console.log(response.data.object[0]);
           let array = response.data.object;
           this.totalItems = array.length;
           for (let i = 0; i < this.totalItems; i++) {
@@ -234,15 +176,14 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          console.log("报错了");
         });
     },
     monthly() {
       document.getElementById("hotTitle").innerHTML = "本月热门图书";
-      this.$message("获取本月热门图书成功");
+      this.$message.success("获取本月热门图书成功");
       Vue.axios({
         method: "get",
-        url: "http://10.10.102.142:8080/books/getWeeklyHot",
+        url: this.$host+"/books/getWeeklyHot",
         data: "",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -252,7 +193,6 @@ export default {
           if (response.data.object == null) {
             return false;
           }
-          console.log(response.data.object[0]);
           let array = response.data.object;
           this.totalItems = array.length;
           for (let i = 0; i < this.totalItems; i++) {
@@ -270,7 +210,6 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          console.log("报错了");
         });
     },
   },

@@ -1,25 +1,26 @@
 <template>
   <div>
-    <el-input v-model="tableDataName" placeholder="请输入书名" style="width:240px"></el-input>
+    <el-input v-model="tableDataName" placeholder="请输入书名" 
+    style="margin-top: 25px;margin-left: 50px; width:240px;"></el-input>
     <el-button type="primary"  @click="doFilter()">搜索</el-button>
-    <el-table :data="tableDataEnd" border style="margin-top: 25px">
-          <el-table-column prop="book_name" label="书名" width="240">
+    <el-table :data="tableDataEnd" border style="margin-top: 25px;margin-left: 50px; width:80%">
+          <el-table-column prop="book_name" label="书名" width="210">
           </el-table-column>
-          <el-table-column prop="user_name" label="借阅人" width="200">
+          <el-table-column prop="user_name" label="借阅人" width="220">
           </el-table-column>
-          <el-table-column prop="book_lend_date" label="借出日期" width="200">            
+          <el-table-column prop="book_lend_date" label="借出日期" width="240">            
           </el-table-column>
-          <el-table-column prop="book_return_date" label="归还日期" width="200">            
+          <el-table-column prop="book_return_date" label="归还日期" width="240">            
           </el-table-column>
-          <el-table-column label="操作" width="120">
+          <el-table-column label="操作" width="100">
             <template slot-scope="scope">
               <!-- scope就相当于是tableData的一行,scope.row 就能拿到整行的值，scope.$index就能代表当前行的下标 -->
-              <el-button type="info" @click="info(scope.$index, scope.row)"
-                >详情</el-button>
+              <el-button type="primary" @click="info(scope.$index, scope.row)">图书详情</el-button>
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination
+        <el-pagination 
+        
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -27,7 +28,7 @@
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next"
           :total="totalItems"
-          style="margin-top: 25px"
+          style="margin-top: 25px;margin-left: 50px;"
         >
         </el-pagination>
         <el-dialog
@@ -37,11 +38,11 @@
         >
           <el-row :model="bookDetail" label-width="70px">
         <el-col :span="12"> 书名：{{ bookDetail.books_name }} </el-col>
-        <el-col :span="12"> 作者:{{ bookDetail.books_author }} </el-col>
+        <el-col :span="12"> 作者：{{ bookDetail.books_author }} </el-col>
         <el-col :span="12"> 国家：{{ bookDetail.info_country }} </el-col>
-        <el-col :span="12"> 类型:{{ bookDetail.info_theme }} </el-col>
-        <el-col :span="12"> 剩余数量{{ bookDetail.books_last }} </el-col>
-        <el-col :span="24"> 上架日期:{{ bookDetail.books_registerDate }} </el-col>
+        <el-col :span="12"> 类型：{{ bookDetail.info_theme }} </el-col>
+        <el-col :span="12"> 剩余数量：{{ bookDetail.books_last }} </el-col>
+        <el-col :span="24"> 上架日期：{{ bookDetail.books_create_date }} </el-col>
       </el-row>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogTableVisible = false">关 闭</el-button>
@@ -78,7 +79,6 @@ import Vue from "vue";
       },
     })
       .then((response) => {
-        console.log(response.data)
         this.tableDataBegin = [];
         this.tableDataBegin = response.data;
         this.totalItems = this.tableDataBegin.length;
@@ -124,12 +124,10 @@ import Vue from "vue";
     },
 
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
         this.pageSize = val;
         this.handleCurrentChange(this.currentPage);
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
         this.currentPage = val;
         //需要判断是否检索
         if(!this.flag){
@@ -150,7 +148,6 @@ import Vue from "vue";
         }
       },
        info(index, row) {
-         console.log(row.book_id);
          Vue.axios({
       method: "get",
       url:  this.$host+"/books/getBookAllInfo",
@@ -160,7 +157,6 @@ import Vue from "vue";
       },
     })
       .then((response) => {
-        console.log(response.data)
         this.bookDetail = response.data.object;
       })
       .catch((error) => {

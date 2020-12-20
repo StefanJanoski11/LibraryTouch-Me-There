@@ -153,7 +153,7 @@ export default {
       },
     })
       .then((response) => {
-          console.log(response);
+        this.$message.success("已成功更新公告！");
       })
       .catch((error) => {
         console.log(error);
@@ -172,15 +172,12 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response);
         this.summary.currentDayLend = response.data.object.currentDayLend;
         this.summary.currentWeekLend = response.data.object.currentWeekLend;
         this.summary.currentMonthLend = response.data.object.currentMonthLend;
         this.summary.currentDayReturn = response.data.object.currentDayReturn;
         this.summary.currentWeekReturn = response.data.object.currentWeekReturn;
         this.summary.currentMonthReturn = response.data.object.currentMonthReturn;
-        console.log(this.summary.dayReturn);
-        console.log(response.data.dayReturn);
       })
       .catch((error) => {
         console.log(error);
@@ -196,7 +193,6 @@ export default {
     })
       .then((response) => {
         this.notice = response.data.object.notice_text;
-        console.log(this.notice);
         
       })
       .catch((error) => {

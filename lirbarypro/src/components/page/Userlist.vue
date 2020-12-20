@@ -1,12 +1,5 @@
 <template>
   <div>
-    <div class="crumbs">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>
-          <i class="el-icon-lx-cascades"></i> 基础表格
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
     <div class="container">
       <div class="handle-box">
         <el-input
@@ -32,7 +25,6 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        
         <el-table-column
           prop="user_id"
           label="ID"
@@ -43,11 +35,13 @@
         <el-table-column
           prop="user_identity_id"
           width="100s"
+          :formatter="adminFormate"
           label="是否管理员"
         ></el-table-column>
         <el-table-column
           prop="user_sex"
           width="55"
+          :formatter="sexFormate"
           label="性别"
         ></el-table-column>
         <el-table-column
@@ -101,15 +95,20 @@
     <el-dialog title="详情" :visible.sync="editVisible" width="30%">
       <el-row :model="user" label-width="70px">
         <el-col :span="12"> 用户名：{{ usera.user_name }} </el-col>
-        <el-col :span="12"> 性别:{{ usera.user_sex }} </el-col>
+        <el-col :span="12">
+          性别：{{ usera.user_sex == 1 ? "男" : "女" }}
+        </el-col>
         <el-col :span="12"> 手机号：{{ usera.user_phone }} </el-col>
-        <el-col :span="12"> 出生日期:{{ usera.user_birthday }} </el-col>
-        <el-col :span="12"> 地址{{ usera.user_address }} </el-col>
-        <el-col :span="12"> 不良记录:{{ usera.user_sincerity }} </el-col>
-        <el-col :span="24"> 自我描述:{{ usera.user_self_desc }} </el-col>
+        <el-col :span="12"> 出生日期：{{ usera.user_birthday }} </el-col>
+        <el-col :span="12"> 地址：{{ usera.user_address }} </el-col>
+        <el-col :span="12"> 不良记录：{{ usera.user_sincerity }} </el-col>
+        <el-col :span="24"> 自我描述：{{ usera.user_self_desc }} </el-col>
         <el-col :span="24"> 创建日期：{{ usera.user_create_date }} </el-col>
-        <el-col :span="24"> 修改日期:{{ usera.user_alter_date }} </el-col>
-        <el-col :span="24"> 修改人ID:{{ usera.user_alter_admin }} </el-col>
+        <el-col :span="24"> 修改日期：{{ usera.user_alter_date }} </el-col>
+        <el-col :span="24">修改人ID：{{
+            usera.user_alter_admin == 0 ? "无" : usera.user_alter_admin
+          }}
+        </el-col>
       </el-row>
 
       <span slot="footer" class="dialog-footer">
@@ -120,36 +119,66 @@
 
     <el-dialog title="新增用户" :visible.sync="addVisible" width="40%">
       <el-form
-        ref="form"
-        :model="form"
+        ref="new_form"
+        :model="new_form"
         status-icon
         :rules="rules"
         label-width="100px"
         class="login-form demo-ruleForm"
         label-position="righ"
       >
-        <el-form-item label="ID" placeholder="ID">
-          <el-input v-model="form.ID" maxlength="30" show-word-limit>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item label="姓名" placeholder="姓名">
-          <el-input v-model="form.name" maxlength="30" show-word-limit>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item label="邮箱" placeholder="邮箱">
-          <el-input v-model="form.eamil" maxlength="30"> </el-input>
-        </el-form-item>
-
-        <el-form-item prop="phone" label="电话" placeholder="手机号码">
-          <el-input v-model="form.phone"> </el-input>
-        </el-form-item>
-
-        <el-form-item label="输入密码" placeholder="输入密码" prop="password">
+        <el-form-item label="姓名" placeholder="姓名" prop="new_user_name">
           <el-input
+            v-model="new_form.new_user_name"
+            maxlength="30"
+            show-word-limit
+            @blur="checkUsernameExist()"
+          >
+          </el-input>
+        </el-form-item>
+
+        <el-form-item label="邮箱" placeholder="邮箱" prop="new_user_email">
+          <el-input v-model="new_form.new_user_email" maxlength="30"> </el-input>
+        </el-form-item>
+
+        <el-form-item label="性别" prop="new_user_sex">
+          <el-select
+            style="width: 100%"
+            v-model="new_form.new_user_sex"
+            placeholder="选择性别"
+          >
+            <el-option label="男" value="1"></el-option>
+            <el-option label="女" value="0"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="出生年月" required>
+          <el-form-item prop="new_user_birthday">
+            <el-date-picker
+              type="date"
+              placeholder="选择年月"
+              v-model="new_form.new_user_birthday"
+              style="width: 100%"
+            ></el-date-picker>
+          </el-form-item>
+        </el-form-item>
+
+        <el-form-item prop="new_user_address" label="地址" placeholder="地址">
+          <el-input v-model="new_form.new_user_address" maxlength="30"> </el-input>
+        </el-form-item>
+
+        <el-form-item prop="new_user_phone" label="手机" placeholder="手机号码">
+          <el-input v-model="new_form.new_user_phone" @blur="checkPhoneExist()">
+          </el-input>
+        </el-form-item>
+
+        <el-form-item
+          label="输入密码"
+          placeholder="输入密码"
+          prop="new_user_password"
+        >
+         <el-input
             type="password"
-            v-model="form.password"
+            v-model="new_form.new_user_password"
             autocomplete="off"
             maxlength="30"
             show-password
@@ -157,25 +186,26 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="确认密码" prop="password2">
+        <el-form-item label="确认密码" prop="new_checkPassword">
           <el-input
             type="password"
-            v-model="form.password2"
+            v-model="new_form.new_checkPassword"
             autocomplete="off"
             maxlength="30"
           ></el-input>
         </el-form-item>
+
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="addVisible = false">关 闭</el-button>
-        <el-button type="primary" @click="saveAdd">确 定 添 加</el-button>
+         <el-button type="primary" @click="saveAdd()">添 加</el-button>
       </span>
     </el-dialog>
 
     <el-dialog
       title="借阅记录"
       :visible.sync="dialogTableVisible"
-      width=720px
+      width="720px"
     >
       <el-table :data="tableDataEnd" border style="margin-top: 25px">
         <el-table-column prop="book_name" label="书名" width="180">
@@ -186,7 +216,12 @@
         </el-table-column>
         <el-table-column prop="book_return_date" label="还书日期" width="150">
         </el-table-column>
-        <el-table-column prop="book_return_state" label="是否还了" width="50">
+        <el-table-column
+          prop="book_return_state"
+          :formatter="tfFormate"
+          label="是否还了"
+          width="50"
+        >
         </el-table-column>
       </el-table>
     </el-dialog>
@@ -244,7 +279,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.form.password) {
+      } else if (value !== this.new_form.new_checkPassword) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -252,18 +287,8 @@ export default {
     };
 
     return {
-      form: {
-        user_name: "",
-        user_email: "",
-        user_sex: "",
-        user_birthday: "",
-        user_phone: "", //手机号
-        verifyCode: "", //验证码
-        user_address: "",
-        user_password: "",
-        checkPassword: "",
-        btnTitle: "获取验证码",
-      },
+      submit_isAbled : false,
+      msg_isAbled: false,
       user: {
         user_name: "",
         sex: "",
@@ -277,24 +302,69 @@ export default {
         alterAdmin: "",
       },
       new_form: {
-        user_name: "",
-        user_email: "",
-        user_sex: "",
-        user_birthday: "",
-        user_phone: "", //手机号
-        user_address: "",
-        user_password: "",
-        checkPassword: "",
+        new_user_name: "",
+        new_user_email: "",
+        new_user_sex: "",
+        new_user_birthday: "",
+        new_user_phone: "", //手机号
+        new_user_address: "",
+        new_user_password: "",
+        new_checkPassword: "",
       },
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
-        password2: [{ validator: validatePass2, trigger: "blur" }],
-        phone: [
+        new_user_name: [
+          { required: true, message: "输入名字", trigger: "blur" },
+          {
+            min: 3,
+            max: 20,
+            message: "长度在 3 到 20 个字符",
+            trigger: "blur",
+          },
+        ],
+        new_user_password: [
+          { validator: validatePass, trigger: "blur" },
+          { required: true, message: "输入密码", trigger: "blur" },
+        ],
+        new_checkPassword: [
+          { validator: validatePass2, trigger: "blur" },
+          { required: true, message: "输入确认密码", trigger: "blur" },
+        ],
+        new_user_address: [
+          {
+            required: true,
+            message: "请输入地址",
+            trigger: "blur",
+          },
+        ],
+        new_user_email: [
+          { type: "email", required: true, trigger: "change" },
+          {
+            required: true,
+            message: "请输入邮箱地址",
+            trigger: "blur",
+          },
+        ],
+        new_user_sex: [{ required: true, message: "请选择性别", trigger: "blur" }],
+        new_user_birthday: [
+          {
+            type: "date",
+            format: "yyyy-MM-dd",
+            required: true,
+            message: "请选择日期",
+            trigger: "blur",
+          },
+        ],
+        new_user_phone: [
           {
             required: true,
             pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/,
             message: "目前只支持中国大陆的手机号码",
             trigger: "change", //输入时就会验证
+          },
+          {
+            required: true,
+            message: "请输入手机号",
+            trigger: "blur",
           },
         ],
       },
@@ -312,7 +382,6 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
-      form: {},
       idx: -1,
       id: -1,
       dialogTableVisible: false,
@@ -339,14 +408,28 @@ export default {
       });
   },
   methods: {
-    //提交添加
     saveAdd() {
-      this.$refs.form.validate((valid) => {
+      let me = this;
+      this.$refs.new_form.validate((valid) => {
+        if (!me.submit_isAbled) {
+          alert("已经存在用户注册使用该手机号码");
+          return false;
+        }
         if (valid) {
+          console.log(this.new_form);
           this.axios({
             method: "post",
-            url: "",
-            data: this.$qs.stringify(this.form),
+            url: this.$host+"/user/register",
+            params: {
+              user_name: this.new_form.new_user_name,
+              user_email: this.new_form.new_user_email,
+              user_sex: this.new_form.new_user_sex,
+              user_birthday: this.new_form.new_user_birthday,
+              user_phone: this.new_form.new_user_phone, //手机号
+              user_address: this.new_form.new_user_address, //地址
+              user_password: this.new_form.new_user_password,
+              checkPassword: this.new_form.new_checkPassword,
+            },
             headers: {
               "Content-Type":
                 "application/x-www-form-urlencoded; charset=UTF-8",
@@ -355,25 +438,84 @@ export default {
             .then((response) => {
               console.log(
                 response +
-                  "--------------------------------------------------记得删掉"
+                  "注册成功-------------------------------------------------记得删掉"
               );
-              //提交完成
-
               this.addVisible = false;
             })
-            .catch((error) => {
-              console.log(
+            .catch((error) => {console.log(
                 error +
                   "--------------------------------------------------记得删掉"
               );
             });
-        } else {
-          console.log(
+        } else {console.log(
             "获取失败，请重试！--------------------------------------------------记得删掉"
           );
           return false;
         }
       });
+    },
+    checkUsernameExist() {
+      let me = this;
+      this.axios({
+        method: "get",
+        url: this.$host+"/user/checkUsernameIsExist",
+        params: {
+          user_name: me.new_form.new_user_name,
+        },
+      })
+        .then((response) => {
+          if (response.data.code == 406) {
+            console.log("---- ");
+            me.submit_isAbled = false;
+            alert("已经存在用户注册使用该用户名");
+          } else {
+            me.submit_isAbled = true;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    checkPhoneExist() {
+      this.axios({
+        method: "get",
+        url: this.$host+"/user/checkPhoneIsExist",
+        params: {
+          user_phone: this.new_form.new_user_phone,
+        },
+      })
+        .then((response) => {
+          if (response.data.code == 406) {
+            this.msg_isAbled = true;
+            alert("已经存在用户注册使用该手机号码");
+          } else {
+            this.msg_isAbled = false;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    tfFormate(row, index) {
+      if (row.book_return_state == 0) {
+        return "否";
+      } else {
+        return "是";
+      }
+    },
+    adminFormate(row, index) {
+      if (row.user_identity_id == 0) {
+        return "否";
+      } else {
+        return "是";
+      }
+    },
+    sexFormate(row, index) {
+      if (row.user_sex == 0) {
+        return "女";
+      } else {
+        return "男";
+      }
     },
     userDownload() {
       this.axios({
@@ -410,7 +552,6 @@ export default {
     },
     // 触发搜索按钮
     handleSearch() {
-      // console.log(query.name);
       this.axios({
         method: "get",
         url: this.$host + "/user/quaryUser",
@@ -484,10 +625,6 @@ export default {
     },
     // 编辑操作
     handleEdit(index, row) {
-      //this.idx = index;
-      //this.form = row;
-      console.log(index);
-      console.log(row);
       this.axios({
         method: "get",
         url: this.$host + "/user/detail",
@@ -500,7 +637,6 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
           this.usera = response.data.object;
         })
         .catch((error) => {
@@ -522,7 +658,6 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response.data.object.list);
           this.tableData = response.data.object.list;
           this.pageTotal = response.data.object.total;
         })
@@ -531,7 +666,6 @@ export default {
         });
     },
     history(row) {
-      console.log(row);
       this.axios({
         method: "get",
         url: this.$host + "/record/getRecordById",
@@ -543,9 +677,7 @@ export default {
       })
         .then((response) => {
           this.tableDataBegin = [];
-          console.log(response.data);
           this.tableDataBegin = response.data;
-          console.log(this.tableDataEnd.length);
           this.tableDataEnd = this.tableDataBegin;
         })
         .catch((error) => {

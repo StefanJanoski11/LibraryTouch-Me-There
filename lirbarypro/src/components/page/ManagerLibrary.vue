@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="background">
-      <img :src="imgSrc" width="100%" height="100%" alt="" />
+      
     </div>
 
     <el-form
@@ -59,16 +59,6 @@
         >
       </el-form-item>
 
-      <el-form-item>
-        <el-button
-          type="primary"
-          size="small"
-          @click="addBook = true"
-          icon="el-icon-circle-plus-outline"
-          class="settingButton"
-        ></el-button>
-      </el-form-item>
-
       <el-dialog title="书籍上架" :visible.sync="addBook">
         <el-form :model="form">
           <el-form-item label="书　名">
@@ -86,8 +76,6 @@
             <form enctype="multipart/form-data" id="uploadform">
   	          <input  type="file" id="img_file" @change="upTemp($event)" name="books_img"><br><br>
   	          
-              
-            <el-button type="primary" @click="upTemp($event)">添 加</el-button>
             </form>
           </el-form-item>
         </el-form>
@@ -111,21 +99,16 @@
       @click="inittable()"
       >搜索</el-button
     >
-    <el-button
-      type="primary"
-      icon="el-icon-plus"
-      @click="bookDownload"
-      class="downLoad"
-      >批量导出</el-button
-    >
+    <el-button type="primary" icon="el-icon-plus" @click="bookDownload" class="downLoad">批量导出</el-button>
+    <el-button type="primary" size="small" @click="addBook = true" icon="el-icon-circle-plus-outline" 
+    class="settingButton">添加书籍</el-button>
 
-    <el-table :data="tableDataEnd" style="width: 80%" class="detail">
-      
+      <el-table :data="tableDataEnd" style="width: 80%" class="detail">     
       <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
       <el-table-column prop="books_author" label="作者" width="120">
       </el-table-column>
-      <el-table-column prop="books_last" label="库存" width="120">
+      <el-table-column prop="books_last" label="库存" width="100">
       </el-table-column>
       <el-table-column prop="books_state" :formatter="Formate" label="是否上架" width="90">
       </el-table-column>
@@ -250,7 +233,7 @@ export default {
       gridData: [{
           description: '',
         }],
-      imgSrc: require("../../assets/img/2.jpg"),
+    
       tableDataEnd: [],
       tableDataBegin: [],
       input: "",
@@ -280,7 +263,6 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response);
         let array = response.data;
         this.totalItems = array.length;
         for (let i = 0; i < this.totalItems; i++) {
@@ -355,9 +337,7 @@ export default {
         .then((response) => {
           this.tableDataEnd = [];
           this.tableDataBegin = [];
-          console.log(response);
           this.tableDataBegin = response.data.object;
-          console.log(this.tableDataBegin);
           this.totalItems = this.tableDataBegin.length;
           if (this.totalItems > this.pageSize) {
             //如果有好多，只需要第一页的数据
@@ -373,17 +353,15 @@ export default {
         });
     },
     clickSetting(index, row) {
-      this.settingVisible = true;
-      
+      this.settingVisible = true;     
       this.booknum = row.books_id;
-      console.log(row.books_id);
     },
 
     save(){
       this.settingVisible = false;
       this.axios({
         method: "post",
-        url: "http://10.10.102.143:8080/books/updateBookType",
+        url: this.$host+"/books/updateBookType",
         //url: "/user.json",
         data: {
               "info_id":this.booknum,
@@ -413,9 +391,7 @@ export default {
         .then((response) => {
           this.tableDataEnd = [];
           this.tableDataBegin = [];
-          console.log(response);
           this.tableDataBegin = response.data.object;
-          console.log(this.tableDataBegin);
           this.totalItems = this.tableDataBegin.length;
           if (this.totalItems > this.pageSize) {
             //如果有好多，只需要第一页的数据
@@ -432,7 +408,6 @@ export default {
     },
 
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.currentPage = val;
       //tableDataBegin不能写成tableDataEnd，不然在没有进行搜索功能的时候，不能进行分页操作，数据丢失
       this.currentChangePage(this.tableDataBegin);
@@ -450,14 +425,12 @@ export default {
     },
     getfile(e){
       this.file = e.target.files[0];
-      console.log("daozhe");
     },
     upTemp(e){
       e.preventDefault();//取消默认操作
       var bookImg=new FormData();
       this.file=document.getElementById('img_file').files[0];//此方法也可用
       bookImg.append("books_img",this.file);
-      console.log(this.file);
       this.axios({
               method: "post",
               url: this.$host+"/books/upload",
@@ -467,7 +440,6 @@ export default {
               },
             })
               .then((response) => {
-                console.log(response);
                 this.form.books_img = response.data.object;
               })
               .catch((error) => {
@@ -475,7 +447,6 @@ export default {
               });
     },
     uploadBook(){
-      console.log(this.form);
       this.axios({
               method: "post",
               url: this.$host+"/books/insert",
@@ -491,7 +462,6 @@ export default {
               },
             })
               .then((response) => {
-                console.log(response);
               })
               .catch((error) => {
                 console.log(error);
@@ -530,7 +500,6 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response);
         this.tableDataBegin = [];
         this.tableDataEnd = [];
         let array = response.data;
@@ -610,7 +579,7 @@ export default {
   border-radius: 10px;
 }
 .page {
-  padding: 0 0 0 65px;
+  padding: 0 0 0 120px;
   margin: 10px;
   opacity: 0.8;
 }

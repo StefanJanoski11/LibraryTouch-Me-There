@@ -51,8 +51,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit()" class="firstSearch"
-          >查询</el-button
-        >
+          >查询</el-button>
       </el-form-item>
     </el-form>
 
@@ -70,7 +69,8 @@
     >
 
     <el-table :data="tableDataEnd" style="width: 70%" class="detail">
-      
+      <el-table-column prop="books_id" label="ID" width="120">
+      </el-table-column>
       <el-table-column prop="books_name" label="书名" width="120">
       </el-table-column>
       <el-table-column prop="books_author" label="作者" width="120">
@@ -79,8 +79,7 @@
       </el-table-column>
       
 
-      <el-table-column prop="books_id" label="ID" width="120">
-      </el-table-column>
+      
       <el-table-column
         prop="books_create_date"
         label="上架日期"
@@ -101,21 +100,7 @@
           <el-button type="text" @click="open(scope.row)">借阅</el-button>
         </template>
 
-        <!-- <el-popover placement="left" width="600px" trigger="click">
-          <el-table :data="gridData">
-            <el-table-column width="600" label="描述">
-              国家：{{info_country}} 类型：{{books_type}}<br>
-             篇幅：{{info_length}} 主题：{{info_theme}}
-            </el-table-column>
-          </el-table>
-        </el-popover> -->
       </el-table-column>
-
-      <!-- <el-table-column fixed="right" label="操作" width="120">
-        <template slot-scope="scope">
-          <el-button type="text" @click="open(scope.row)">借阅</el-button>
-        </template>
-      </el-table-column> -->
     </el-table>
 
     <div>
@@ -139,7 +124,7 @@
         <el-col :span="12"> 主题: {{ this.booksInfo.info_theme }} </el-col>
       </el-row>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="detailVisible = false">取 消</el-button>
+        <el-button @click="detailVisible = false">关 闭</el-button>
       </div>
     </el-dialog>
   </div>
@@ -186,7 +171,6 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response);
         let array = response.data;
         this.totalItems = array.length;
         for (let i = 0; i < this.totalItems; i++) {
@@ -208,9 +192,6 @@ export default {
   },
   methods: {
     open(row) {
-      // console.log(row.books_id);
-      // console.log(row);
-      // console.log(window.sessionStorage.getItem("ms_userid"));
       this.$confirm("你是否确定借阅此书籍?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -227,19 +208,47 @@ export default {
               user_id: window.sessionStorage.getItem("ms_userid"),
               user_name: window.sessionStorage.getItem("ms_username"),
               book_return_state:0, 
-              book_lend_date:0
+              book_lend_date: "2020-11-11 11:11:11"
             },
             headers: {
               "Content-Type": "application/json; charset=UTF-8",
             },
           }).then((response) => {
-            console.log(response);
             if (response.data.state == 406) {
               this.$message({
                 type: "warn",
                 message: "无法借阅!",
               });
             } else if (response.data.state == 200) {
+                this.axios({
+      method: "get",
+      url:  this.$host+"/books/booksList",
+      //url: "/user.json",
+      data: {},
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        let array = response.data;
+        this.totalItems = array.length;
+        for (let i = 0; i < this.totalItems; i++) {
+          this.tableDataBegin[i] = array[i].book;
+        }
+
+        if (this.totalItems > this.pageSize) {
+          //如果有好多，只需要第一页的数据
+          for (let index = 0; index < this.pageSize; index++) {
+            this.tableDataEnd.push(this.tableDataBegin[index]);
+          }
+        } else {
+          this.tableDataEnd = this.tableDataBegin;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
               this.$message({
                 type: "success",
                 message: "已预约借阅!",
@@ -268,9 +277,7 @@ export default {
       .then((response) => {
           this.tableDataEnd = [];
           this.tableDataBegin = [];
-          console.log(response);
           this.tableDataBegin = response.data.object;
-          console.log(this.tableDataBegin);
           this.totalItems = this.tableDataBegin.length;
           if (this.totalItems > this.pageSize) {
             //如果有好多，只需要第一页的数据
@@ -301,9 +308,7 @@ export default {
         .then((response) => {
           this.tableDataEnd = [];
           this.tableDataBegin = [];
-          console.log(response);
           this.tableDataBegin = response.data.object;
-          console.log(this.tableDataBegin);
           this.totalItems = this.tableDataBegin.length;
           if (this.totalItems > this.pageSize) {
             //如果有好多，只需要第一页的数据
@@ -319,7 +324,6 @@ export default {
         });
     },
     bookDetail(row) {
-      console.log(row.books_id);
       this.axios({
         method: "get",
         url:  this.$host+"/books/detail",
@@ -332,8 +336,17 @@ export default {
       })
         .then((response) => {
            this.booksInfo = {};
-          console.log(response.data.object);
           this.booksInfo = response.data.object.books_info;
+          if(this.booksInfo.info_length == 1){
+              this.booksInfo.info_length = "短篇";
+          }else if(this.booksInfo.info_length == 2){
+              this.booksInfo.info_length = "中篇";
+          }
+          else if(this.booksInfo.info_length == 3){
+              this.booksInfo.info_length = "长篇";
+          }else{
+              this.booksInfo.info_length = "超长篇";
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -343,7 +356,6 @@ export default {
       
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.currentPage = val;
       //tableDataBegin不能写成tableDataEnd，不然在没有进行搜索功能的时候，不能进行分页操作，数据丢失
       this.currentChangePage(this.tableDataBegin);
@@ -399,7 +411,7 @@ export default {
   border-radius: 10px;
 }
 .page {
-  padding: 0 0 0 65px;
+  padding: 0 0 0 160px;
   margin: 10px;
   opacity: 0.7;
 }

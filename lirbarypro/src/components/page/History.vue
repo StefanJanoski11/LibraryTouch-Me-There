@@ -2,7 +2,7 @@
   <div id="div3">
     <div id="div2">
       <div id="div1">
-        <div style="padding-top: 25px">
+        <div style="padding-top: 50px">
           <el-input
             v-model="tableDataName"
             placeholder="支持模糊查询书名"
@@ -11,7 +11,7 @@
           <el-button type="primary" @click="doFilter">搜索</el-button>
         </div>
 
-        <el-table :data="tableDataEnd" border style="margin-top: 25px">
+        <el-table :data="tableDataEnd" border style="margin-top: 30px">
           <el-table-column prop="book_name" label="书名" width="240">
           </el-table-column>
           <el-table-column prop="book_lend_date" label="借阅日期" width="200">
@@ -20,7 +20,7 @@
           </el-table-column>
           <el-table-column prop="book_return_date" label="还书日期" width="200">
           </el-table-column>
-          <el-table-column prop="book_return_state" label="是否还了" width="100">
+          <el-table-column prop="book_return_state" label="是否还了" :formatter="tfFormate" width="100">
           </el-table-column>
           <el-table-column label="操作" width="120">
             <template slot-scope="scope">
@@ -39,7 +39,7 @@
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next"
           :total="totalItems"
-          style="margin-top: 25px"
+          style="margin-top: 50px"
         >
         </el-pagination>
         <el-dialog
@@ -125,9 +125,7 @@ export default {
     })
       .then((response) => {
         this.tableDataBegin = [];
-        console.log(response.data);
         this.tableDataBegin = response.data;
-        console.log(this.tableDataEnd.length);
         this.totalItems = this.tableDataBegin.length;
         if (this.totalItems > this.pageSize) {
           //如果有好多，只需要第一页的数据
@@ -143,6 +141,13 @@ export default {
       });
   },
   methods: {
+    tfFormate(row, index) {
+      if (row.book_return_state == 0) {
+        return "否";
+      } else {
+        return "是";
+      }
+    },
     //前端搜索功能需要区分是否检索,因为对应的字段的索引不同
     //用两个变量接收currentChangePage函数的参数
     doFilter() {
@@ -169,12 +174,10 @@ export default {
       this.flag = true;
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
       this.pageSize = val;
       this.handleCurrentChange(this.currentPage);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.currentPage = val;
       //需要判断是否检索
       if (!this.flag) {
@@ -210,17 +213,19 @@ export default {
   padding-left: auto;
   padding-right: auto;
   margin: auto;
-  width: 90%;
+  width: 92%;
 }
 #div2 {
   margin: auto;
+  border-radius: 15px;
   background-color: rgba(207, 235, 247, 0.8);
   width: 90%;
   padding-bottom: 50px;
 }
 #div3 {
+  padding-top: 50px;
   background-image: url(../../assets/img/login-bg.jpg);
   background-size: 100%;
-  height: 780px;
+  height: 100%;
 }
 </style>

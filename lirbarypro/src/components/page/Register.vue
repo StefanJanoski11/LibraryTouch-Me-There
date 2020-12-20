@@ -243,7 +243,6 @@ export default {
       })
         .then(response => {
           if (response.data.code == 406) {
-            console.log("---- ");
             me.submit_isAbled = false;
             alert("已经存在用户注册使用该用户名");
           } else {
@@ -284,7 +283,6 @@ export default {
         if (valid) {
           console.log(this.realVerifyCode);
           if (this.realVerifyCode == this.form.verifyCode) {
-            console.log(this.form);
             this.axios({
               method: "post",
               url:  this.$host+"/user/register",
@@ -305,26 +303,20 @@ export default {
               }
             })
               .then(response => {
-                console.log(
-                  response +
-                    "注册成功-------------------------------------------------记得删掉"
-                );
+                
                 this.open();
               })
               .catch(error => {
-                console.log(
-                  error +
-                    "--------------------------------------------------记得删掉"
-                );
+                console.log(error);
               });
           } else {
             alert(
-              "验证码错误--------------------------------------------------记得删掉"
+              "验证码错误"
             );
           }
         } else {
           console.log(
-            "获取失败，请重试！--------------------------------------------------记得删掉"
+            "获取失败，请重试！"
           );
           return false;
         }
@@ -358,7 +350,6 @@ export default {
             }
           })
             .then(response => {
-              console.log(response.data.object);
               this.realVerifyCode = response.data.object;
               //获取后计时
               let time = 60;
@@ -375,14 +366,10 @@ export default {
               }, 1000);
             })
             .catch(error => {
-              console.log(
-                error +
-                  "--------------------------------------------------记得删掉"
-              );
+              console.log(error);
             });
         } else {
-          console.log(
-            "获取失败，请重试！--------------------------------------------------记得删掉"
+          console.log("获取失败，请重试"
           );
           return false;
         }

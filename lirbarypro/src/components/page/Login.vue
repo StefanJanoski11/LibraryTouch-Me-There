@@ -60,7 +60,6 @@ export default {
                         },
                     })
                     .then((response) => {
-                        console.log(response);
                     // 这要先赋值临时name才能赋值成功，很怪
                     let name = response.data.object.user_name;
                     window.sessionStorage.setItem('ms_username', name);

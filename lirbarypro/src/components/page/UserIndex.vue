@@ -4,7 +4,7 @@
       :interval="4000"
       type="card"
       arrow="hover"
-      style="height: 400px"
+      style="height: 350px"
     >
       <el-carousel-item
         v-for="(img, index) in imgList"
@@ -13,14 +13,10 @@
       >
         <img v-bind:src="img.url" />
       </el-carousel-item>
-      <!--<el-carousel-item v-for="(it,index) in guess" :key="index">
-            <div class="rollBooks" @click="toBooksInformation(it.bookName,it.id)">
-            <h3 class="rollBooksName">《{{it.bookName}}》</h3>
-            </div>
-        </el-carousel-item>-->
     </el-carousel>
+    
     <div id="div1">
-    <p style="text-indent: 2em">{{ this.notice }}</p>
+    <p style="text-indent: 2em ">{{ this.notice }}</p>
   </div>
   </div>
   
@@ -33,12 +29,11 @@ export default {
     return {
       notice: "",
       imgList: [
-        { url: require("../../assets/img/今日大件事.png") },
-
-        { url: require("../../assets/img/看过来.png") },
-        { url: require("../../assets/img/好果汁.png") },
-        { url: require("../../assets/img/书室.png") },
-        { url: require("../../assets/img/每日阅读.png") },
+        { url: require("../../assets/img/4.png") },
+        { url: require("../../assets/img/5.png") },
+        { url: require("../../assets/img/6.png") },
+        { url: require("../../assets/img/7.png") },
+        { url: require("../../assets/img/8.png") },
       ],
     };
   },
@@ -65,6 +60,6 @@ export default {
 <style >
   #div1 {
   background-color: rgba(207, 235, 247, 0.8);
-  height: 252px;
+  height: 230px;
 }
 </style>
